@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="he" xml:lang="he">
 <head>
-<!-- 2022-11-12 Sat 17:59 -->
+<!-- 2022-11-12 Sat 20:45 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Numerical Formula Sheet</title>
@@ -224,105 +224,130 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2b820ee">1. פירוק LU</a>
+<li><a href="#org7fae4b8">1. פירוק LU</a>
 <ul>
-<li><a href="#org0b0c314">1.1. מטריצה משולשת תחתונה בסיסית</a></li>
-<li><a href="#org6816813">1.2. מטריצה רגילה</a></li>
-<li><a href="#org03beee8">1.3. שימוש בפרמוטציה לפירוק \(LU\)</a></li>
-<li><a href="#orgfeb155a">1.4. שימוש ב-LU לפתרון מערכת משוואות</a></li>
-<li><a href="#org0bc2173">1.5. מטריצות לא ריבועיות</a></li>
-<li><a href="#org44c3d4f">1.6. שיטות לבחירת Pivot מוצלח</a></li>
-<li><a href="#org8e401d2">1.7. פירוק LDV</a></li>
-<li><a href="#org483e29b">1.8. פירוק \(LDL^{T}\) קיים למטריצות חיוביות מוגדרות</a></li>
-<li><a href="#orgf2f50e7">1.9. אלגוריתם יעיל לפירוק \(LU\)</a></li>
+<li><a href="#org757ae4a">1.1. מטריצה משולשת תחתונה בסיסית</a></li>
+<li><a href="#orge49363c">1.2. מטריצה רגילה</a></li>
+<li><a href="#org85c90a0">1.3. שימוש בפרמוטציה לפירוק \(LU\)</a></li>
+<li><a href="#org5a51ace">1.4. שימוש ב-LU לפתרון מערכת משוואות</a></li>
+<li><a href="#orgd440edd">1.5. מטריצות לא ריבועיות</a></li>
+<li><a href="#org107d5f8">1.6. שיטות לבחירת Pivot מוצלח</a></li>
+<li><a href="#org39c4792">1.7. פירוק LDV</a></li>
+<li><a href="#org5ba0d6d">1.8. פירוק \(LDL^{T}\) קיים למטריצות חיוביות מוגדרות</a></li>
+<li><a href="#org627179b">1.9. אלגוריתם יעיל לפירוק \(LU\)</a></li>
 </ul>
 </li>
-<li><a href="#org9947412">2. ריבועים פחותים</a>
+<li><a href="#org8602273">2. ריבועים פחותים</a>
 <ul>
-<li><a href="#orgc4ebd73">2.1. סימון בעיית ריבועים פחותים כבעיה ריבועית</a></li>
-<li><a href="#orge9cbeff">2.2. מציאת מינימום של בעיה ריבועית</a></li>
-<li><a href="#org5b559a2">2.3. התאמת עקומות לנתונים</a></li>
-<li><a href="#org2088c60">2.4. ריבועים פחותים ממושקלים</a></li>
-<li><a href="#org4c24c55">2.5. רגולריזציה לבעיות LS</a></li>
+<li><a href="#orgd80f218">2.1. סימון בעיית ריבועים פחותים כבעיה ריבועית</a></li>
+<li><a href="#org605b374">2.2. מציאת מינימום של בעיה ריבועית</a></li>
+<li><a href="#orgbc279dc">2.3. התאמת עקומות לנתונים</a></li>
+<li><a href="#org93c530e">2.4. ריבועים פחותים ממושקלים</a></li>
+<li><a href="#org1bb73c3">2.5. רגולריזציה לבעיות LS</a></li>
 </ul>
 </li>
-<li><a href="#orgf6079d8">3. אורתוגונליות ופירוק \(QR\)</a>
+<li><a href="#org7392f18">3. אורתוגונליות ופירוק \(QR\)</a>
 <ul>
-<li><a href="#org6cb84e3">3.1. תכונות של מטריצות אורתונורמליות</a></li>
-<li><a href="#org22daa1c">3.2. תהליך Gram-Schmidt</a>
+<li><a href="#org92f484a">3.1. תכונות של מטריצות אורתונורמליות</a></li>
+<li><a href="#org5869072">3.2. תהליך Gram-Schmidt</a>
 <ul>
-<li><a href="#orgac4e424">3.2.1. אלגוריתם Gram-Schmidt</a></li>
-<li><a href="#orga128046">3.2.2. אלגוריתם Modified Gram-Schmidt</a></li>
-<li><a href="#orgdd7f42e">3.2.3. אלגוריתם Stable Gram-Schmidt</a></li>
+<li><a href="#orgd71af11">3.2.1. אלגוריתם Gram-Schmidt</a></li>
+<li><a href="#orgff87abf">3.2.2. אלגוריתם Modified Gram-Schmidt</a></li>
+<li><a href="#org5e39c38">3.2.3. אלגוריתם Stable Gram-Schmidt</a></li>
 </ul>
 </li>
-<li><a href="#orga4cc7be">3.3. פירוק QR</a>
+<li><a href="#org5633318">3.3. פירוק QR</a>
 <ul>
-<li><a href="#org81ae5c8">3.3.1. למטריצות ריבועיות</a></li>
-<li><a href="#orgb1e6a08">3.3.2. למטריצות מלבניות</a></li>
+<li><a href="#org12878b6">3.3.1. למטריצות ריבועיות</a></li>
+<li><a href="#orga2531c7">3.3.2. למטריצות מלבניות</a></li>
 </ul>
 </li>
-<li><a href="#org7e6207e">3.4. שימור ב-QR לפתרון LS</a></li>
+<li><a href="#org3992a42">3.4. שימור ב-QR לפתרון LS</a></li>
 </ul>
 </li>
-<li><a href="#org1ba3dae">4. ערכים עצמיים וסינגולריים</a>
+<li><a href="#org61f9046">4. ערכים עצמיים וסינגולריים</a>
 <ul>
-<li><a href="#org5e83534">4.1. הצמדת מטריצה משמרת ערכים עצמיים</a></li>
-<li><a href="#org5385304">4.2. פירוק Schur</a></li>
-<li><a href="#org9237ffa">4.3. לכסון מטריצה סימטרית ממשית (פירוק ספקטרלי)</a></li>
-<li><a href="#org8d6b2bf">4.4. חיוביות/אי-שליליות של ע״ע במטריצות סימטריות</a></li>
-<li><a href="#orgfc9b409">4.5. ע״ע כפתרון לבעיות אופטימיציה</a>
+<li><a href="#orgeda344a">4.1. הצמדת מטריצה משמרת ערכים עצמיים</a></li>
+<li><a href="#orgc0decb8">4.2. פירוק Schur</a></li>
+<li><a href="#org175b64c">4.3. לכסון מטריצה סימטרית ממשית (פירוק ספקטרלי)</a></li>
+<li><a href="#org03d06d2">4.4. חיוביות/אי-שליליות של ע״ע במטריצות סימטריות</a></li>
+<li><a href="#orgb8f6ea2">4.5. ע״ע כפתרון לבעיות אופטימיציה</a>
 <ul>
-<li><a href="#orgacec8f4">4.5.1. מנת ריילי</a></li>
-<li><a href="#org55ac74f">4.5.2. ערכים עצמיים מוכללים / עפרון</a></li>
+<li><a href="#org9c07e0e">4.5.1. מנת ריילי</a></li>
+<li><a href="#orgc6c698d">4.5.2. ערכים עצמיים מוכללים / עפרון</a></li>
 </ul>
 </li>
-<li><a href="#orge8f5d90">4.6. פירוק SVD</a></li>
-<li><a href="#orgaf85c32">4.7. שלבי הבנייה של פירוק SVD</a></li>
-<li><a href="#orgcc1e2b9">4.8. פירוק SVD למטריצות סימטריות</a></li>
-<li><a href="#org5e65da1">4.9. פתרון מערכות משוואות ע״י SVD</a></li>
-<li><a href="#orgf9c0a46">4.10. פתרון ריבועים פחותים ע״י SVD</a></li>
-<li><a href="#orgd4211bc">4.11. פתרון מאוחד לשני סוגי הבעיות</a></li>
-<li><a href="#orge4faf39">4.12. קירוב מטריצות עם אילוץ דרגה</a></li>
+<li><a href="#orgec0cc13">4.6. פירוק SVD</a></li>
+<li><a href="#org5ec2670">4.7. שלבי הבנייה של פירוק SVD</a></li>
+<li><a href="#orge081db8">4.8. פירוק SVD למטריצות סימטריות</a></li>
+<li><a href="#orgfc8afb7">4.9. פתרון מערכות משוואות ע״י SVD</a></li>
+<li><a href="#orgb946786">4.10. פתרון ריבועים פחותים ע״י SVD</a></li>
+<li><a href="#org108c098">4.11. פתרון מאוחד לשני סוגי הבעיות</a></li>
+<li><a href="#org2a31122">4.12. קירוב מטריצות עם אילוץ דרגה</a></li>
 </ul>
 </li>
-<li><a href="#org81c717a">5. הגדרות בסיסיות ותכונות</a>
+<li><a href="#orgb67f413">5. תהליכים איטרטיביים</a>
 <ul>
-<li><a href="#orgd439eb3">5.1. מטריצה חיובית מוגדרת (PD)</a></li>
-<li><a href="#orgd1d157d">5.2. מטריצה חיובית חצי מוגדרת (PSD)</a></li>
-<li><a href="#org54ede1b">5.3. מטריצת Gram</a></li>
-<li><a href="#org66b04ef">5.4. מטריצת Pseudo Inverse</a></li>
-<li><a href="#org05e0cf8">5.5. היפוך מוכלל של מטריצה אלכסונית</a></li>
-<li><a href="#orge555d05">5.6. מספר מצב של מטריצה ריבועית</a></li>
-</ul>
-</li>
-<li><a href="#org3aa932a">6. גזירת ביטויים מטריציים וקטוריים</a></li>
-<li><a href="#org5d4c55e">7. נורמות</a>
+<li><a href="#org69a5171">5.1. מערכת דינמית</a></li>
+<li><a href="#org31576c8">5.2. מערכת דינמית של מטריצה לכסינה</a></li>
+<li><a href="#org4c9241e">5.3. מערכת דינמית יציבה אסימפטוטית</a></li>
+<li><a href="#org6f4301b">5.4. מטריצה יציבה</a></li>
+<li><a href="#org2716baf">5.5. רדיוס ספקטרלי</a></li>
+<li><a href="#org60b535d">5.6. מערכת של מטריצה לכסינה \(T\) עם \(\rho \left( T \right) < 1\) יציבה אסימפטוטית</a></li>
+<li><a href="#orgf340eb8">5.7. קצב התכנסות</a></li>
+<li><a href="#org0228579">5.8. הגדרה של נורמה</a></li>
+<li><a href="#org294da26">5.9. נורמות ידועות</a></li>
+<li><a href="#org7590be1">5.10. משפט שקילות הנורמות</a>
 <ul>
-<li><a href="#org654ee77">7.1. נורמת פורביניוס</a></li>
+<li><a href="#org8d8272d">5.10.1. מסקנה: התכנסות גודל סדרת וקטורים לאפס לא תלויה בנורמה</a></li>
 </ul>
 </li>
-<li><a href="#org70dec1f">8. אלגברה א׳</a>
+<li><a href="#org01ec1e6">5.11. נורמה של מטריצה ריבועית</a>
 <ul>
-<li><a href="#orged91ebe">8.1. מטריצות</a>
+<li><a href="#orgba41170">5.11.1. תכונות של נורמה של מטריצה</a></li>
+<li><a href="#org3219250">5.11.2. נוסחאות לנורמות מטריציות מוכרות</a></li>
+</ul>
+</li>
+<li><a href="#orgb7d56b2">5.12. משפט גרשגורן</a></li>
+<li><a href="#org56e93ec">5.13. מטריצה דומיננטית באלכסון</a>
 <ul>
-<li><a href="#org1a2dcd0">8.1.1. משפט: הכפלה במטריצות הפיכות משמאל לא משנה את מרחב השורה</a></li>
+<li><a href="#org50bcd05">5.13.1. משפט: מטריצה דומיננטית באלכסון היא לא סינגולרית</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org04255b5">9. כמויות חישובים</a></li>
+<li><a href="#orgd3d12ac">6. הגדרות בסיסיות ותכונות</a>
+<ul>
+<li><a href="#org60e3d7c">6.1. מטריצה חיובית מוגדרת (PD)</a></li>
+<li><a href="#org10424ca">6.2. מטריצה חיובית חצי מוגדרת (PSD)</a></li>
+<li><a href="#org4152b4b">6.3. מטריצת Gram</a></li>
+<li><a href="#orga18d344">6.4. מטריצת Pseudo Inverse</a></li>
+<li><a href="#org61cf164">6.5. היפוך מוכלל של מטריצה אלכסונית</a></li>
+<li><a href="#org9d05a53">6.6. מספר מצב של מטריצה ריבועית</a></li>
+</ul>
+</li>
+<li><a href="#orgbfdfdd6">7. גזירת ביטויים מטריציים וקטוריים</a></li>
+<li><a href="#orgc692cee">8. אלגברה א׳</a>
+<ul>
+<li><a href="#org699e37c">8.1. מטריצות</a>
+<ul>
+<li><a href="#orgbf87583">8.1.1. משפט: הכפלה במטריצות הפיכות משמאל לא משנה את מרחב השורה</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org3a3fcc8">9. כמויות חישובים</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org2b820ee" class="outline-2">
-<h2 id="org2b820ee"><span class="section-number-2">1.</span> פירוק LU</h2>
+<div id="outline-container-org7fae4b8" class="outline-2">
+<h2 id="org7fae4b8"><span class="section-number-2">1.</span> פירוק LU</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org0b0c314" class="outline-3">
-<h3 id="org0b0c314"><span class="section-number-3">1.1.</span> מטריצה משולשת תחתונה בסיסית</h3>
+<div id="outline-container-org757ae4a" class="outline-3">
+<h3 id="org757ae4a"><span class="section-number-3">1.1.</span> מטריצה משולשת תחתונה בסיסית</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>כל איברי אלכסונה 1</li>
@@ -331,8 +356,8 @@
 </div>
 </div>
 
-<div id="outline-container-org6816813" class="outline-3">
-<h3 id="org6816813"><span class="section-number-3">1.2.</span> מטריצה רגילה</h3>
+<div id="outline-container-orge49363c" class="outline-3">
+<h3 id="orge49363c"><span class="section-number-3">1.2.</span> מטריצה רגילה</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 ריבועית, <b><b>וניתן</b></b> לפרקה למכפלה מהצורה \(A=LU\)
@@ -341,8 +366,8 @@
 </div>
 </div>
 
-<div id="outline-container-org03beee8" class="outline-3">
-<h3 id="org03beee8"><span class="section-number-3">1.3.</span> שימוש בפרמוטציה לפירוק \(LU\)</h3>
+<div id="outline-container-org85c90a0" class="outline-3">
+<h3 id="org85c90a0"><span class="section-number-3">1.3.</span> שימוש בפרמוטציה לפירוק \(LU\)</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 נבצע את תהליך הדירוג כרגיל.
@@ -358,8 +383,8 @@
 </div>
 </div>
 
-<div id="outline-container-orgfeb155a" class="outline-3">
-<h3 id="orgfeb155a"><span class="section-number-3">1.4.</span> שימוש ב-LU לפתרון מערכת משוואות</h3>
+<div id="outline-container-org5a51ace" class="outline-3">
+<h3 id="org5a51ace"><span class="section-number-3">1.4.</span> שימוש ב-LU לפתרון מערכת משוואות</h3>
 <div class="outline-text-3" id="text-1-4">
 <p>
 ע״י הקשר: \(\underline{b} = A \underline{x} = LU \underline{x} = L \left( U \underline{x} \right) = L \underline{y}\)
@@ -372,24 +397,24 @@
 </div>
 </div>
 
-<div id="outline-container-org0bc2173" class="outline-3">
-<h3 id="org0bc2173"><span class="section-number-3">1.5.</span> מטריצות לא ריבועיות</h3>
+<div id="outline-container-orgd440edd" class="outline-3">
+<h3 id="orgd440edd"><span class="section-number-3">1.5.</span> מטריצות לא ריבועיות</h3>
 <div class="outline-text-3" id="text-1-5">
 
-<div id="org8d34201" class="figure">
+<div id="org5f5a9e5" class="figure">
 <p><img src="./img/m&lt;n.png" alt="m&lt;n.png" width="50%" />
 </p>
 </div>
 
-<div id="org40c7202" class="figure">
+<div id="org6a1f7da" class="figure">
 <p><img src="./img/m&gt;n.png" alt="m&gt;n.png" width="50%" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org44c3d4f" class="outline-3">
-<h3 id="org44c3d4f"><span class="section-number-3">1.6.</span> שיטות לבחירת Pivot מוצלח</h3>
+<div id="outline-container-org107d5f8" class="outline-3">
+<h3 id="org107d5f8"><span class="section-number-3">1.6.</span> שיטות לבחירת Pivot מוצלח</h3>
 <div class="outline-text-3" id="text-1-6">
 <ul class="org-ul">
 <li><span class="underline">Partial Pivoting</span> - בוחרים את איבר הציר להיות הגדול ביותר בעמודתו (ע״י פרמוטציה לשורות).</li>
@@ -398,8 +423,8 @@
 </div>
 </div>
 
-<div id="outline-container-org8e401d2" class="outline-3">
-<h3 id="org8e401d2"><span class="section-number-3">1.7.</span> פירוק LDV</h3>
+<div id="outline-container-org39c4792" class="outline-3">
+<h3 id="org39c4792"><span class="section-number-3">1.7.</span> פירוק LDV</h3>
 <div class="outline-text-3" id="text-1-7">
 <p>
 כל מטריצה \(A\) ריבועית שאינה סינגולרית ניתנת לפירוק מהצורה \(PA=LDV\) כאשר:
@@ -413,8 +438,8 @@
 </div>
 </div>
 
-<div id="outline-container-org483e29b" class="outline-3">
-<h3 id="org483e29b"><span class="section-number-3">1.8.</span> פירוק \(LDL^{T}\) קיים למטריצות חיוביות מוגדרות</h3>
+<div id="outline-container-org5ba0d6d" class="outline-3">
+<h3 id="org5ba0d6d"><span class="section-number-3">1.8.</span> פירוק \(LDL^{T}\) קיים למטריצות חיוביות מוגדרות</h3>
 <div class="outline-text-3" id="text-1-8">
 <p>
 מטריצה סימטרית וחיובית מוגדרת \(A\) היא בהכרח מטריצה רגילה,
@@ -425,18 +450,18 @@
 </div>
 
 
-<div id="outline-container-orgf2f50e7" class="outline-3">
-<h3 id="orgf2f50e7"><span class="section-number-3">1.9.</span> אלגוריתם יעיל לפירוק \(LU\)</h3>
+<div id="outline-container-org627179b" class="outline-3">
+<h3 id="org627179b"><span class="section-number-3">1.9.</span> אלגוריתם יעיל לפירוק \(LU\)</h3>
 </div>
 </div>
 
 
-<div id="outline-container-org9947412" class="outline-2">
-<h2 id="org9947412"><span class="section-number-2">2.</span> ריבועים פחותים</h2>
+<div id="outline-container-org8602273" class="outline-2">
+<h2 id="org8602273"><span class="section-number-2">2.</span> ריבועים פחותים</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgc4ebd73" class="outline-3">
-<h3 id="orgc4ebd73"><span class="section-number-3">2.1.</span> סימון בעיית ריבועים פחותים כבעיה ריבועית</h3>
+<div id="outline-container-orgd80f218" class="outline-3">
+<h3 id="orgd80f218"><span class="section-number-3">2.1.</span> סימון בעיית ריבועים פחותים כבעיה ריבועית</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 מתקיים:
@@ -458,8 +483,8 @@
 </div>
 </div>
 
-<div id="outline-container-orge9cbeff" class="outline-3">
-<h3 id="orge9cbeff"><span class="section-number-3">2.2.</span> מציאת מינימום של בעיה ריבועית</h3>
+<div id="outline-container-org605b374" class="outline-3">
+<h3 id="org605b374"><span class="section-number-3">2.2.</span> מציאת מינימום של בעיה ריבועית</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 בהינתן הבעיה הריבועית \(p \left( \underline{x} \right) = \underline{x}^TK\underline{x} - 2\underline{x}^T\underline{f} + c\),
@@ -484,11 +509,11 @@
 </div>
 </div>
 
-<div id="outline-container-org5b559a2" class="outline-3">
-<h3 id="org5b559a2"><span class="section-number-3">2.3.</span> התאמת עקומות לנתונים</h3>
+<div id="outline-container-orgbc279dc" class="outline-3">
+<h3 id="orgbc279dc"><span class="section-number-3">2.3.</span> התאמת עקומות לנתונים</h3>
 </div>
-<div id="outline-container-org2088c60" class="outline-3">
-<h3 id="org2088c60"><span class="section-number-3">2.4.</span> ריבועים פחותים ממושקלים</h3>
+<div id="outline-container-org93c530e" class="outline-3">
+<h3 id="org93c530e"><span class="section-number-3">2.4.</span> ריבועים פחותים ממושקלים</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 בעיה שבה צריך להביא למינימום ביטוי מהצורה:
@@ -510,8 +535,8 @@
 </div>
 </div>
 
-<div id="outline-container-org4c24c55" class="outline-3">
-<h3 id="org4c24c55"><span class="section-number-3">2.5.</span> רגולריזציה לבעיות LS</h3>
+<div id="outline-container-org1bb73c3" class="outline-3">
+<h3 id="org1bb73c3"><span class="section-number-3">2.5.</span> רגולריזציה לבעיות LS</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 לבעיה הריבועית הבאה עם  \(\lambda>0\):
@@ -545,12 +570,12 @@
 
 
 
-<div id="outline-container-orgf6079d8" class="outline-2">
-<h2 id="orgf6079d8"><span class="section-number-2">3.</span> אורתוגונליות ופירוק \(QR\)</h2>
+<div id="outline-container-org7392f18" class="outline-2">
+<h2 id="org7392f18"><span class="section-number-2">3.</span> אורתוגונליות ופירוק \(QR\)</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org6cb84e3" class="outline-3">
-<h3 id="org6cb84e3"><span class="section-number-3">3.1.</span> תכונות של מטריצות אורתונורמליות</h3>
+<div id="outline-container-org92f484a" class="outline-3">
+<h3 id="org92f484a"><span class="section-number-3">3.1.</span> תכונות של מטריצות אורתונורמליות</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 לכל מטריצה אורתונורמלית \(Q\):
@@ -564,8 +589,8 @@
 </div>
 </div>
 
-<div id="outline-container-org22daa1c" class="outline-3">
-<h3 id="org22daa1c"><span class="section-number-3">3.2.</span> תהליך Gram-Schmidt</h3>
+<div id="outline-container-org5869072" class="outline-3">
+<h3 id="org5869072"><span class="section-number-3">3.2.</span> תהליך Gram-Schmidt</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 בהינתן סט וקטורים בת״ל \(\left\{ \underline{w}_k \right\}_{k=1}^L \in \mathbb{R}^n\), קיים בסיס אורתונורמלי \(\left\{ \underline{u}_k \right\}_{k=1}^L \in \mathbb{R}^n\) כך שמתקיים:
@@ -577,8 +602,8 @@
 </p>
 </div>
 
-<div id="outline-container-orgac4e424" class="outline-4">
-<h4 id="orgac4e424"><span class="section-number-4">3.2.1.</span> אלגוריתם Gram-Schmidt</h4>
+<div id="outline-container-orgd71af11" class="outline-4">
+<h4 id="orgd71af11"><span class="section-number-4">3.2.1.</span> אלגוריתם Gram-Schmidt</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <p>
 <span class="underline">אתחול:</span>
@@ -604,24 +629,24 @@
 </div>
 </div>
 
-<div id="outline-container-orga128046" class="outline-4">
-<h4 id="orga128046"><span class="section-number-4">3.2.2.</span> אלגוריתם Modified Gram-Schmidt</h4>
+<div id="outline-container-orgff87abf" class="outline-4">
+<h4 id="orgff87abf"><span class="section-number-4">3.2.2.</span> אלגוריתם Modified Gram-Schmidt</h4>
 </div>
-<div id="outline-container-orgdd7f42e" class="outline-4">
-<h4 id="orgdd7f42e"><span class="section-number-4">3.2.3.</span> אלגוריתם Stable Gram-Schmidt</h4>
+<div id="outline-container-org5e39c38" class="outline-4">
+<h4 id="org5e39c38"><span class="section-number-4">3.2.3.</span> אלגוריתם Stable Gram-Schmidt</h4>
 </div>
 </div>
 
-<div id="outline-container-orga4cc7be" class="outline-3">
-<h3 id="orga4cc7be"><span class="section-number-3">3.3.</span> פירוק QR</h3>
+<div id="outline-container-org5633318" class="outline-3">
+<h3 id="org5633318"><span class="section-number-3">3.3.</span> פירוק QR</h3>
 <div class="outline-text-3" id="text-3-3">
 </div>
-<div id="outline-container-org81ae5c8" class="outline-4">
-<h4 id="org81ae5c8"><span class="section-number-4">3.3.1.</span> למטריצות ריבועיות</h4>
+<div id="outline-container-org12878b6" class="outline-4">
+<h4 id="org12878b6"><span class="section-number-4">3.3.1.</span> למטריצות ריבועיות</h4>
 <div class="outline-text-4" id="text-3-3-1">
 </div>
 <ol class="org-ol">
-<li><a id="org11d6bfb"></a>למטריצות הפיכות<br />
+<li><a id="orgffdcd28"></a>למטריצות הפיכות<br />
 <div class="outline-text-5" id="text-3-3-1-1">
 <p>
 כל מטריצה ריבועית ולא סינגולרית \(A\) ניתנת לפירוק <b>יחיד</b> מהצורה \(A=QR\), כאשר
@@ -633,7 +658,7 @@
 </div>
 </li>
 
-<li><a id="orgcaca768"></a>למטריצות סינגולריות<br />
+<li><a id="org774eb63"></a>למטריצות סינגולריות<br />
 <div class="outline-text-5" id="text-3-3-1-2">
 <p>
 עוברים על העמודות ומבצעים תהליך GS. אם מוצאים עמודה שתלויה בקודמיה:
@@ -647,8 +672,8 @@
 </ol>
 </div>
 
-<div id="outline-container-orgb1e6a08" class="outline-4">
-<h4 id="orgb1e6a08"><span class="section-number-4">3.3.2.</span> למטריצות מלבניות</h4>
+<div id="outline-container-orga2531c7" class="outline-4">
+<h4 id="orga2531c7"><span class="section-number-4">3.3.2.</span> למטריצות מלבניות</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <ul class="org-ul">
 <li>עבור מטריצה רחבה ונמוכה, העמודות חייבות להיות ת״ל.
@@ -656,7 +681,7 @@
 </ul>
 
 
-<div id="org8cff410" class="figure">
+<div id="org24145dc" class="figure">
 <p><img src="./img/QR-wide-short.png" alt="QR-wide-short.png" width="50%" />
 </p>
 </div>
@@ -670,7 +695,7 @@
 </ul>
 
 
-<div id="org9a749f3" class="figure">
+<div id="org3059a4e" class="figure">
 <p><img src="./img/QR-tall-narrow.png" alt="QR-tall-narrow.png" width="50%" />
 </p>
 </div>
@@ -678,18 +703,18 @@
 </div>
 </div>
 
-<div id="outline-container-org7e6207e" class="outline-3">
-<h3 id="org7e6207e"><span class="section-number-3">3.4.</span> שימור ב-QR לפתרון LS</h3>
+<div id="outline-container-org3992a42" class="outline-3">
+<h3 id="org3992a42"><span class="section-number-3">3.4.</span> שימור ב-QR לפתרון LS</h3>
 </div>
 </div>
 
 
-<div id="outline-container-org1ba3dae" class="outline-2">
-<h2 id="org1ba3dae"><span class="section-number-2">4.</span> ערכים עצמיים וסינגולריים</h2>
+<div id="outline-container-org61f9046" class="outline-2">
+<h2 id="org61f9046"><span class="section-number-2">4.</span> ערכים עצמיים וסינגולריים</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-org5e83534" class="outline-3">
-<h3 id="org5e83534"><span class="section-number-3">4.1.</span> הצמדת מטריצה משמרת ערכים עצמיים</h3>
+<div id="outline-container-orgeda344a" class="outline-3">
+<h3 id="orgeda344a"><span class="section-number-3">4.1.</span> הצמדת מטריצה משמרת ערכים עצמיים</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 בהינתן מטריצה ריבועית \(A\) ומטריצה הפיכה \(G\) באותו גודל,
@@ -698,8 +723,8 @@
 </div>
 </div>
 
-<div id="outline-container-org5385304" class="outline-3">
-<h3 id="org5385304"><span class="section-number-3">4.2.</span> פירוק Schur</h3>
+<div id="outline-container-orgc0decb8" class="outline-3">
+<h3 id="orgc0decb8"><span class="section-number-3">4.2.</span> פירוק Schur</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 בהינתן מטריצה ריבועית \(A\) לכסינה, ניתן למצוא:
@@ -722,8 +747,8 @@
 </div>
 </div>
 
-<div id="outline-container-org9237ffa" class="outline-3">
-<h3 id="org9237ffa"><span class="section-number-3">4.3.</span> לכסון מטריצה סימטרית ממשית (פירוק ספקטרלי)</h3>
+<div id="outline-container-org175b64c" class="outline-3">
+<h3 id="org175b64c"><span class="section-number-3">4.3.</span> לכסון מטריצה סימטרית ממשית (פירוק ספקטרלי)</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 אם מטריצה \(A\) ריבועית ממשית וסימטרית, אזי:
@@ -736,8 +761,8 @@
 </div>
 </div>
 
-<div id="outline-container-org8d6b2bf" class="outline-3">
-<h3 id="org8d6b2bf"><span class="section-number-3">4.4.</span> חיוביות/אי-שליליות של ע״ע במטריצות סימטריות</h3>
+<div id="outline-container-org03d06d2" class="outline-3">
+<h3 id="org03d06d2"><span class="section-number-3">4.4.</span> חיוביות/אי-שליליות של ע״ע במטריצות סימטריות</h3>
 <div class="outline-text-3" id="text-4-4">
 <ul class="org-ul">
 <li>אם \(K\) סימטרית וחיובית מוגדרת, אז כל ערכיה העצמיים <b>חיוביים</b>.</li>
@@ -746,8 +771,8 @@
 </div>
 </div>
 
-<div id="outline-container-orgfc9b409" class="outline-3">
-<h3 id="orgfc9b409"><span class="section-number-3">4.5.</span> ע״ע כפתרון לבעיות אופטימיציה</h3>
+<div id="outline-container-orgb8f6ea2" class="outline-3">
+<h3 id="orgb8f6ea2"><span class="section-number-3">4.5.</span> ע״ע כפתרון לבעיות אופטימיציה</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 למטריצה חיובית חצי מוגדרת \(A\) בגודל \(n\times n\) בעלת ערכים עצמיים \(\lambda_1 \ge \lambda_2 \ge \lambda_3 \ge \ldots \ge \lambda_n \ge 0\)
@@ -764,8 +789,8 @@
 \end{align*}
 </div>
 
-<div id="outline-container-orgacec8f4" class="outline-4">
-<h4 id="orgacec8f4"><span class="section-number-4">4.5.1.</span> מנת ריילי</h4>
+<div id="outline-container-org9c07e0e" class="outline-4">
+<h4 id="org9c07e0e"><span class="section-number-4">4.5.1.</span> מנת ריילי</h4>
 <div class="outline-text-4" id="text-4-5-1">
 <p>
 \[
@@ -775,8 +800,8 @@
 </div>
 </div>
 
-<div id="outline-container-org55ac74f" class="outline-4">
-<h4 id="org55ac74f"><span class="section-number-4">4.5.2.</span> ערכים עצמיים מוכללים / עפרון</h4>
+<div id="outline-container-orgc6c698d" class="outline-4">
+<h4 id="orgc6c698d"><span class="section-number-4">4.5.2.</span> ערכים עצמיים מוכללים / עפרון</h4>
 <div class="outline-text-4" id="text-4-5-2">
 <p>
 \[
@@ -801,8 +826,8 @@ A\underline{x} = \left( \frac{\underline{x}^TA\underline{x}}{\underline{x}^TB\un
 </div>
 </div>
 
-<div id="outline-container-orge8f5d90" class="outline-3">
-<h3 id="orge8f5d90"><span class="section-number-3">4.6.</span> פירוק SVD</h3>
+<div id="outline-container-orgec0cc13" class="outline-3">
+<h3 id="orgec0cc13"><span class="section-number-3">4.6.</span> פירוק SVD</h3>
 <div class="outline-text-3" id="text-4-6">
 <p>
 כל מטריצה ממשית \(A_{m \times n}\) ניתנת לפירוק \(SVD\) מהצורה:
@@ -821,8 +846,8 @@ A = U\Sigma V^T = \sum_{k=1}^{r}\sigma_k \underline{u}_K \underline{v}_k^{T}
 </div>
 </div>
 
-<div id="outline-container-orgaf85c32" class="outline-3">
-<h3 id="orgaf85c32"><span class="section-number-3">4.7.</span> שלבי הבנייה של פירוק SVD</h3>
+<div id="outline-container-org5ec2670" class="outline-3">
+<h3 id="org5ec2670"><span class="section-number-3">4.7.</span> שלבי הבנייה של פירוק SVD</h3>
 <div class="outline-text-3" id="text-4-7">
 <p>
 שלבי הבנייה עבור מטריצה \(A_{m \times n}\) מלבנית גבוהה (\(m>n\)) מדרגה מלאה:
@@ -848,8 +873,8 @@ A = U\Sigma V^T = \sum_{k=1}^{r}\sigma_k \underline{u}_K \underline{v}_k^{T}
 </div>
 </div>
 
-<div id="outline-container-orgcc1e2b9" class="outline-3">
-<h3 id="orgcc1e2b9"><span class="section-number-3">4.8.</span> פירוק SVD למטריצות סימטריות</h3>
+<div id="outline-container-orge081db8" class="outline-3">
+<h3 id="orge081db8"><span class="section-number-3">4.8.</span> פירוק SVD למטריצות סימטריות</h3>
 <div class="outline-text-3" id="text-4-8">
 <p>
 עבור מטריצות סימטריות PSD, פירוק ה-SVD שקול לפירוק הספקטרלי.
@@ -871,15 +896,15 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </p>
 
 
-<div id="org1b27101" class="figure">
+<div id="org536e57f" class="figure">
 <p><img src="./img/specral-decomposition-non-psd.png" alt="specral-decomposition-non-psd.png" width="50%" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org5e65da1" class="outline-3">
-<h3 id="org5e65da1"><span class="section-number-3">4.9.</span> פתרון מערכות משוואות ע״י SVD</h3>
+<div id="outline-container-orgfc8afb7" class="outline-3">
+<h3 id="orgfc8afb7"><span class="section-number-3">4.9.</span> פתרון מערכות משוואות ע״י SVD</h3>
 <div class="outline-text-3" id="text-4-9">
 <p>
 נרצה לפתור את המערכת \(A\underline{x}= \left( U \Sigma V^T \right)\underline{x} = \underline{b}\).
@@ -906,7 +931,7 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </ul>
 
 
-<div id="orgf11781e" class="figure">
+<div id="org94838e1" class="figure">
 <p><img src="./img/generalized-sigma.png" alt="generalized-sigma.png" width="50%" />
 </p>
 </div>
@@ -929,15 +954,15 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </ul></li>
 </ul>
 
-<div id="org4b42b52" class="figure">
+<div id="org27857bb" class="figure">
 <p><img src="./img/wide-matrix-svd-sys.png" alt="wide-matrix-svd-sys.png" width="50%" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf9c0a46" class="outline-3">
-<h3 id="orgf9c0a46"><span class="section-number-3">4.10.</span> פתרון ריבועים פחותים ע״י SVD</h3>
+<div id="outline-container-orgb946786" class="outline-3">
+<h3 id="orgb946786"><span class="section-number-3">4.10.</span> פתרון ריבועים פחותים ע״י SVD</h3>
 <div class="outline-text-3" id="text-4-10">
 <p>
 עבור הבעיה \(\min_{\underline{x}}\|A\underline{x}-\underline{b}\|_2^2\) עם מטריצה \(A_{m \times n}\),
@@ -970,8 +995,8 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 </div>
 
-<div id="outline-container-orgd4211bc" class="outline-3">
-<h3 id="orgd4211bc"><span class="section-number-3">4.11.</span> פתרון מאוחד לשני סוגי הבעיות</h3>
+<div id="outline-container-org108c098" class="outline-3">
+<h3 id="org108c098"><span class="section-number-3">4.11.</span> פתרון מאוחד לשני סוגי הבעיות</h3>
 <div class="outline-text-3" id="text-4-11">
 <p>
 \(\underline{x}_{opt}=V\Sigma^{\dagger}U^T\underline{b}\) הוא פתרון שמתאים גם עבור הבעיה \(A\underline{x}=\underline{b}\) וגם עבור \(min_{\underline{x}}\|A\underline{x}-\underline{b}\|_2^2\).
@@ -984,8 +1009,8 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 </div>
 
-<div id="outline-container-orge4faf39" class="outline-3">
-<h3 id="orge4faf39"><span class="section-number-3">4.12.</span> קירוב מטריצות עם אילוץ דרגה</h3>
+<div id="outline-container-org2a31122" class="outline-3">
+<h3 id="org2a31122"><span class="section-number-3">4.12.</span> קירוב מטריצות עם אילוץ דרגה</h3>
 <div class="outline-text-3" id="text-4-12">
 <p>
 עבור מטריצה \(A = U \Sigma V^T = \sum_{k=1}^{r}\sigma_k \underline{u}_k \underline{v}_k^T\) עם ע״ס \(\sigma_1 \ge \sigma_2 \ge \ldots \ge \sigma_r > 0\),
@@ -1003,13 +1028,419 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 
 
-<div id="outline-container-org81c717a" class="outline-2">
-<h2 id="org81c717a"><span class="section-number-2">5.</span> הגדרות בסיסיות ותכונות</h2>
+<div id="outline-container-orgb67f413" class="outline-2">
+<h2 id="orgb67f413"><span class="section-number-2">5.</span> תהליכים איטרטיביים</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-orgd439eb3" class="outline-3">
-<h3 id="orgd439eb3"><span class="section-number-3">5.1.</span> מטריצה חיובית מוגדרת (PD)</h3>
+<div id="outline-container-org69a5171" class="outline-3">
+<h3 id="org69a5171"><span class="section-number-3">5.1.</span> מערכת דינמית</h3>
 <div class="outline-text-3" id="text-5-1">
+<p>
+מערכת שיוצרים סדרה אינסופית של וקטורים \(u_k\) באופן הבא:
+</p>
+
+<p>
+\[
+\underline{u}_k = \begin{cases}
+T \cdot \underline{u}_{k-1} & k \ne 0 \\
+\underline{u}_0 & k = 0
+\end{cases}
+\ \ =\ \
+T^k \cdot\underline{u}_{0}
+\]
+</p>
+
+<p>
+כאשר \(T\) מטריצה קבועה כלשהי ו-\(\underline{u}_0\) וקטור התחלתי.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org31576c8" class="outline-3">
+<h3 id="org31576c8"><span class="section-number-3">5.2.</span> מערכת דינמית של מטריצה לכסינה</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+איבר \(\underline{u}_k\) נתון ע״י הנוסחה:
+</p>
+
+<p>
+\[
+\underline{u}_k = T^k\underline{u}_0
+=
+V \Lambda^kV^{-1}\underline{u}_0
+=
+V \Lambda^k\underline{x}_0
+=
+\sum_{j=1}^{n}x_0 \left( j \right) \cdot \lambda_j^k \cdot \underline{v}_j
+\]
+</p>
+
+<p>
+כאשר \(\underline{x}_0 \triangleq V^{-1}\underline{u}_0\).
+</p>
+</div>
+</div>
+<div id="outline-container-org4c9241e" class="outline-3">
+<h3 id="org4c9241e"><span class="section-number-3">5.3.</span> מערכת דינמית יציבה אסימפטוטית</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+מערכת דינמית מהצורה \(\underline{u}_k = T \underline{u}_{k-1} = T^k \underline{u}_0\) תיקרא <b>יציבה אסימפטוטית</b>
+</p>
+
+<p>
+אם מתקיים כי  \(\underline{u}_k \underset{k \to \infty}{\longrightarrow}\underline{0}\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6f4301b" class="outline-3">
+<h3 id="org6f4301b"><span class="section-number-3">5.4.</span> מטריצה יציבה</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+מטריצה \(T\) תיקרא <b>יציבה</b> אם \(T^k \underset{k \to \infty}{\longrightarrow} 0\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2716baf" class="outline-3">
+<h3 id="org2716baf"><span class="section-number-3">5.5.</span> רדיוס ספקטרלי</h3>
+<div class="outline-text-3" id="text-5-5">
+<p>
+בהינתן מטריצה \(T\) כלשהי, <b>הרדיוס הספקטרלי</b> שלה מוגדר להיות:
+\[
+\rho \left( T \right) = \max_{1 \le k \le n} \left| \lambda_k \right| = \lambda_1
+\]
+</p>
+
+<p>
+<span class="underline">תיאור גרפי:</span> הרדיוס של הדיסקה שמרכזה בראשית הצירים שמכסה את כל הע״ע של \(T\).
+</p>
+
+<div id="orgeab0b23" class="figure">
+<p><img src="./img/specral-radius-disc.png" alt="specral-radius-disc.png" width="50%" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org60b535d" class="outline-3">
+<h3 id="org60b535d"><span class="section-number-3">5.6.</span> מערכת של מטריצה לכסינה \(T\) עם \(\rho \left( T \right) < 1\) יציבה אסימפטוטית</h3>
+<div class="outline-text-3" id="text-5-6">
+<p>
+אם \(T\) לכסינה ובנוסף \(\rho \left( T \right) < 1\), אז המערכת הדינמית \(\underline{u}_k = T^k\underline{u}_0\) יציבה אסימפטוטית, כאשר:
+\[
+\forall j \in \left[ 1, n \right]\ \ \left| \lambda_j \right| < 1
+\iff
+\rho \left( T \right) < 1
+\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf340eb8" class="outline-3">
+<h3 id="orgf340eb8"><span class="section-number-3">5.7.</span> קצב התכנסות</h3>
+<div class="outline-text-3" id="text-5-7">
+<p>
+לכל \(k \in \mathbb{N}\) מתקיים \(\|u_k\|_2 \le C \cdot \rho \left( T \right)^k\) עבור \(C>0\) מסוים, ולכן:
+</p>
+<ul class="org-ul">
+<li>ככל שהרדיוס הספקטרלי קטן יותר, ההתכנסות אל האפס תהיה מהירה יותר.</li>
+<li>ככל שהרדיוס הספקטרלי קרוב ל-1, ההתכנסות אל האפס תהיה איטית יותר.</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org0228579" class="outline-3">
+<h3 id="org0228579"><span class="section-number-3">5.8.</span> הגדרה של נורמה</h3>
+<div class="outline-text-3" id="text-5-8">
+<p>
+עבור מרחב וקטורי \(V\) מעל שדה \(\mathbb{F}\), <b>נורמה</b> היא פונקציה \(\|\mathord{\cdot}\| : V \to \mathbb{R}^{+}\) המקיימת:
+</p>
+<ol class="org-ol">
+<li>(<i>חיוביות לחלוטין</i>) \(\forall v \in V : \|\underline{v}\| \ge 0,\ \ \ \|\underline{v}\| = 0 \iff \underline{v} = 0\)</li>
+</ol>
+
+
+<ol class="org-ol">
+<li>(<i>הומוגניות</i>) \(\forall \underline{v} \in V,\ \ \forall \alpha \in \mathbb{F}:\ \|\alpha \underline{v}\| = \left| \alpha \right| \cdot \|\underline{v}\|\)</li>
+</ol>
+
+
+<ol class="org-ol">
+<li>(<i>אי-שוויון המשולש</i>) \(\forall \underline{u},\underline{v} \in V:\ \ \|\underline{u} + \underline{v}\| \le \|\underline{u}\| + \|\underline{v}\|\)</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org294da26" class="outline-3">
+<h3 id="org294da26"><span class="section-number-3">5.9.</span> נורמות ידועות</h3>
+<div class="outline-text-3" id="text-5-9">
+<ul class="org-ul">
+<li>נורמת פורביניוס:</li>
+</ul>
+<p>
+\[
+\|E\|_F = \sqrt{\sum_{k=1}^m \sum_{j=1}^{n}e_{kj}^2} = \sqrt{\text{trace} \left( E^TE \right)}
+=
+\sqrt{\text{trace} \left( \Sigma^T\Sigma \right)}
+=
+\sqrt{\sum_{k=1}^n \sigma_k^2}
+\]
+</p>
+
+<ul class="org-ul">
+<li>נורמת \(L^2\):</li>
+</ul>
+<p>
+\[
+\|\underline{x}\|_2 = \sqrt{\underline{x}^T\underline{x}} = \sqrt{\sum_{k=1}^n \left| x_k \right|^2}
+\]
+</p>
+
+<ul class="org-ul">
+<li>נורמת \(WL^2\) (\(L^{2}\) ממושקלת):</li>
+</ul>
+<p>
+\[
+\|\underline{x}\|_W = \sqrt{\underline{x}^TW\underline{x}} = \sqrt{\sum_{k=1}^n w_k \left| x_k \right|^2}, \ \ w_k > 0\ \ \  \forall 1 \le k \le n
+\]
+</p>
+<ul class="org-ul">
+<li>נורמת \(L^1\):</li>
+</ul>
+<p>
+\[
+  \|\underline{x}\|_1 = \sum_{k=1}^{n} \left| x_k \right|
+\]
+</p>
+
+<ul class="org-ul">
+<li>נורמת \(L^{\infty}\):</li>
+</ul>
+<p>
+\[
+\|\underline{x}\|_{\infty} = \max_{1 \le k \le n} \left| x_k \right|
+\]
+</p>
+
+<ul class="org-ul">
+<li>נורמת \(L^{p}\) עבור \(p \ge 1\):</li>
+</ul>
+<p>
+\[
+\|\underline{x}\|_p = \left( \sum_{k=1}^{n} \left| x_k \right|^p \right)^{\frac{1}{p}}
+\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7590be1" class="outline-3">
+<h3 id="org7590be1"><span class="section-number-3">5.10.</span> משפט שקילות הנורמות</h3>
+<div class="outline-text-3" id="text-5-10">
+<p>
+בהינתן שתי נורמות \(\|\mathord{\cdot}\|_{A}\), \(\|\mathord{\cdot}\|_B\) המוגדרות על וקטורים באורך \(n\),
+</p>
+
+<p>
+קיימים בהכרח שני קבועים \(0 < c_1 < c_2 < \infty\) כך שמתקיים:
+\[
+\forall \underline{v},\ \ c_1 \|\underline{v}\|_A \le \|\underline{v}\|_B \le c_2 \|\underline{v}\|_A
+\]
+</p>
+</div>
+
+<div id="outline-container-org8d8272d" class="outline-4">
+<h4 id="org8d8272d"><span class="section-number-4">5.10.1.</span> מסקנה: התכנסות גודל סדרת וקטורים לאפס לא תלויה בנורמה</h4>
+<div class="outline-text-4" id="text-5-10-1">
+<p>
+בהינתן שתי נורמות \(\|\mathord{\cdot}\|_{A}\), \(\|\mathord{\cdot}\|_B\) המוגדרות על וקטורים באורך \(n\), וסדרת וקטורים \(\left\{ v_k \right\}_{k=0}^{\infty}\), מתקיים:
+</p>
+
+<p>
+\[
+\|\underline{v}_k\|_A \underset{k \to \infty}{\longrightarrow} \underline{0}
+\ \ \ \iff\ \ \
+\|\underline{v}_k\|_B \underset{k \to \infty}{\longrightarrow} \underline{0}
+\]
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org01ec1e6" class="outline-3">
+<h3 id="org01ec1e6"><span class="section-number-3">5.11.</span> נורמה של מטריצה ריבועית</h3>
+<div class="outline-text-3" id="text-5-11">
+<p>
+בהינתן נורמה \(|\mathord{\cdot}\|_{A}\) המוגדרת על וקטורים באורך \(n\), נורמה של המטריצה \(T_{n \times n}\) מוגדרת להיות:
+\[
+\left| \|T\| \right|_A
+\triangleq
+\max_{\underline{v}, \|\underline{v}\|_A = 1} \|T \underline{v}\|_A
+=
+\max_{\underline{v} \ne 0} \frac{\|T \underline{v}\|_A}{\| \underline{v}\|_A}
+\]
+</p>
+</div>
+
+<div id="outline-container-orgba41170" class="outline-4">
+<h4 id="orgba41170"><span class="section-number-4">5.11.1.</span> תכונות של נורמה של מטריצה</h4>
+<div class="outline-text-4" id="text-5-11-1">
+<ol class="org-ol">
+<li>(<i>פירוק מכפלה מטריצית-וקטורית</i>) - \(\|T \underline{v}\|_A = \left|\|  T \|\right|_A \|\underline{v}\|_{A}\)</li>
+
+<li>(<i>פירוק מכפלה מטריצית-מטריצית</i>) - \(\left| \|T_1T_2\| \right|_A = \left| \|T_1\| \right|_A \left| \|T_2\| \right|_{A}\)</li>
+
+<li><p>
+(<i>קיום נורמה מטריצית קטנה מ-\(1\) מבטיחה התכנסות אסימפטוטית של מערכת דינמית</i>)
+</p>
+
+<p>
+עבור מערכת דינמית \(\underline{u}_k = T^k\underline{u}_0\) ונורמה \(\|\mathord{\cdot}|_{A}\), אם מתקיים כי \(\left| \|T\| \right|_A < 1\), אזי המערכת מובטחת להתכנס אסימפטוטית,
+</p>
+
+<p>
+כאשר \(T\) היא לאו דוקא לכסינה.
+</p></li>
+
+<li><p>
+(<i>הרדיוס הספקטרלי הוא חסם תחתון לכל הנורמות המטריציות</i>)
+</p>
+
+<p>
+לכל נורמה \(\|\mathord{\cdot}|_{A}\) ומטריצה \(T\) ריבועית מתקיים: \(\rho \left( T \right) \le \|T\|_A\).
+</p>
+
+<ul class="org-ul">
+<li>מסקנה: אם קיימת \(\|T\|_A < 1\), אז מובטח ש-\(\rho \left( T \right) < 1\).</li>
+</ul></li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org3219250" class="outline-4">
+<h4 id="org3219250"><span class="section-number-4">5.11.2.</span> נוסחאות לנורמות מטריציות מוכרות</h4>
+<div class="outline-text-4" id="text-5-11-2">
+<ul class="org-ul">
+<li><span class="underline">נורמת אינסוף מטריצית</span>:</li>
+</ul>
+
+<p>
+\[
+\left| \|T\| \right|_{\infty} = \max_k \left\{ \sum_{j=1}^{n} \left| t_{kj} \right| \right\}
+\]
+</p>
+
+<p>
+סכום שורה מקסימלי.
+</p>
+
+<ul class="org-ul">
+<li><span class="underline">נורמת 1 מטריצית</span>:</li>
+</ul>
+
+<p>
+\[
+\left| \|T\| \right|_1
+=
+\max_{\ell} \left\{ \sum_{k=1}^{n} \left| t_{k\ell} \right| \right\}
+\]
+</p>
+
+<p>
+סכום עמודה מקסימלי.
+</p>
+
+<ul class="org-ul">
+<li><span class="underline">נורמת 2 מטריצית</span>:</li>
+</ul>
+
+<p>
+\[
+\left| \|T\| \right|_2 = \sigma_1
+\]
+</p>
+
+<p>
+הערך הסינגולרי הגדול ביותר של \(T\).
+</p>
+
+<p>
+<b>נשים לב שנורמת פורביניוס חוסמת מלמעלה את נורמת 2 מטריצית</b>:
+\[
+\|T\|_F =  \sqrt{\sum_{k=1}^n \sigma_k^2} \ge \sigma_1 =  \left| \|T\| \right|_2
+\]
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb7d56b2" class="outline-3">
+<h3 id="orgb7d56b2"><span class="section-number-3">5.12.</span> משפט גרשגורן</h3>
+<div class="outline-text-3" id="text-5-12">
+<p>
+עבור \(T_{n \times n}\) מטריצה ריבועית, נגדיר \(n\) דיסקאות \(D_k,\ \ 1 \le k \le n\) באופן הבא:
+\[
+D_k
+=
+\left\{ z \in \mathbb{C} \mid \left| z - t_{kk} \right|
+\le \sum_{j \ne k} \left| t_{kj} \right| \right\}
+\]
+</p>
+
+<p>
+(כל דיסקה נוצרת משורה אחת ב-\(T\), שמרכזה הוא <i>איבר האלכסון</i>, ורדיוסה הוא <i>סכום יתר האיברים בערך מוחלט</i>.)
+</p>
+
+<p>
+אזי כל הערכים העצמיים של \(T\) מוכלים באיחוד של דיסקאות אלו.
+</p>
+
+
+<div id="orgf0c38ba" class="figure">
+<p><img src="./img/gershgoren-representation.png" alt="gershgoren-representation.png" width="50%" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org56e93ec" class="outline-3">
+<h3 id="org56e93ec"><span class="section-number-3">5.13.</span> מטריצה דומיננטית באלכסון</h3>
+<div class="outline-text-3" id="text-5-13">
+<p>
+מטריצה \(T\) נקראת <b>דומיננטית באלכסון</b> אם כל איבר אלכסון בה גדול ממש (בערך מוחלט) מסכום יתר האיברים בשורתו:
+\[
+\forall 1 \le k \le n,\ \ \left| t_{kk} \right|  > \sum_{j \ne k} \left| t_{kj} \right|
+\]
+</p>
+</div>
+
+<div id="outline-container-org50bcd05" class="outline-4">
+<h4 id="org50bcd05"><span class="section-number-4">5.13.1.</span> משפט: מטריצה דומיננטית באלכסון היא לא סינגולרית</h4>
+<div class="outline-text-4" id="text-5-13-1">
+<p>
+זאת משום שכל דיסקאות גרשגורן שלה לא מכילות את הראשית.
+</p>
+
+
+<div id="org019f2d3" class="figure">
+<p><img src="./img/gershgoren-diagonally-dominant.png" alt="gershgoren-diagonally-dominant.png" width="50%" />
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgd3d12ac" class="outline-2">
+<h2 id="orgd3d12ac"><span class="section-number-2">6.</span> הגדרות בסיסיות ותכונות</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-org60e3d7c" class="outline-3">
+<h3 id="org60e3d7c"><span class="section-number-3">6.1.</span> מטריצה חיובית מוגדרת (PD)</h3>
+<div class="outline-text-3" id="text-6-1">
 <p>
 מטריצה \(K\) כך שמתקיים:
 \[
@@ -1020,9 +1451,9 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 </div>
 
-<div id="outline-container-orgd1d157d" class="outline-3">
-<h3 id="orgd1d157d"><span class="section-number-3">5.2.</span> מטריצה חיובית חצי מוגדרת (PSD)</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-org10424ca" class="outline-3">
+<h3 id="org10424ca"><span class="section-number-3">6.2.</span> מטריצה חיובית חצי מוגדרת (PSD)</h3>
+<div class="outline-text-3" id="text-6-2">
 <p>
 מטריצה \(K\) כך שמתקיים:
 \[
@@ -1032,9 +1463,9 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 </div>
 
-<div id="outline-container-org54ede1b" class="outline-3">
-<h3 id="org54ede1b"><span class="section-number-3">5.3.</span> מטריצת Gram</h3>
-<div class="outline-text-3" id="text-5-3">
+<div id="outline-container-org4152b4b" class="outline-3">
+<h3 id="org4152b4b"><span class="section-number-3">6.3.</span> מטריצת Gram</h3>
+<div class="outline-text-3" id="text-6-3">
 <p>
 מטריצה \(K\) היא גראם אם קיימת \(A\) כך ש-\(K = A^TA\).
 </p>
@@ -1051,9 +1482,9 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 </div>
 
-<div id="outline-container-org66b04ef" class="outline-3">
-<h3 id="org66b04ef"><span class="section-number-3">5.4.</span> מטריצת Pseudo Inverse</h3>
-<div class="outline-text-3" id="text-5-4">
+<div id="outline-container-orga18d344" class="outline-3">
+<h3 id="orga18d344"><span class="section-number-3">6.4.</span> מטריצת Pseudo Inverse</h3>
+<div class="outline-text-3" id="text-6-4">
 <p>
 עבור מטריצה \(A\) בעלת דרגה מלאה, מגדירים: $A<sup>&dagger;</sup> = \left( A<sup>TA</sup> \right)<sup>-1</sup>A<sup>T</sup>
 </p>
@@ -1064,9 +1495,9 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 </div>
 
-<div id="outline-container-org05e0cf8" class="outline-3">
-<h3 id="org05e0cf8"><span class="section-number-3">5.5.</span> היפוך מוכלל של מטריצה אלכסונית</h3>
-<div class="outline-text-3" id="text-5-5">
+<div id="outline-container-org61cf164" class="outline-3">
+<h3 id="org61cf164"><span class="section-number-3">6.5.</span> היפוך מוכלל של מטריצה אלכסונית</h3>
+<div class="outline-text-3" id="text-6-5">
 <p>
 \(\begin{bmatrix}
 \sigma_{1}  & 0 & 0 & 0 \\
@@ -1085,10 +1516,9 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 </div>
 
-
-<div id="outline-container-orge555d05" class="outline-3">
-<h3 id="orge555d05"><span class="section-number-3">5.6.</span> מספר מצב של מטריצה ריבועית</h3>
-<div class="outline-text-3" id="text-5-6">
+<div id="outline-container-org9d05a53" class="outline-3">
+<h3 id="org9d05a53"><span class="section-number-3">6.6.</span> מספר מצב של מטריצה ריבועית</h3>
+<div class="outline-text-3" id="text-6-6">
 <p>
 מספר מצב של מטריצה \(A_{n \times n}\) מוגדר ע״י \(\kappa \left\{ A \right\} = \frac{\sigma_1}{\sigma_n}\).
 מספר המצב מייצג את הנטייה של המטריצה להיות סינגולרית:
@@ -1101,9 +1531,10 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 </div>
 
-<div id="outline-container-org3aa932a" class="outline-2">
-<h2 id="org3aa932a"><span class="section-number-2">6.</span> גזירת ביטויים מטריציים וקטוריים</h2>
-<div class="outline-text-2" id="text-6">
+
+<div id="outline-container-orgbfdfdd6" class="outline-2">
+<h2 id="orgbfdfdd6"><span class="section-number-2">7.</span> גזירת ביטויים מטריציים וקטוריים</h2>
+<div class="outline-text-2" id="text-7">
 <ul class="org-ul">
 <li>\(\nabla \|A\underline{x}-\underline{b}\|_2^2 = 2A^T \left( A\underline{x}-\underline{b} \right)\)</li>
 </ul>
@@ -1111,33 +1542,18 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 
 
-<div id="outline-container-org5d4c55e" class="outline-2">
-<h2 id="org5d4c55e"><span class="section-number-2">7.</span> נורמות</h2>
-<div class="outline-text-2" id="text-7">
-</div>
-<div id="outline-container-org654ee77" class="outline-3">
-<h3 id="org654ee77"><span class="section-number-3">7.1.</span> נורמת פורביניוס</h3>
-<div class="outline-text-3" id="text-7-1">
-<p>
-\[
-\|E\|_F^2 = \sum_{k=1}^m \sum_{j=1}^{n}e_{kj}^2 = \text{trace} \left( E^TE \right)
-\]
-</p>
-</div>
-</div>
-</div>
 
 
-<div id="outline-container-org70dec1f" class="outline-2">
-<h2 id="org70dec1f"><span class="section-number-2">8.</span> אלגברה א׳</h2>
+<div id="outline-container-orgc692cee" class="outline-2">
+<h2 id="orgc692cee"><span class="section-number-2">8.</span> אלגברה א׳</h2>
 <div class="outline-text-2" id="text-8">
 </div>
-<div id="outline-container-orged91ebe" class="outline-3">
-<h3 id="orged91ebe"><span class="section-number-3">8.1.</span> מטריצות</h3>
+<div id="outline-container-org699e37c" class="outline-3">
+<h3 id="org699e37c"><span class="section-number-3">8.1.</span> מטריצות</h3>
 <div class="outline-text-3" id="text-8-1">
 </div>
-<div id="outline-container-org1a2dcd0" class="outline-4">
-<h4 id="org1a2dcd0"><span class="section-number-4">8.1.1.</span> משפט: הכפלה במטריצות הפיכות משמאל לא משנה את מרחב השורה</h4>
+<div id="outline-container-orgbf87583" class="outline-4">
+<h4 id="orgbf87583"><span class="section-number-4">8.1.1.</span> משפט: הכפלה במטריצות הפיכות משמאל לא משנה את מרחב השורה</h4>
 <div class="outline-text-4" id="text-8-1-1">
 <p>
 (המערכות שקולות)
@@ -1148,8 +1564,8 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 
 
-<div id="outline-container-org04255b5" class="outline-2">
-<h2 id="org04255b5"><span class="section-number-2">9.</span> כמויות חישובים</h2>
+<div id="outline-container-org3a3fcc8" class="outline-2">
+<h2 id="org3a3fcc8"><span class="section-number-2">9.</span> כמויות חישובים</h2>
 <div class="outline-text-2" id="text-9">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -1197,7 +1613,7 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Ido Merenstein</p>
-<p class="date">Created: 2022-11-12 Sat 17:59</p>
+<p class="date">Created: 2022-11-12 Sat 20:45</p>
 </div>
 </body>
 </html>

@@ -347,6 +347,221 @@ A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
 כאשר $\|A - B\|_F^2 = \sum_{k = k_0+1}^{r}\sigma_k^2$.
 
 
+* תהליכים איטרטיביים
+** מערכת דינמית
+מערכת שיוצרים סדרה אינסופית של וקטורים $u_k$ באופן הבא:
+
+\[
+\underline{u}_k = \begin{cases}
+T \cdot \underline{u}_{k-1} & k \ne 0 \\
+\underline{u}_0 & k = 0
+\end{cases}
+\ \ =\ \
+T^k \cdot\underline{u}_{0}
+\]
+
+כאשר $T$ מטריצה קבועה כלשהי ו-$\underline{u}_0$ וקטור התחלתי.
+
+** מערכת דינמית של מטריצה לכסינה
+איבר $\underline{u}_k$ נתון ע״י הנוסחה:
+
+\[
+\underline{u}_k = T^k\underline{u}_0
+=
+V \Lambda^kV^{-1}\underline{u}_0
+=
+V \Lambda^k\underline{x}_0
+=
+\sum_{j=1}^{n}x_0 \left( j \right) \cdot \lambda_j^k \cdot \underline{v}_j
+\]
+
+כאשר $\underline{x}_0 \triangleq V^{-1}\underline{u}_0$.
+** מערכת דינמית יציבה אסימפטוטית
+מערכת דינמית מהצורה $\underline{u}_k = T \underline{u}_{k-1} = T^k \underline{u}_0$ תיקרא *יציבה אסימפטוטית*
+
+אם מתקיים כי  $\underline{u}_k \underset{k \to \infty}{\longrightarrow}\underline{0}$.
+
+** מטריצה יציבה
+מטריצה $T$ תיקרא *יציבה* אם $T^k \underset{k \to \infty}{\longrightarrow} 0$.
+
+** רדיוס ספקטרלי
+בהינתן מטריצה $T$ כלשהי, *הרדיוס הספקטרלי* שלה מוגדר להיות:
+\[
+\rho \left( T \right) = \max_{1 \le k \le n} \left| \lambda_k \right| = \lambda_1
+\]
+
+_תיאור גרפי:_ הרדיוס של הדיסקה שמרכזה בראשית הצירים שמכסה את כל הע״ע של $T$.
+#+attr_html: :width 50%
+[[./img/specral-radius-disc.png]]
+
+** מערכת של מטריצה לכסינה $T$ עם $\rho \left( T \right) < 1$ יציבה אסימפטוטית
+
+אם $T$ לכסינה ובנוסף $\rho \left( T \right) < 1$, אז המערכת הדינמית $\underline{u}_k = T^k\underline{u}_0$ יציבה אסימפטוטית, כאשר:
+\[
+\forall j \in \left[ 1, n \right]\ \ \left| \lambda_j \right| < 1
+\iff
+\rho \left( T \right) < 1
+\]
+
+** קצב התכנסות
+לכל $k \in \mathbb{N}$ מתקיים $\|u_k\|_2 \le C \cdot \rho \left( T \right)^k$ עבור $C>0$ מסוים, ולכן:
+- ככל שהרדיוס הספקטרלי קטן יותר, ההתכנסות אל האפס תהיה מהירה יותר.
+- ככל שהרדיוס הספקטרלי קרוב ל-1, ההתכנסות אל האפס תהיה איטית יותר.
+
+
+
+** הגדרה של נורמה
+עבור מרחב וקטורי $V$ מעל שדה $\mathbb{F}$, *נורמה* היא פונקציה $\|\mathord{\cdot}\| : V \to \mathbb{R}^{+}$ המקיימת:
+1. (/חיוביות לחלוטין/) $\forall v \in V : \|\underline{v}\| \ge 0,\ \ \ \|\underline{v}\| = 0 \iff \underline{v} = 0$
+
+
+2. (/הומוגניות/) $\forall \underline{v} \in V,\ \ \forall \alpha \in \mathbb{F}:\ \|\alpha \underline{v}\| = \left| \alpha \right| \cdot \|\underline{v}\|$
+
+
+3. (/אי-שוויון המשולש/) $\forall \underline{u},\underline{v} \in V:\ \ \|\underline{u} + \underline{v}\| \le \|\underline{u}\| + \|\underline{v}\|$
+
+** נורמות ידועות
+- נורמת פורביניוס:
+\[
+\|E\|_F = \sqrt{\sum_{k=1}^m \sum_{j=1}^{n}e_{kj}^2} = \sqrt{\text{trace} \left( E^TE \right)}
+=
+\sqrt{\text{trace} \left( \Sigma^T\Sigma \right)}
+=
+\sqrt{\sum_{k=1}^n \sigma_k^2}
+\]
+
+- נורמת $L^2$:
+\[
+\|\underline{x}\|_2 = \sqrt{\underline{x}^T\underline{x}} = \sqrt{\sum_{k=1}^n \left| x_k \right|^2}
+\]
+
+- נורמת $WL^2$ ($L^{2}$ ממושקלת):
+\[
+\|\underline{x}\|_W = \sqrt{\underline{x}^TW\underline{x}} = \sqrt{\sum_{k=1}^n w_k \left| x_k \right|^2}, \ \ w_k > 0\ \ \  \forall 1 \le k \le n
+\]
+- נורמת $L^1$:
+\[
+  \|\underline{x}\|_1 = \sum_{k=1}^{n} \left| x_k \right|
+\]
+
+- נורמת $L^{\infty}$:
+\[
+\|\underline{x}\|_{\infty} = \max_{1 \le k \le n} \left| x_k \right|
+\]
+
+- נורמת $L^{p}$ עבור $p \ge 1$:
+\[
+\|\underline{x}\|_p = \left( \sum_{k=1}^{n} \left| x_k \right|^p \right)^{\frac{1}{p}}
+\]
+
+** משפט שקילות הנורמות
+בהינתן שתי נורמות $\|\mathord{\cdot}\|_{A}$, $\|\mathord{\cdot}\|_B$ המוגדרות על וקטורים באורך $n$,
+
+קיימים בהכרח שני קבועים $0 < c_1 < c_2 < \infty$ כך שמתקיים:
+\[
+\forall \underline{v},\ \ c_1 \|\underline{v}\|_A \le \|\underline{v}\|_B \le c_2 \|\underline{v}\|_A
+\]
+
+*** מסקנה: התכנסות גודל סדרת וקטורים לאפס לא תלויה בנורמה
+בהינתן שתי נורמות $\|\mathord{\cdot}\|_{A}$, $\|\mathord{\cdot}\|_B$ המוגדרות על וקטורים באורך $n$, וסדרת וקטורים $\left\{ v_k \right\}_{k=0}^{\infty}$, מתקיים:
+
+\[
+\|\underline{v}_k\|_A \underset{k \to \infty}{\longrightarrow} \underline{0}
+\ \ \ \iff\ \ \
+\|\underline{v}_k\|_B \underset{k \to \infty}{\longrightarrow} \underline{0}
+\]
+
+** נורמה של מטריצה ריבועית
+בהינתן נורמה $|\mathord{\cdot}\|_{A}$ המוגדרת על וקטורים באורך $n$, נורמה של המטריצה $T_{n \times n}$ מוגדרת להיות:
+\[
+\left| \|T\| \right|_A
+\triangleq
+\max_{\underline{v}, \|\underline{v}\|_A = 1} \|T \underline{v}\|_A
+=
+\max_{\underline{v} \ne 0} \frac{\|T \underline{v}\|_A}{\| \underline{v}\|_A}
+\]
+
+*** תכונות של נורמה של מטריצה
+
+1. (/פירוק מכפלה מטריצית-וקטורית/) - $\|T \underline{v}\|_A = \left|\|  T \|\right|_A \|\underline{v}\|_{A}$
+
+2. (/פירוק מכפלה מטריצית-מטריצית/) - $\left| \|T_1T_2\| \right|_A = \left| \|T_1\| \right|_A \left| \|T_2\| \right|_{A}$
+
+3. (/קיום נורמה מטריצית קטנה מ-$1$ מבטיחה התכנסות אסימפטוטית של מערכת דינמית/)
+
+   עבור מערכת דינמית $\underline{u}_k = T^k\underline{u}_0$ ונורמה $\|\mathord{\cdot}|_{A}$, אם מתקיים כי $\left| \|T\| \right|_A < 1$, אזי המערכת מובטחת להתכנס אסימפטוטית,
+
+   כאשר $T$ היא לאו דוקא לכסינה.
+
+4. (/הרדיוס הספקטרלי הוא חסם תחתון לכל הנורמות המטריציות/)
+
+   לכל נורמה $\|\mathord{\cdot}|_{A}$ ומטריצה $T$ ריבועית מתקיים: $\rho \left( T \right) \le \|T\|_A$.
+
+    - מסקנה: אם קיימת $\|T\|_A < 1$, אז מובטח ש-$\rho \left( T \right) < 1$.
+
+*** נוסחאות לנורמות מטריציות מוכרות
+
+- _נורמת אינסוף מטריצית_:
+
+\[
+\left| \|T\| \right|_{\infty} = \max_k \left\{ \sum_{j=1}^{n} \left| t_{kj} \right| \right\}
+\]
+
+סכום שורה מקסימלי.
+
+- _נורמת 1 מטריצית_:
+
+\[
+\left| \|T\| \right|_1
+=
+\max_{\ell} \left\{ \sum_{k=1}^{n} \left| t_{k\ell} \right| \right\}
+\]
+
+סכום עמודה מקסימלי.
+
+- _נורמת 2 מטריצית_:
+
+\[
+\left| \|T\| \right|_2 = \sigma_1
+\]
+
+הערך הסינגולרי הגדול ביותר של $T$.
+
+*נשים לב שנורמת פורביניוס חוסמת מלמעלה את נורמת 2 מטריצית*:
+\[
+\|T\|_F =  \sqrt{\sum_{k=1}^n \sigma_k^2} \ge \sigma_1 =  \left| \|T\| \right|_2
+\]
+
+** משפט גרשגורן
+
+עבור $T_{n \times n}$ מטריצה ריבועית, נגדיר $n$ דיסקאות $D_k,\ \ 1 \le k \le n$ באופן הבא:
+\[
+D_k
+=
+\left\{ z \in \mathbb{C} \mid \left| z - t_{kk} \right|
+\le \sum_{j \ne k} \left| t_{kj} \right| \right\}
+\]
+
+(כל דיסקה נוצרת משורה אחת ב-$T$, שמרכזה הוא /איבר האלכסון/, ורדיוסה הוא /סכום יתר האיברים בערך מוחלט/.)
+
+אזי כל הערכים העצמיים של $T$ מוכלים באיחוד של דיסקאות אלו.
+
+#+attr_html: :width 50%
+[[./img/gershgoren-representation.png]]
+
+** מטריצה דומיננטית באלכסון
+מטריצה $T$ נקראת *דומיננטית באלכסון* אם כל איבר אלכסון בה גדול ממש (בערך מוחלט) מסכום יתר האיברים בשורתו:
+\[
+\forall 1 \le k \le n,\ \ \left| t_{kk} \right|  > \sum_{j \ne k} \left| t_{kj} \right|
+\]
+
+*** משפט: מטריצה דומיננטית באלכסון היא לא סינגולרית
+זאת משום שכל דיסקאות גרשגורן שלה לא מכילות את הראשית.
+
+#+attr_html: :width 50%
+[[./img/gershgoren-diagonally-dominant.png]]
+
+
 * הגדרות בסיסיות ותכונות
 ** מטריצה חיובית מוגדרת (PD)
 מטריצה $K$ כך שמתקיים:
@@ -391,22 +606,17 @@ $\begin{bmatrix}
 0           & 0 & 0 & 0 & 0 & 0
  \end{bmatrix}$
 
-
 ** מספר מצב של מטריצה ריבועית
 מספר מצב של מטריצה $A_{n \times n}$ מוגדר ע״י $\kappa \left\{ A \right\} = \frac{\sigma_1}{\sigma_n}$.
 מספר המצב מייצג את הנטייה של המטריצה להיות סינגולרית:
 - אם $\kappa \left\{ A \right\} = 1$, המטריצה אורתונורמלית עד כדי קבוע.
 - אם $\kappa \left\{ A \right\}$ נוטה ל-$\infty$, מדובר במטריצה סינגולרית.
 
+
 * גזירת ביטויים מטריציים וקטוריים
 - $\nabla \|A\underline{x}-\underline{b}\|_2^2 = 2A^T \left( A\underline{x}-\underline{b} \right)$
 
 
-* נורמות
-** נורמת פורביניוס
-\[
-\|E\|_F^2 = \sum_{k=1}^m \sum_{j=1}^{n}e_{kj}^2 = \text{trace} \left( E^TE \right)
-\]
 
 
 * אלגברה א׳
