@@ -1,0 +1,86 @@
+% Created 2022-11-11 Fri 14:52
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Ido Merenstein}
+\date{\today}
+\title{Numerical Formula Sheet}
+\hypersetup{
+ pdfauthor={Ido Merenstein},
+ pdftitle={Numerical Formula Sheet},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.2 (Org mode 9.6)}, 
+ pdflang={Hebrew}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+
+\section{פירוק LU}
+\label{sec:org61d95a2}
+\subsection{מטריצה משולשת תחתונה בסיסית}
+\label{sec:orgda3073d}
+\begin{itemize}
+\item כל איברי אלכסונה 1
+\item משולשת תחתונה
+\end{itemize}
+
+\subsection{מטריצה רגילה}
+\label{sec:org648c196}
+ריבועית, \textbf{\textbf{וניתן}} לפרקה למכפלה מהצורה \(A=LU\)
+(L משולשת תחתונה בסיסית, U משולשת עליונה כלשהי עם \textbf{\textbf{איברי אלכסון שונים מ-0}}).
+
+\subsection{שימוש בפרמוטציה לפירוק \(LU\)}
+\label{sec:orgfc8ae51}
+נבצע את תהליך הדירוג כרגיל.
+
+בכל פעם שניתקל באיבר ציר בעייתי, נחליף את השורה בה נמצא באחת השורות מתחתיו.
+
+
+
+\subsection{שימוש ב-LU לפתרון מערכת משוואות}
+\label{sec:org7319edd}
+ע״י הקשר: \(\underline{b} = A \underline{x} = LU \underline{x} = L \left( U \underline{x} \right) = L \underline{y}\)
+
+\begin{enumerate}
+\item מציבים \(U\underline{x} = \underline{y}\) ופותרים \(L\underline{y} = \underline{b}\) ע״י החלפה קדמית.
+\item פותרים \(U\underline{x} = \underline{y}\) ע״י החלפה אחורית.
+\end{enumerate}
+
+
+
+\section{כמויות חישובים}
+\label{sec:org91fdae7}
+\begin{center}
+\begin{tabular}{ll}
+תהליך & כמות פעולות\\\empty
+\hline
+החלפה קדמית/אחורה & \(\frac{1}{2}n^{2}\)\\\empty
+פירוק \(LU\) & \(\frac{n^{3}}{3}\)\\\empty
+היפוך מטריצה & \(4 \frac{n^3}{3}\)\\\empty
+ & \\\empty
+\end{tabular}
+\end{center}
+
+
+\section{אלגברה א׳}
+\label{sec:org7a3250a}
+\subsection{מטריצות}
+\label{sec:orgb53b6cf}
+\subsubsection{משפט: הכפלה במטריצות הפיכות משמאל לא משנה את מרחב השורה}
+\label{sec:orgbe48f02}
+(המערכות שקולות)
+\end{document}

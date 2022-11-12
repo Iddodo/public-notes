@@ -1,0 +1,425 @@
+#+title: Numerical Formula Sheet
+#+LANGUAGE: he
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="style.css" />
+#+HTML_HEAD_EXTRA: <link rel="alternate stylesheet" type="text/css" href="style.css" />
+#+STARTUP: latexpreview
+
+
+* פירוק LU
+**  מטריצה משולשת תחתונה בסיסית
+- כל איברי אלכסונה 1
+- משולשת תחתונה
+
+** מטריצה רגילה
+ריבועית, **וניתן** לפרקה למכפלה מהצורה $A=LU$
+(L משולשת תחתונה בסיסית, U משולשת עליונה כלשהי עם **איברי אלכסון שונים מ-0**).
+
+** שימוש בפרמוטציה לפירוק $LU$
+נבצע את תהליך הדירוג כרגיל.
+
+בכל פעם שניתקל באיבר ציר בעייתי, נחליף את השורה בה נמצא באחת השורות מתחתיו (ע״י כפל במטריצת פרמוטציה מתאימה).
+
+כל מטריצה ריבועית $A$ ניתנת לפירוק מהצורה $PA=LU$, כאשר $U$ לאו דוקא מדרגה מלאה.
+
+** שימוש ב-LU לפתרון מערכת משוואות
+ ע״י הקשר: $\underline{b} = A \underline{x} = LU \underline{x} = L \left( U \underline{x} \right) = L \underline{y}$
+
+ 1. מציבים $U\underline{x} = \underline{y}$ ופותרים $L\underline{y} = \underline{b}$ ע״י החלפה קדמית.
+ 2. פותרים $U\underline{x} = \underline{y}$ ע״י החלפה אחורית.
+
+** מטריצות לא ריבועיות
+#+attr_html: :width 50%
+[[./img/m<n.png]]
+#+attr_html: :width 50%
+[[./img/m>n.png]]
+
+** שיטות לבחירת Pivot מוצלח
+- _Partial Pivoting_ - בוחרים את איבר הציר להיות הגדול ביותר בעמודתו (ע״י פרמוטציה לשורות).
+- _Full Pivoting_ - בוחרים את איבר הציר להיות הגדול ביותר ביתרת המטריצה (ע״י פרמוטציה לשורות לעמודות).
+
+** פירוק LDV
+כל מטריצה $A$ ריבועית שאינה סינגולרית ניתנת לפירוק מהצורה $PA=LDV$ כאשר:
+- $P$ מטריצת פרמוטציה שמחליפה סדר שורות
+- $L$ מטריצה משולשת תחתונה בסיסית
+- $D$ מטריצה אלכסונית בה כל האיברים שונים מ-0
+- $V$ מטריצה משולשת עליונה בסיסית
+
+** פירוק $LDL^{T}$ קיים למטריצות חיוביות מוגדרות
+מטריצה סימטרית וחיובית מוגדרת $A$ היא בהכרח מטריצה רגילה,
+וקיים עבורה פירוק $A=LDL^T$ ללא צורך בפרמוטציה, עם אלכסון מטריצה $D$ חיובי ממש.
+בפרט ניתן לרשום שקיימת $M$ משולשת תחתונה עם אלכסון חיובי, כך ש-$A = MM^T$.
+
+
+** אלגוריתם יעיל לפירוק $LU$
+
+
+* ריבועים פחותים
+
+** סימון בעיית ריבועים פחותים כבעיה ריבועית
+מתקיים:
+\[
+\|A\underline{x} - \underline{b}\|_2^2
+=
+\underline{x}^TK\underline{x} - 2\underline{x}^T\underline{f}+c
+\]
+
+כאשר:
+- $K = A^TA$
+- $\underline{f} = A^T\underline{b}$
+- $c=\underline{b}^T\underline{b}$
+
+** מציאת מינימום של בעיה ריבועית
+
+ בהינתן הבעיה הריבועית $p \left( \underline{x} \right) = \underline{x}^TK\underline{x} - 2\underline{x}^T\underline{f} + c$,
+
+ אם $K$ חיובית מוגדרת, אז ל-$p \left( \underline{x} \right)$ נקודת מינימום _יחידה וגלובלית_ שנתונה ע״י: $\underline{x}^{*}=K^{-1}\underline{f} = A^{\dagger} \underline{b}$
+
+ וערך הפונקציה במינימום הוא: $p \left( \underline{x} \right) = c - \left( \underline{x}^* \right)^TK \left( \underline{x}^{*} \right)$
+
+ אם $K$ חיובית חצי-מוגדרת, אז כל וקטור שמקיים את המשוואה:
+ $K\underline{x}^{*} = \underline{f}$
+
+יהווה פתרון אופטימלי לבעיה, עם ערך מינימום של $p \left( \underline{x} \right) = c - \left( \underline{x} \right)^TK \left( \underline{x}^{*} \right)$.
+
+** התאמת עקומות לנתונים
+** ריבועים פחותים ממושקלים
+בעיה שבה צריך להביא למינימום ביטוי מהצורה:
+
+$$\left( A\underline{x} - b \right)^T W \left( A\underline{x} - \underline{b} \right)
+=
+\|A\underline{x}-\underline{b}\|_W^2$$
+
+כאשר איברי האלכסון של המטריצה האלכסונית $W$ חיוביים ממש.
+
+הפתרון $x^{*}$ חייב לקיים: $A^TWA\underline{x}^{*} = A^TW\underline{b}$
+
+** רגולריזציה לבעיות LS
+לבעיה הריבועית הבאה עם  $\lambda>0$:
+\[
+\min_{\underline{x}} \|A\underline{x}-\underline{b}\|_2^2 + \lambda \|\underline{x}\|^2_2
+\]
+
+יש פתרון יחיד שנתון על ידי:
+\[
+\underline{x}^{*} = \left( A^TA + \lambda I \right)^{-1} A^T\underline{b}
+\]
+
+_גרסה כללית יותר:_
+
+\[
+\left( A^TA + \lambda C^TC \right)\underline{x}^{*} = A^T\underline{b}
+\impliedby
+\min_{\underline{x}} \|A\underline{x}-\underline{b}\|_2^2 + \lambda \|C\underline{x}\|_2^2
+\]
+אם $C^TC$ חיובית מוגדרת, הפתרון לבעיה יהיה יחיד.
+
+
+
+* אורתוגונליות ופירוק $QR$
+** תכונות של מטריצות אורתונורמליות
+לכל מטריצה אורתונורמלית $Q$:
+- $Q^{-1} = Q^T$
+- $\det \left( Q \right) = \pm 1$
+- $\|Q \underline{x}\|_2^2 = \|\underline{x}\|_2^2$
+- מכפלת מטריצות אורתונורמליות היא אורתונורמלית
+
+** תהליך Gram-Schmidt
+בהינתן סט וקטורים בת״ל $\left\{ \underline{w}_k \right\}_{k=1}^L \in \mathbb{R}^n$, קיים בסיס אורתונורמלי $\left\{ \underline{u}_k \right\}_{k=1}^L \in \mathbb{R}^n$ כך שמתקיים:
+\[
+\text{span} \left\{ \underline{w}_1, \underline{w}_2, \ldots, \underline{w}_n \right\}
+=
+\text{span} \left\{ \underline{u}_1, \underline{u}_2, \ldots, \underline{u}_{L} \right\}
+\]
+
+*** אלגוריתם Gram-Schmidt
+_אתחול:_
+- קבע $k=1$
+
+- הבא את הווקטור $\underline{w}_1$
+
+_איטרציה:_
+- קילוף: $\underline{u}_k = \underline{w}_k - \sum_{j=1}^{k-1} \left( \underline{u}_j^T\underline{w}_k \right) \underline{u}_j$
+
+- נרמול: $\underline{u}_k = \frac{\underline{u}_k}{\|\underline{u}_k\|_2}$
+
+- קבע $k=k+1$
+
+- הבא את הווקטור $\underline{w}_k$
+
+*** אלגוריתם Modified Gram-Schmidt
+*** אלגוריתם Stable Gram-Schmidt
+
+** פירוק QR
+*** למטריצות ריבועיות
+**** למטריצות הפיכות
+כל מטריצה ריבועית ולא סינגולרית $A$ ניתנת לפירוק *יחיד* מהצורה $A=QR$, כאשר
+- $Q$ מטריצה אורתונורמלית
+- $R$ משולשת עליונה עם איברי אלכסון ראשי חיוביים
+
+**** למטריצות סינגולריות
+עוברים על העמודות ומבצעים תהליך GS. אם מוצאים עמודה שתלויה בקודמיה:
+- מייצגים אותה כצירוף של הווקטורים שכבר נוצרו (כעמודה ב-$R$)
+- מגרילים וקטור חדש שימלא את מקומה להמשך תהליך GR (ינורמל וימוקם ב-$Q$).
+
+*** למטריצות מלבניות
+- עבור מטריצה רחבה ונמוכה, העמודות חייבות להיות ת״ל.
+  אם נניח ש-$n$ העמודות הראשונות בת״ל, נקבל שעמודות $R$ מלאות.
+
+#+attr_html: :width 50%
+ [[./img/QR-wide-short.png]]
+
+- עבור מטריצה גבוהה וצרה, ניתן להציע שני מבני פירוק:
+  - $Q$ מלאה עם וקטורי סרק שהוספו לצורך יצירת מטריצה אורתונורמלית.
+  - מטריצה שבה מסתפקים ב-$Q$ ברוחב של $A$ (Economy QR).
+
+#+attr_html: :width 50%
+[[./img/QR-tall-narrow.png]]
+
+** שימור ב-QR לפתרון LS
+
+
+* ערכים עצמיים וסינגולריים
+
+** הצמדת מטריצה משמרת ערכים עצמיים
+בהינתן מטריצה ריבועית $A$ ומטריצה הפיכה $G$ באותו גודל,
+  המטריצה $G^{-1}AG$ תהיה בעלת אותם ע״ע כשל $G$ (הו״ע לאו דוקא זהים).
+
+** פירוק Schur
+בהינתן מטריצה ריבועית $A$ לכסינה, ניתן למצוא:
+- מטריצה אורתונורמלית $Q$
+- מטריצה משולשת עליונה $T$
+
+  כך שמתקיים:
+  $$Q^TAQ=T$$
+
+  איברי האלכסון הראשי של $T$ יהיו הערכים העצמיים של $A$.
+
+** לכסון מטריצה סימטרית ממשית (פירוק ספקטרלי)
+אם מטריצה $A$ ריבועית ממשית וסימטרית, אזי:
+- המטריצה בהכרח לכסינה
+- *כל ערכיה העצמיים ממשיים*
+- וקטוריה העצמיים מהווים סט אורתונורמלי, לכן ניתנת ללכסון אורתונורמלי: $Q^TAQ=D$
+
+** חיוביות/אי-שליליות של ע״ע במטריצות סימטריות
+- אם $K$ סימטרית וחיובית מוגדרת, אז כל ערכיה העצמיים *חיוביים*.
+- אם $K$ סימטרית חצי-מוגדרת, אז כל ערכיה העצמיים *אי-שליליים*.
+
+** ע״ע כפתרון לבעיות אופטימיציה
+למטריצה חיובית חצי מוגדרת $A$ בגודל $n\times n$ בעלת ערכים עצמיים $\lambda_1 \ge \lambda_2 \ge \lambda_3 \ge \ldots \ge \lambda_n \ge 0$
+ווקטורים עצמיים תואמים $\underline{v}_1, \underline{v}_2, \underline{v}_3, \ldots, \underline{v}_n$, מתקבל כי:
+
+\begin{align*}
+  \max_{\underline{x},\ \|\underline{x}\|_2=1} \underline{x}^TA\underline{x} = \lambda_1
+&&
+\arg \max_{\underline{x},\|\underline{x}\|_2=1} \underline{x}^TA\underline{x}=\underline{v}_n \\ \\
+\min_{\underline{x},\ \|\underline{x}\|_2=1} \underline{x}^TA\underline{x} = \lambda_1
+&&
+\arg \min_{\underline{x},\|\underline{x}\|_2=1} \underline{x}^TA\underline{x}=\underline{v}_n
+\end{align*}
+
+*** מנת ריילי
+
+
+
+\[
+\underline{x}^{*} = \arg \max_{\underline{x} \ne 0} \left( \frac{\underline{x}^TA\underline{x}}{\underline{x}^T\underline{x}} \right)
+\]
+
+*** ערכים עצמיים מוכללים / עפרון
+\[
+\underline{x}^{*} = \arg \max_{\underline{x} \ne 0} \left( \frac{\underline{x}^TA\underline{x}}{x^TB\underline{x}} \right)
+\]
+
+\[
+A\underline{x}= \lambda B\underline{x}
+\impliedby
+A\underline{x} = \left( \frac{\underline{x}^TA\underline{x}}{\underline{x}^TB\underline{x}} \right) B \underline{x}
+\impliedby
+\nabla \left( \frac{\underline{x}^TA\underline{x}}{\underline{x}^TB\underline{x}} \right) = 0
+\]
+
+כאשר $B$ מטריצה חיובית מוגדרת.
+
+** פירוק SVD
+
+כל מטריצה ממשית $A_{m \times n}$ ניתנת לפירוק $SVD$ מהצורה:
+\[
+A = U\Sigma V^T = \sum_{k=1}^{r}\sigma_k \underline{u}_K \underline{v}_k^{T}
+\]
+
+כאשר:
+- $U$ מטריצה אורתונורמלית בגודל $m \times m$.
+- $\Sigma$ מטריצה אלכסונית בגודל $m \times n$ (גודל $A$), כאשר איברי אלכסונה אי-שליליים ובמגמת ירידה, ונקראים *ערכים סינגולריים*.
+
+** שלבי הבנייה של פירוק SVD
+שלבי הבנייה עבור מטריצה $A_{m \times n}$ מלבנית גבוהה ($m>n$) מדרגה מלאה:
+
+1. חשב את המטריצה $A^TA$.
+2. בצע למטריצה זו פירוק ספקטרלי וקבל את $\left\{ \lambda_k, \underline{v}_l \right\}_{k=1}^n$, $v_i$ וקטורים א״נ.
+3. אסוף את הווקטורים $\underline{v}_i$ כשורותיה של מטריצה - זוהי $V^T$.
+4. הוצא שורש לע״ע $\lambda_i$ ואלו יהיה $\sigma_i = \sqrt{\lambda_i}$, איברי האלכסון של $\Sigma$.
+5. חשב $\underline{u}_i = \frac{A\underline{v}_i}{\sigma_i}$ לכל $1 \le i \le n$, אלו יהיו עמודות $U$.
+6. בנה את הווקטורים $\underline{u}_k$ הנותרים ע״י תהליך GS ובנה מהם את החלק הנותר ב-$U$ (כדי להשלימה לריבועית).
+
+עבור מטריצה מדרגה לא מלאה, ניתקע בשלב 5, ולכן נגריל את הווקטורים $\underline{u}_{r+1}, \ldots, \underline{u}_n$ שעבורם $\sigma_i = 0$,
+ונבנה אותם באופן שרירותי כהמשך לבסיס הא״נ במטריצה $U$.
+
+עבור מטריצה מלבנית ״רחבה״ ($m < n$), נבצע את הפירוק $A^T = U\Sigma V^T$ ונבצע שחלוף על אגפי המשוואה.
+
+** פירוק SVD למטריצות סימטריות
+עבור מטריצות סימטריות PSD, פירוק ה-SVD שקול לפירוק הספקטרלי.
+
+עבור מטריצה סימטרית שאינה PSD עם ע״ע $\left\{  \lambda_i \right\}_{i=1}^n$, הערכים הסינגולריים יהיו $\left\{  \sigma_i\right\}_{i=1}^n = \left\{  \left| \lambda_i \right|  \right\}_{i=1}^n$,
+
+ועבור פירוק ספקטרלי $A = QDQ^T$ נקבל:
+\[
+A = U\Sigma V^T = Q \left( D P \right) \left( P Q^{T} \right)
+\]
+
+כאשר $P$ מטריצה אלכסונית שאחראית על היפוך הסימן בשורות שמתייחסות לע״ע שליליים ב-$D$.
+
+#+attr_html: :width 50%
+[[./img/specral-decomposition-non-psd.png]]
+
+** פתרון מערכות משוואות ע״י SVD
+נרצה לפתור את המערכת $A\underline{x}= \left( U \Sigma V^T \right)\underline{x} = \underline{b}$.
+
+- עבור $A$ ריבועית והפיכה,
+  \[
+  \underline{x} = \left( U \Sigma V^T \right)^{-1}\underline{b}
+  =
+  V \Sigma^{-1} U^T
+  \]
+
+- עבור $A_{m \times n}$ מלבנית גבוהה ($m>n$) מדרגה מלאה,
+  \[
+  \underline{x} = V \Sigma^{-1} U^T
+  \]
+
+  כאשר $\Sigma^{-1}$ זו הכללה להיפוך של המטריצה $\Sigma$, באופן הבא:
+
+#+attr_html: :width 50%
+  [[./img/generalized-sigma.png]]
+
+- עבור $A_{m \times n}$ מלבנית רחבה ($m < n$) מדרגה מלאה,
+  - מגדירים $\underline{z}=V^T\underline{x}$
+  - פותרים $\Sigma \underline{z}=U^T\underline{b}$
+  - הפתרון הוא $\underline{x}=V\underline{z}$
+
+  - נגלה עניין מיוחד בפתרון שתחתיתו אפסים
+  - הפתרון הקצר ביותר עבור $\underline{z}$ מוביל לפתרון הקצר ביותר עבור $\underline{x}$ ($V$ מטריצה א״נ).
+
+      ניתן גם לכתוב ע״י  $\underline{x}=V\ "\ \Sigma^{-1}\ "\ U^T$ ע״י הכללת היפוך של $\Sigma$:
+#+attr_html: :width 50%
+      [[./img/wide-matrix-svd-sys.png]]
+
+** פתרון ריבועים פחותים ע״י SVD
+עבור הבעיה $\min_{\underline{x}}\|A\underline{x}-\underline{b}\|_2^2$ עם מטריצה $A_{m \times n}$,
+
+- הפתרון האופטימלי עבור בעיית LS עם פתרון יחיד יהיה: $\underline{x}_{\text{opt}} = A^{\dagger}\underline{b} = V\Sigma^{\dagger}U^T\underline{b}$.
+
+- עבור בעיה עם אינסוף פתרונות ($\text{rank} \left( A \right) < n$), המשוואה הנורמלית תהיה:
+  \[
+    \Sigma^T\Sigma V^T\underline{x}
+    =
+    \fbox{$\Sigma^T\Sigma \underline{z}
+    =
+    \Sigma^T \hat{b}$}
+    =
+    \Sigma^TU^T\underline{b}
+  \]
+
+  נקבל וקטור פתרון $\underline{z}$ שעבורו כל רכיב $1 \le i \le r$ הוא $z_i = \frac{\hat{b}_i}{\sigma_i}$, כאשר $\sigma_r$ הע״ס המינימלי ששונה מאפס, ולכל $r < i \le n$ יש חופש בבחירת $z_{i}$.
+
+  אם משתמשים בהגדרת היפוך מוכלל של מטריצה אלכסונית, הפתרון $\underline{x}_{opt}=V\Sigma^{\dagger}U^T\underline{b}$ הופך לוואלידי, במשמעות של ״הפתרון הקצר ביותר״
+
+** פתרון מאוחד לשני סוגי הבעיות
+ $\underline{x}_{opt}=V\Sigma^{\dagger}U^T\underline{b}$ הוא פתרון שמתאים גם עבור הבעיה $A\underline{x}=\underline{b}$ וגם עבור $min_{\underline{x}}\|A\underline{x}-\underline{b}\|_2^2$.
+
+- במקרה של פתרון יחיד, זהו הפתרון המדויק.
+- במקרה של $\infty$ פתרונות, זהו הפתרון הקצר ביותר.
+
+** קירוב מטריצות עם אילוץ דרגה
+עבור מטריצה $A = U \Sigma V^T = \sum_{k=1}^{r}\sigma_k \underline{u}_k \underline{v}_k^T$ עם ע״ס $\sigma_1 \ge \sigma_2 \ge \ldots \ge \sigma_r > 0$,
+
+פתרון הבעיה  $\min_B \|A - B\|_F^2\ \  s.t.\ \  \text{rank} \left( B \right) = k_0$ הינו $B=\sum_{k=1}^{k_0}\sigma_k \underline{u}_k \underline{v}_k^T$.
+
+כאשר $\|A - B\|_F^2 = \sum_{k = k_0+1}^{r}\sigma_k^2$.
+
+
+* הגדרות בסיסיות ותכונות
+** מטריצה חיובית מוגדרת (PD)
+מטריצה $K$ כך שמתקיים:
+\[
+\forall \underline{x} \ne 0,\ \ \underline{x}^TK\underline{x} > 0
+\]
+מטריצה כזו היא בהכרח לא סינגורית (היא הפיכה).
+
+** מטריצה חיובית חצי מוגדרת (PSD)
+מטריצה $K$ כך שמתקיים:
+\[
+\forall x \ne 0,\ \ \underline{x}^TK\underline{x} \ge 0
+\]
+
+** מטריצת Gram
+מטריצה $K$ היא גראם אם קיימת $A$ כך ש-$K = A^TA$.
+
+מטריצת גראם היא בהכרח חיובית חצי-מוגדרת.
+
+- אם עמודות $A$ בת״ל אז $K$ היא גם חיובית מוגדרת.
+
+- אם $C$ חיובית מוגדרת  ועמודות $A$ בת״ל אז $A^TCA$ היא חיובית מוגדרת.
+
+** מטריצת Pseudo Inverse
+עבור מטריצה $A$ בעלת דרגה מלאה, מגדירים: $A^{\dagger} = \left( A^TA \right)^{-1}A^T
+
+ובהקשר של פירוק SVD: $A^{\dagger} = V \left( \Sigma^T\Sigma \right)^{-1} \Sigma^T U^T = V \Sigma^{\dagger}U^T$
+
+** היפוך מוכלל של מטריצה אלכסונית
+
+$\begin{bmatrix}
+\sigma_{1}  & 0 & 0 & 0 \\
+0           & \sigma_{2} & 0 & 0 \\
+0           & 0 & \sigma_{3} & 0 \\
+0           & 0 & 0 & 0 \\
+0           & 0 & 0 & 0 \\
+0           & 0 & 0 & 0
+ \end{bmatrix}^{\dagger} \triangleq \begin{bmatrix}
+\frac{1}{\sigma_{1}}  & 0 & 0 & 0 & 0 & 0 \\
+0           & \frac{1}{\sigma_{2}} & 0 & 0 & 0 & 0 \\
+0           & 0 & \frac{1}{\sigma_{3}} & 0 & 0 & 0 \\
+0           & 0 & 0 & 0 & 0 & 0
+ \end{bmatrix}$
+
+
+** מספר מצב של מטריצה ריבועית
+מספר מצב של מטריצה $A_{n \times n}$ מוגדר ע״י $\kappa \left\{ A \right\} = \frac{\sigma_1}{\sigma_n}$.
+מספר המצב מייצג את הנטייה של המטריצה להיות סינגולרית:
+- אם $\kappa \left\{ A \right\} = 1$, המטריצה אורתונורמלית עד כדי קבוע.
+- אם $\kappa \left\{ A \right\}$ נוטה ל-$\infty$, מדובר במטריצה סינגולרית.
+
+* גזירת ביטויים מטריציים וקטוריים
+- $\nabla \|A\underline{x}-\underline{b}\|_2^2 = 2A^T \left( A\underline{x}-\underline{b} \right)$
+
+
+* נורמות
+** נורמת פורביניוס
+\[
+\|E\|_F^2 = \sum_{k=1}^m \sum_{j=1}^{n}e_{kj}^2 = \text{trace} \left( E^TE \right)
+\]
+
+
+* אלגברה א׳
+** מטריצות
+*** משפט: הכפלה במטריצות הפיכות משמאל לא משנה את מרחב השורה
+(המערכות שקולות)
+
+
+* כמויות חישובים
+| תהליך              | כמות פעולות           |
+|-------------------+--------------------|
+| החלפה קדמית/אחורה   | $\frac{1}{2}n^{2}$ |
+| פירוק $LU$          | $\frac{n^{3}}{3}$  |
+| היפוך מטריצה         | $4 \frac{n^3}{3}$  |
+| פירוק צ׳ולסקי יעיל      |                    |
+| תהליך Gram-Schmidt | $nL^2$                   |
