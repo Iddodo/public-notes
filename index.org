@@ -3,5 +3,4 @@
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./numeric-sheet/style.css" />
 #+HTML_HEAD_EXTRA: <link rel="alternate stylesheet" type="text/css" href="./numeric-sheet/style.css" />
 
-*  סיכומים
 - [[./numeric-sheet/numerical-formula-sheet.html][סיכום משפטים נומריים]]
