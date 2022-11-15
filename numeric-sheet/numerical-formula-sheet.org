@@ -397,7 +397,7 @@ V \Lambda^k\underline{x}_0
 ** רדיוס ספקטרלי
 בהינתן מטריצה $T$ כלשהי, *הרדיוס הספקטרלי* שלה מוגדר להיות:
 \[
-\rho \left( T \right) = \max_{1 \le k \le n} \left| \lambda_k \right| = \lambda_1
+\rho \left( T \right) = \max_{1 \le k \le n} \left| \lambda_k \right| =  \left|  \lambda_1 \right|
 \]
 
 _תיאור גרפי:_ הרדיוס של הדיסקה שמרכזה בראשית הצירים שמכסה את כל הע״ע של $T$.
