@@ -1,7 +1,7 @@
 #+title: פה יש סיכומים
 #+LANGUAGE: he
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="./numeric-sheet/style.css" />
-#+HTML_HEAD_EXTRA: <link rel="alternate stylesheet" type="text/css" href="./numeric-sheet/style.css" />
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="org-html/style.css" />
+#+HTML_HEAD_EXTRA: <link rel="alternate stylesheet" type="text/css" href="org-html/style.css" />
 
 [[./funny.jpg]]
 
@@ -10,4 +10,4 @@
 - [[./main.pdf][הסיכום העדכני באינפי 2מ׳]]
 - [[./abv-main.pdf][הסיכום העדכני באינפי 2מ׳ - גרסה מקוצרת]]
 
-- [[digital-systems/layout.html][סיכום במערכות ספרתיות]]
+- [[./digital-systems/layout.html][סיכום במערכות ספרתיות]]
