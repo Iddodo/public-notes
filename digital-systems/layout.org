@@ -1,0 +1,47 @@
+#+title: Digital Systems Course Layout
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../org-html/style.css" />
+#+HTML_HEAD_EXTRA: <link rel="alternate stylesheet" type="text/css" href="../org-html/style.css" />
+#+LATEX_COMPILER: xelatex
+#+LATEX_HEADER: \input{~/.config/latex/hebrew-latex.tex}
+#+STARTUP: latexpreview
+
+* אלגברת מיתוג
+** זהויות מיתוג בסיסיות
+** חוקי דה-מורגן
+
+* פונקציות מיתוג
+** צורות קנוניות
+** פונקציית XOR
+** מערכת פעולות שלמה
+
+* מינימיזציה של פונקציות מיתוג
+** מפת קרנו
+
+* פונקציות מינימליות ותכונותיהן
+** הגדרות וטענות בסיביות
+** תהליך קבלת ביטוי מינימלי לפונקציה
+** צירופי ברירה
+
+* מודל ספרתי ושערים לוגיים
+** הגדרות
+** ההפשטה הספרתית
+** הגדרות זמני השהייה
+** הבהובים סטטיים ודינמיים
+
+* מסכמים, בוררים, מפענחים
+** מסכם בינארי מלא
+** בורר
+** מפענח
+
+
+* מבנים רגולריים
+** בניית שערים לוגיים באמצעות מתגים
+** Three (Tri)-State Bus
+** Wired-AND (pull-down) Bus
+** Wired-OR (pull-up) Bus
+** Programmable Logic Array (PLA)
+** Read Only Memory (ROM)
+** RAM (dual port: read, write)
+** גילוי תקלות בזיכרונות
+
+* יחידות זכרון

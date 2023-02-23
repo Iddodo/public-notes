@@ -6,6 +6,8 @@
 [[./funny.jpg]]
 
 
-- [[./numeric-sheet/numerical-formula-sheet.html][סיכום משפטים נומריים]]
+- [[./numeric-sheet/numerical-formula-sheet.html][סיכום משפטים נומריים]] (מכיל את כל החומר עד שיטות איטרטיביות)
 - [[./main.pdf][הסיכום העדכני באינפי 2מ׳]]
 - [[./abv-main.pdf][הסיכום העדכני באינפי 2מ׳ - גרסה מקוצרת]]
+
+- [[digital-systems/layout.html][סיכום במערכות ספרתיות]]

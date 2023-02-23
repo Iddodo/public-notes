@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-02-23 Thu 15:56 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Digital Systems Course Layout</title>
+<meta name="author" content="Ido Merenstein" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="../org-html/style.css" />
+<link rel="alternate stylesheet" type="text/css" href="../org-html/style.css" />
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Digital Systems Course Layout</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org68080c7">1. אלגברת מיתוג</a>
+<ul>
+<li><a href="#org1d52933">1.1. זהויות מיתוג בסיסיות</a></li>
+<li><a href="#org90d6b34">1.2. חוקי דה-מורגן</a></li>
+</ul>
+</li>
+<li><a href="#org3b69acd">2. פונקציות מיתוג</a>
+<ul>
+<li><a href="#org6cac751">2.1. צורות קנוניות</a></li>
+<li><a href="#orga580e43">2.2. פונקציית XOR</a></li>
+<li><a href="#org9ad9424">2.3. מערכת פעולות שלמה</a></li>
+</ul>
+</li>
+<li><a href="#orgb489282">3. מינימיזציה של פונקציות מיתוג</a>
+<ul>
+<li><a href="#orga31388b">3.1. מפת קרנו</a></li>
+</ul>
+</li>
+<li><a href="#org2447806">4. פונקציות מינימליות ותכונותיהן</a>
+<ul>
+<li><a href="#org159d847">4.1. הגדרות וטענות בסיביות</a></li>
+<li><a href="#org5fc5890">4.2. תהליך קבלת ביטוי מינימלי לפונקציה</a></li>
+<li><a href="#orgac35c09">4.3. צירופי ברירה</a></li>
+</ul>
+</li>
+<li><a href="#org19e2564">5. מודל ספרתי ושערים לוגיים</a>
+<ul>
+<li><a href="#org6100ba8">5.1. הגדרות</a></li>
+<li><a href="#orgc5c1cbd">5.2. ההפשטה הספרתית</a></li>
+<li><a href="#org685de9d">5.3. הגדרות זמני השהייה</a></li>
+<li><a href="#org2f432fd">5.4. הבהובים סטטיים ודינמיים</a></li>
+</ul>
+</li>
+<li><a href="#org46c4b00">6. מסכמים, בוררים, מפענחים</a>
+<ul>
+<li><a href="#org24eeb89">6.1. מסכם בינארי מלא</a></li>
+<li><a href="#org4f5ef2f">6.2. בורר</a></li>
+<li><a href="#org3648ea3">6.3. מפענח</a></li>
+</ul>
+</li>
+<li><a href="#org0aa86a7">7. מבנים רגולריים</a>
+<ul>
+<li><a href="#org4d9f1a2">7.1. בניית שערים לוגיים באמצעות מתגים</a></li>
+<li><a href="#orgaeb1cb4">7.2. Three (Tri)-State Bus</a></li>
+<li><a href="#org79ab5cd">7.3. Wired-AND (pull-down) Bus</a></li>
+<li><a href="#org31c64d2">7.4. Wired-OR (pull-up) Bus</a></li>
+<li><a href="#org13587c1">7.5. Programmable Logic Array (PLA)</a></li>
+<li><a href="#org7684255">7.6. Read Only Memory (ROM)</a></li>
+<li><a href="#org093a279">7.7. RAM (dual port: read, write)</a></li>
+<li><a href="#orga24635d">7.8. גילוי תקלות בזיכרונות</a></li>
+</ul>
+</li>
+<li><a href="#org88bc2a1">8. יחידות זכרון</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org68080c7" class="outline-2">
+<h2 id="org68080c7"><span class="section-number-2">1.</span> אלגברת מיתוג</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org1d52933" class="outline-3">
+<h3 id="org1d52933"><span class="section-number-3">1.1.</span> זהויות מיתוג בסיסיות</h3>
+</div>
+<div id="outline-container-org90d6b34" class="outline-3">
+<h3 id="org90d6b34"><span class="section-number-3">1.2.</span> חוקי דה-מורגן</h3>
+</div>
+</div>
+
+<div id="outline-container-org3b69acd" class="outline-2">
+<h2 id="org3b69acd"><span class="section-number-2">2.</span> פונקציות מיתוג</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org6cac751" class="outline-3">
+<h3 id="org6cac751"><span class="section-number-3">2.1.</span> צורות קנוניות</h3>
+</div>
+<div id="outline-container-orga580e43" class="outline-3">
+<h3 id="orga580e43"><span class="section-number-3">2.2.</span> פונקציית XOR</h3>
+</div>
+<div id="outline-container-org9ad9424" class="outline-3">
+<h3 id="org9ad9424"><span class="section-number-3">2.3.</span> מערכת פעולות שלמה</h3>
+</div>
+</div>
+
+<div id="outline-container-orgb489282" class="outline-2">
+<h2 id="orgb489282"><span class="section-number-2">3.</span> מינימיזציה של פונקציות מיתוג</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orga31388b" class="outline-3">
+<h3 id="orga31388b"><span class="section-number-3">3.1.</span> מפת קרנו</h3>
+</div>
+</div>
+
+<div id="outline-container-org2447806" class="outline-2">
+<h2 id="org2447806"><span class="section-number-2">4.</span> פונקציות מינימליות ותכונותיהן</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org159d847" class="outline-3">
+<h3 id="org159d847"><span class="section-number-3">4.1.</span> הגדרות וטענות בסיביות</h3>
+</div>
+<div id="outline-container-org5fc5890" class="outline-3">
+<h3 id="org5fc5890"><span class="section-number-3">4.2.</span> תהליך קבלת ביטוי מינימלי לפונקציה</h3>
+</div>
+<div id="outline-container-orgac35c09" class="outline-3">
+<h3 id="orgac35c09"><span class="section-number-3">4.3.</span> צירופי ברירה</h3>
+</div>
+</div>
+
+<div id="outline-container-org19e2564" class="outline-2">
+<h2 id="org19e2564"><span class="section-number-2">5.</span> מודל ספרתי ושערים לוגיים</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org6100ba8" class="outline-3">
+<h3 id="org6100ba8"><span class="section-number-3">5.1.</span> הגדרות</h3>
+</div>
+<div id="outline-container-orgc5c1cbd" class="outline-3">
+<h3 id="orgc5c1cbd"><span class="section-number-3">5.2.</span> ההפשטה הספרתית</h3>
+</div>
+<div id="outline-container-org685de9d" class="outline-3">
+<h3 id="org685de9d"><span class="section-number-3">5.3.</span> הגדרות זמני השהייה</h3>
+</div>
+<div id="outline-container-org2f432fd" class="outline-3">
+<h3 id="org2f432fd"><span class="section-number-3">5.4.</span> הבהובים סטטיים ודינמיים</h3>
+</div>
+</div>
+
+<div id="outline-container-org46c4b00" class="outline-2">
+<h2 id="org46c4b00"><span class="section-number-2">6.</span> מסכמים, בוררים, מפענחים</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-org24eeb89" class="outline-3">
+<h3 id="org24eeb89"><span class="section-number-3">6.1.</span> מסכם בינארי מלא</h3>
+</div>
+<div id="outline-container-org4f5ef2f" class="outline-3">
+<h3 id="org4f5ef2f"><span class="section-number-3">6.2.</span> בורר</h3>
+</div>
+<div id="outline-container-org3648ea3" class="outline-3">
+<h3 id="org3648ea3"><span class="section-number-3">6.3.</span> מפענח</h3>
+</div>
+</div>
+
+
+<div id="outline-container-org0aa86a7" class="outline-2">
+<h2 id="org0aa86a7"><span class="section-number-2">7.</span> מבנים רגולריים</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-org4d9f1a2" class="outline-3">
+<h3 id="org4d9f1a2"><span class="section-number-3">7.1.</span> בניית שערים לוגיים באמצעות מתגים</h3>
+</div>
+<div id="outline-container-orgaeb1cb4" class="outline-3">
+<h3 id="orgaeb1cb4"><span class="section-number-3">7.2.</span> Three (Tri)-State Bus</h3>
+</div>
+<div id="outline-container-org79ab5cd" class="outline-3">
+<h3 id="org79ab5cd"><span class="section-number-3">7.3.</span> Wired-AND (pull-down) Bus</h3>
+</div>
+<div id="outline-container-org31c64d2" class="outline-3">
+<h3 id="org31c64d2"><span class="section-number-3">7.4.</span> Wired-OR (pull-up) Bus</h3>
+</div>
+<div id="outline-container-org13587c1" class="outline-3">
+<h3 id="org13587c1"><span class="section-number-3">7.5.</span> Programmable Logic Array (PLA)</h3>
+</div>
+<div id="outline-container-org7684255" class="outline-3">
+<h3 id="org7684255"><span class="section-number-3">7.6.</span> Read Only Memory (ROM)</h3>
+</div>
+<div id="outline-container-org093a279" class="outline-3">
+<h3 id="org093a279"><span class="section-number-3">7.7.</span> RAM (dual port: read, write)</h3>
+</div>
+<div id="outline-container-orga24635d" class="outline-3">
+<h3 id="orga24635d"><span class="section-number-3">7.8.</span> גילוי תקלות בזיכרונות</h3>
+</div>
+</div>
+
+<div id="outline-container-org88bc2a1" class="outline-2">
+<h2 id="org88bc2a1"><span class="section-number-2">8.</span> יחידות זכרון</h2>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Ido Merenstein</p>
+<p class="date">Created: 2023-02-23 Thu 15:56</p>
+</div>
+</body>
+</html>
