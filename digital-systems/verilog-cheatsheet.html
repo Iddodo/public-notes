@@ -1,0 +1,1198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-06-09 Fri 23:44 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SystemVerilog Cheatsheet</title>
+<meta name="author" content="Ido Merenstein" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">SystemVerilog Cheatsheet</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org65e1281">1. Modules</a>
+<ul>
+<li><a href="#org9e31d60">1.1. Defining a module</a></li>
+<li><a href="#orgd59479b">1.2. Parameters</a>
+<ul>
+<li><a href="#orgfdb46f3">1.2.1. Definition inside a module declaration</a></li>
+<li><a href="#orgb098427">1.2.2. Usage when instantiating a module</a></li>
+<li><a href="#org6ba8abf">1.2.3. Local Parameters</a></li>
+</ul>
+</li>
+<li><a href="#org0a64b5e">1.3. Creating module instances (instantiation)</a>
+<ul>
+<li><a href="#org3e128e5">1.3.1. Positional association</a></li>
+<li><a href="#org444bd78">1.3.2. Named association</a></li>
+</ul>
+</li>
+<li><a href="#org606d1e1">1.4. Modules Inside Modules</a>
+<ul>
+<li><a href="#orgcd589f1">1.4.1. Using modules inside other modules</a></li>
+<li><a href="#org36883c7">1.4.2. Generating many module instances at once (generate)</a></li>
+</ul>
+</li>
+<li><a href="#org39aeb51">1.5. Concurrent assignment (השמה של ערכים מקבילים/ברי שינוי) to wires inside modules</a>
+<ul>
+<li><a href="#orgf7b0dd8">1.5.1. Syntax</a></li>
+</ul>
+</li>
+<li><a href="#orga85e913">1.6. Procedular Blocks (הרצה סדרתית של הצהרות בתוך מודול)</a>
+<ul>
+<li><a href="#org85c2bba">1.6.1. Definition and types</a></li>
+<li><a href="#org0ce3cab">1.6.2. always<sub>comb</sub></a></li>
+<li><a href="#orgff36550">1.6.3. Complete assignments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orge65278d">2. Data Types and Values</a>
+<ul>
+<li><a href="#orga076bbb">2.1. SystemVerilog Logic Values</a></li>
+<li><a href="#orgd5b0397">2.2. 1-bit wires (logic)</a></li>
+<li><a href="#org11c88e8">2.3. Vectors</a>
+<ul>
+<li><a href="#org0548929">2.3.1. Vector Operations</a></li>
+<li><a href="#org350812e">2.3.2. Repeated Signals</a></li>
+<li><a href="#org9d8c990">2.3.3. A Working Example (Implementing Unsigned Extension)</a></li>
+</ul>
+</li>
+<li><a href="#orgdca79cc">2.4. Integer Literals</a>
+<ul>
+<li><a href="#org0365ec1">2.4.1. Available number bases (&lt;radix&gt; values)</a></li>
+<li><a href="#org63bd5ba">2.4.2. Default settings</a></li>
+<li><a href="#orgfdd5eb8">2.4.3. Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org0e6c0af">3. Synchronous logic and assignments (always<sub>ff</sub>)</a>
+<ul>
+<li><a href="#org4412b51">3.1. Sampling on clock positive edge (עליית שעון)</a></li>
+</ul>
+</li>
+<li><a href="#org108709c">4. Operations and Conditions</a>
+<ul>
+<li><a href="#orgc237373">4.1. Logic Gates (built-in)</a>
+<ul>
+<li><a href="#orgdd4063d">4.1.1. Example implementation of a half hadder</a></li>
+</ul>
+</li>
+<li><a href="#org9a59917">4.2. Operators (built-in)</a>
+<ul>
+<li><a href="#org3a420c2">4.2.1. Bitwise Operators</a></li>
+<li><a href="#org31c63a7">4.2.2. Shift</a></li>
+<li><a href="#org2ed8879">4.2.3. Operator Precedence</a></li>
+</ul>
+</li>
+<li><a href="#org5bc866e">4.3. Logical Operators</a>
+<ul>
+<li><a href="#orga3dcc92">4.3.1. Relational Operators</a></li>
+<li><a href="#org3336b18">4.3.2. Logical Operators</a></li>
+<li><a href="#org9c46379">4.3.3. Operator Precedence</a></li>
+</ul>
+</li>
+<li><a href="#org9daaf57">4.4. Conditional Statements</a>
+<ul>
+<li><a href="#orgf154cf6">4.4.1. if</a></li>
+<li><a href="#org805ceb8">4.4.2. case</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgf85e271">5. Testbench</a>
+<ul>
+<li><a href="#org58876e9">5.1. Unit Under Test (UUT)</a></li>
+<li><a href="#orgae90f49">5.2. Generating input values</a></li>
+<li><a href="#org88cde1c">5.3. A working example</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org65e1281" class="outline-2">
+<h2 id="org65e1281"><span class="section-number-2">1.</span> Modules</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org9e31d60" class="outline-3">
+<h3 id="org9e31d60"><span class="section-number-3">1.1.</span> Defining a module</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>Everything you write in SystemVerilog must be inside a module.</li>
+<li><p>
+A module is a fundemental building block that receives inputs and generates outputs.
+</p>
+
+<div id="org05d4ddc" class="figure">
+<p><img src="System_Verilog_Building_Blocks/2023-03-23_19-21-38_screenshot.png" alt="2023-03-23_19-21-38_screenshot.png" />
+</p>
+</div>
+
+<p>
+Here&rsquo;s an example module:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">[a,b] -&gt; [my_module] -&gt; [result = (a AND b)]</span>
+<span style="color: #0000FF;">module</span> <span style="color: #006699;">my_module</span>(
+                <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Input and Output Declaration</span>
+                <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span>  <span style="color: #BA36A5;">a</span>,
+                <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span>  <span style="color: #BA36A5;">b</span>,
+                <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">result</span>);
+   <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Declarations of "f"</span>
+    <span style="color: #0000FF;">assign</span> result = a &amp; b;
+<span style="color: #0000FF;">endmodule</span>
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd59479b" class="outline-3">
+<h3 id="orgd59479b"><span class="section-number-3">1.2.</span> Parameters</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>Allows to pass parameters to a module per-instantiation.</li>
+<li><i>Note: different from logic inputs and outputs.</i></li>
+</ul>
+</div>
+
+<div id="outline-container-orgfdb46f3" class="outline-4">
+<h4 id="orgfdb46f3"><span class="section-number-4">1.2.1.</span> Definition inside a module declaration</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">some_module</span> (
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">in1</span>
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">out1</span>
+);
+   <span style="color: #6434A3;">parameter</span> <span style="color: #BA36A5;">param1</span> = <span style="color: #D0372D;">1</span>; <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">1 is a default value</span>
+   <span style="color: #6434A3;">parameter</span> <span style="color: #BA36A5;">param1</span> = <span style="color: #D0372D;">2</span>;
+   <span style="color: #6434A3;">parameter</span> <span style="color: #BA36A5;">param1</span> = <span style="color: #D0372D;">3</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb098427" class="outline-4">
+<h4 id="orgb098427"><span class="section-number-4">1.2.2.</span> Usage when instantiating a module</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+A module that shifts a number left N times.
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">shift_N</span> (
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">3</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">out</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">3</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">a</span>
+);
+   <span style="color: #6434A3;">parameter</span> <span style="color: #BA36A5;">N</span> = <span style="color: #D0372D;">1</span>;
+   <span style="color: #0000FF;">always_comb</span> <span style="color: #6434A3;">begin</span>
+      out = a &lt;&lt; N;
+   <span style="color: #6434A3;">end</span>
+end_module
+</pre>
+</div>
+
+<p>
+Here are some usage examples:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">multiple_shifts</span> (
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">3</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">a</span>,
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">3</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">b</span>,
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">3</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">c</span>
+);
+   <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Output a 2 shift result to b</span>
+   shift_N #(.<span style="color: #006699;">N</span>(<span style="color: #D0372D;">2</span>)) <span style="color: #006699;">shift_2</span>(.<span style="color: #006699;">a</span>(a), .<span style="color: #006699;">out</span>(b));
+
+   <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Output a 3 shift result to c</span>
+   shift_N #(.<span style="color: #006699;">N</span>(<span style="color: #D0372D;">3</span>)) <span style="color: #006699;">shift_3</span>(.<span style="color: #006699;">a</span>(a), .<span style="color: #006699;">out</span>(c));
+end_module
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6ba8abf" class="outline-4">
+<h4 id="org6ba8abf"><span class="section-number-4">1.2.3.</span> Local Parameters</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<p>
+Store constant values inside a module.
+These cannot be changed or passed to an instance module.
+</p>
+
+<p>
+Here&rsquo;s an example:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">my_module</span>(...);
+   <span style="color: #6434A3;">localparam</span> <span style="color: #BA36A5;">N</span> = <span style="color: #D0372D;">2</span>'b11;
+   <span style="color: #6434A3;">localparam</span> <span style="color: #BA36A5;">NUM_OF_CYCLES</span> = <span style="color: #D0372D;">10</span>;
+<span style="color: #0000FF;">endmodule</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org0a64b5e" class="outline-3">
+<h3 id="org0a64b5e"><span class="section-number-3">1.3.</span> Creating module instances (instantiation)</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-org3e128e5" class="outline-4">
+<h4 id="org3e128e5"><span class="section-number-4">1.3.1.</span> Positional association</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+Define an instance of a model according to its argument positions, as such:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog">module_name <span style="color: #006699;">instance_name</span> (
+    my_input1,
+    ...,
+    my_inputN,
+    my_out1,
+    ...,
+    my_outM
+);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org444bd78" class="outline-4">
+<h4 id="org444bd78"><span class="section-number-4">1.3.2.</span> Named association</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+Modules can also be instantiated using its arguments&rsquo; names explicitly:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog">module_name <span style="color: #006699;">instance_name2</span> (
+    .<span style="color: #006699;">in1</span>(my_input1)),
+    ...,
+    .<span style="color: #006699;">inN</span>(my_inputN),
+    .<span style="color: #006699;">out1</span>(my_output1),
+    ...,
+    .<span style="color: #006699;">outM</span>(my_outputM)
+)
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org606d1e1" class="outline-3">
+<h3 id="org606d1e1"><span class="section-number-3">1.4.</span> Modules Inside Modules</h3>
+<div class="outline-text-3" id="text-1-4">
+</div>
+<div id="outline-container-orgcd589f1" class="outline-4">
+<h4 id="orgcd589f1"><span class="section-number-4">1.4.1.</span> Using modules inside other modules</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Mux that takes 2-bit inputs and outputs a 2-bit result</span>
+<span style="color: #0000FF;">module</span> <span style="color: #006699;">mux2to1_2bit</span> (
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">1</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">O</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">1</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">A</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">1</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">B</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">S</span>
+);
+   <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Use instances of existing 1-bit input muxes</span>
+   mux2to1_1bit <span style="color: #006699;">mux1</span>(.<span style="color: #006699;">O</span>(O[<span style="color: #D0372D;">1</span>]), .<span style="color: #006699;">S</span>(S), .<span style="color: #006699;">A</span>(A[<span style="color: #D0372D;">1</span>]), .<span style="color: #006699;">B</span>(B[<span style="color: #D0372D;">1</span>]));
+   mux2to0_0bit <span style="color: #006699;">mux0</span>(.<span style="color: #006699;">O</span>(O[<span style="color: #D0372D;">0</span>]), .<span style="color: #006699;">S</span>(S), .<span style="color: #006699;">A</span>(A[<span style="color: #D0372D;">0</span>]), .<span style="color: #006699;">B</span>(B[<span style="color: #D0372D;">0</span>]));
+<span style="color: #0000FF;">endmodule</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org36883c7" class="outline-4">
+<h4 id="org36883c7"><span class="section-number-4">1.4.2.</span> Generating many module instances at once (generate)</h4>
+<div class="outline-text-4" id="text-1-4-2">
+<p>
+You can use the <code>generate</code> command to create many module instances at once:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">mux2to1_32bit</span> (
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">31</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">O</span>, <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">32-bit output</span>
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">31</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">A</span>, <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">32-bit input A</span>
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">31</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">B</span>, <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">32-bit input B</span>
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">S</span>
+);
+   <span style="color: #6434A3;">genvar</span> <span style="color: #BA36A5;">i</span>;
+   <span style="color: #0000FF;">generate</span>
+      <span style="color: #0000FF;">for</span> (i = <span style="color: #D0372D;">0</span>; i &lt; <span style="color: #D0372D;">32</span>; i++)
+      <span style="color: #6434A3;">begin</span>
+         mux2to1 <span style="color: #006699;">mux_inst</span>(.<span style="color: #006699;">O</span>(O[i]), .<span style="color: #006699;">S</span>(S), .<span style="color: #006699;">A</span>(A[i]), .<span style="color: #006699;">B</span>(B[i]));
+      <span style="color: #6434A3;">end</span>
+   <span style="color: #0000FF;">endgenerate</span>
+<span style="color: #0000FF;">endmodule</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org39aeb51" class="outline-3">
+<h3 id="org39aeb51"><span class="section-number-3">1.5.</span> Concurrent assignment (השמה של ערכים מקבילים/ברי שינוי) to wires inside modules</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Connect a wire to some combinatorical logic or another wire.
+</p>
+</div>
+<div id="outline-container-orgf7b0dd8" class="outline-4">
+<h4 id="orgf7b0dd8"><span class="section-number-4">1.5.1.</span> Syntax</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">A simple assignment from one wire to another</span>
+<span style="color: #0000FF;">module</span> <span style="color: #006699;">pass_same_value</span>(
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">Z</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">A</span>
+);
+   <span style="color: #0000FF;">assign</span> Z = A;
+
+<span style="color: #0000FF;">endmodule</span>
+
+<span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Assigning some concurring calculation to wire</span>
+<span style="color: #0000FF;">module</span> <span style="color: #006699;">and_module</span> (
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">Z</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">A</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">B</span>
+    );
+
+   <span style="color: #0000FF;">assign</span> Z = A &amp; B;
+<span style="color: #0000FF;">endmodule</span>
+</pre>
+</div>
+
+<p>
+An explicit value can also be used.
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">signal</span>;
+<span style="color: #0000FF;">assign</span> signal = <span style="color: #D0372D;">1</span>'b0;
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga85e913" class="outline-3">
+<h3 id="orga85e913"><span class="section-number-3">1.6.</span> Procedular Blocks (הרצה סדרתית של הצהרות בתוך מודול)</h3>
+<div class="outline-text-3" id="text-1-6">
+</div>
+<div id="outline-container-org85c2bba" class="outline-4">
+<h4 id="org85c2bba"><span class="section-number-4">1.6.1.</span> Definition and types</h4>
+<div class="outline-text-4" id="text-1-6-1">
+<p>
+All statements inside a procedural block are executed sequentially.
+</p>
+
+<p>
+There are two procedural constructs in Verilog:
+</p>
+<ul class="org-ul">
+<li><code>initial</code></li>
+<li><p>
+<code>always_comb</code>
+</p>
+
+<p>
+We will only use <code>initial</code> in simulations (testbenches).
+For regular modules, we use <code>always_comb</code>.
+</p></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org0ce3cab" class="outline-4">
+<h4 id="org0ce3cab"><span class="section-number-4">1.6.2.</span> always<sub>comb</sub></h4>
+<div class="outline-text-4" id="text-1-6-2">
+<p>
+Executes statements in a loop.
+Used for combinatorical logic implementation.
+</p>
+
+<p>
+Here&rsquo;s a working example:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">and_module</span>(
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">Z</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">A</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">B</span>
+);
+   <span style="color: #0000FF;">always_comb</span> <span style="color: #6434A3;">begin</span>
+      Z = A &amp; B;
+    <span style="color: #6434A3;">end</span>
+<span style="color: #0000FF;">endmodule</span>
+</pre>
+</div>
+
+<p>
+You can use <a href="#org9daaf57">conditional statements</a> inside of a procedural block.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgff36550" class="outline-4">
+<h4 id="orgff36550"><span class="section-number-4">1.6.3.</span> Complete assignments</h4>
+<div class="outline-text-4" id="text-1-6-3">
+<p>
+<b>Note:</b> <code>always_comb</code> should NOT be used for memory elements!
+</p>
+<ul class="org-ul">
+<li>If a signal is not assigned in a certain flow, a memory element is implicitly created to preserve the previous value.</li>
+<li>Usually, this is a bug.</li>
+<li>Always use complete assignments.</li>
+</ul>
+</div>
+
+<ol class="org-ol">
+<li><a id="org57aeaf2"></a>&ldquo;if&rdquo; statements<br />
+<div class="outline-text-5" id="text-1-6-3-1">
+<p>
+Use &ldquo;else&rdquo;
+</p>
+</div>
+</li>
+<li><a id="orgc6b8797"></a>&ldquo;case&rdquo; statements<br />
+<div class="outline-text-5" id="text-1-6-3-2">
+<p>
+Use &ldquo;default&rdquo;
+</p>
+</div>
+</li>
+<li><a id="org460c30e"></a>General solution<br />
+<div class="outline-text-5" id="text-1-6-3-3">
+<p>
+Use default assignments
+</p>
+
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">always_comb</span> <span style="color: #6434A3;">begin</span>
+   Q = <span style="color: #D0372D;">1</span>'b0;
+   <span style="color: #0000FF;">if</span> (sel == <span style="color: #D0372D;">1</span>'b1) <span style="color: #6434A3;">begin</span>
+      Q = A;
+   <span style="color: #6434A3;">end</span>
+<span style="color: #6434A3;">end</span>
+</pre>
+</div>
+
+
+
+<div id="org6ac9cde" class="figure">
+<p><img src="Modules/2023-06-09_22-56-05_screenshot.png" alt="2023-06-09_22-56-05_screenshot.png" />
+</p>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge65278d" class="outline-2">
+<h2 id="orge65278d"><span class="section-number-2">2.</span> Data Types and Values</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orga076bbb" class="outline-3">
+<h3 id="orga076bbb"><span class="section-number-3">2.1.</span> SystemVerilog Logic Values</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+In SystemVerilog, a bit can take the following logical values:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Logic Value</th>
+<th scope="col" class="org-left">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">0</td>
+<td class="org-left">zero / logic low / false / ground</td>
+</tr>
+
+<tr>
+<td class="org-left">1</td>
+<td class="org-left">one / logic high / true / power</td>
+</tr>
+
+<tr>
+<td class="org-left">x</td>
+<td class="org-left">not initialized or collision</td>
+</tr>
+
+<tr>
+<td class="org-left">z</td>
+<td class="org-left">unconnected</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-orgd5b0397" class="outline-3">
+<h3 id="orgd5b0397"><span class="section-number-3">2.2.</span> 1-bit wires (logic)</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+The <code>logic</code> data type represents a wire (1 bit):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">a</span>,<span style="color: #BA36A5;">b</span>,<span style="color: #BA36A5;">c</span>,<span style="color: #BA36A5;">d</span>,<span style="color: #BA36A5;">e</span>;
+</pre>
+</div>
+
+
+<div id="orgd90e5f3" class="figure">
+<p><img src="Data_Types/2023-03-23_19-42-28_screenshot.png" alt="2023-03-23_19-42-28_screenshot.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org11c88e8" class="outline-3">
+<h3 id="org11c88e8"><span class="section-number-3">2.3.</span> Vectors</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+Declaration of an 8-bit logic vector:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">7</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">w1</span>; <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">w1[7] is the MSB</span>
+</pre>
+</div>
+
+<p>
+Here&rsquo;s how you&rsquo;d describe the &ldquo;selector&rdquo; wires in a mux module declaration:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">mux4tol</span>(
+               <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">O</span>,
+               <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">D0</span>,
+               <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">D1</span>,
+               <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">D2</span>,
+               <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">D3</span>,
+               <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">E</span>,
+               <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">1</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">S</span>
+);
+   <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">declarations</span>
+   <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">description of a mux</span>
+<span style="color: #0000FF;">endmodule</span>
+</pre>
+</div>
+
+
+<div id="orgb26d4ba" class="figure">
+<p><img src="Data_Types_and_Values/2023-03-23_22-54-02_screenshot.png" alt="2023-03-23_22-54-02_screenshot.png" />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0548929" class="outline-4">
+<h4 id="org0548929"><span class="section-number-4">2.3.1.</span> Vector Operations</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<ul class="org-ul">
+<li><p>
+Bit select:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog">    w1[<span style="color: #D0372D;">3</span>]
+</pre>
+</div></li>
+
+<li><p>
+Range select:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog">    w1[<span style="color: #D0372D;">3</span>:<span style="color: #D0372D;">2</span>]
+</pre>
+</div></li>
+
+<li><p>
+Pack:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog">    vec = {x, y, z};
+</pre>
+</div></li>
+
+<li><p>
+Unpack:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog">    {carry, sum} = vec[<span style="color: #D0372D;">1</span>:<span style="color: #D0372D;">0</span>];
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org350812e" class="outline-4">
+<h4 id="org350812e"><span class="section-number-4">2.3.2.</span> Repeated Signals</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+A signal can be repeated \(n\) times in this manner:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog">vec = {<span style="color: #D0372D;">16</span>{x}} <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">16 copies of x</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9d8c990" class="outline-4">
+<h4 id="org9d8c990"><span class="section-number-4">2.3.3.</span> A Working Example (Implementing Unsigned Extension)</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">7</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">out</span>;
+<span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">3</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">A</span>;
+out = {{<span style="color: #D0372D;">4</span>{<span style="color: #D0372D;">1</span>'b0}}, A[<span style="color: #D0372D;">3</span>:<span style="color: #D0372D;">0</span>]};
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdca79cc" class="outline-3">
+<h3 id="orgdca79cc"><span class="section-number-3">2.4.</span> Integer Literals</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+<span class="underline">Format</span>: <b>&lt;width&rsquo;&gt;&lt;signed&gt;&lt;radix&gt; value</b>
+</p>
+
+<p>
+You can use this format to generate:
+</p>
+<ul class="org-ul">
+<li>Multiple bit integers (<code>&lt;signed&gt;</code>)</li>
+<li>Two&rsquo;s complement negative numbers (<code>&lt;signed&gt;</code>)</li>
+<li>Write a number in base 2,8,10 or 16 (<code>&lt;radix&gt;</code>)</li>
+</ul>
+</div>
+
+<div id="outline-container-org0365ec1" class="outline-4">
+<h4 id="org0365ec1"><span class="section-number-4">2.4.1.</span> Available number bases (&lt;radix&gt; values)</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<ul class="org-ul">
+<li>Binary (<code>b</code> or <code>B</code>)</li>
+<li>Octal (<code>o</code> or <code>O</code>)</li>
+<li>Decimal (<code>d</code> or <code>D</code>)</li>
+<li>Hexadecimal (<code>g</code> or <code>G</code>)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org63bd5ba" class="outline-4">
+<h4 id="org63bd5ba"><span class="section-number-4">2.4.2.</span> Default settings</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<ul class="org-ul">
+<li>Width = 32
+Unsigned
+Radix = Decimal</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfdd5eb8" class="outline-4">
+<h4 id="orgfdd5eb8"><span class="section-number-4">2.4.3.</span> Examples</h4>
+<div class="outline-text-4" id="text-2-4-3">
+<ul class="org-ul">
+<li><code>1'b0</code> - one bit, unsigned, value of zero</li>
+<li><code>12'hAD1</code> - 12 bits, unsigned, value of 0xAD1</li>
+<li><code>12'b1010_1101_0001</code> - 12 bits, unsigned, value of 0xAD1</li>
+<li><code>14</code> - defaults: 32 bits, unsigned, value of 14</li>
+<li><code>-14</code> - 32 bits, signed, value of -14</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0e6c0af" class="outline-2">
+<h2 id="org0e6c0af"><span class="section-number-2">3.</span> Synchronous logic and assignments (always<sub>ff</sub>)</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+As opposed to <code>always_comb</code>, which implements an asynchronous/combinatorical block,
+</p>
+
+<p>
+<code>always_ff</code> implements a synchronous block
+</p>
+</div>
+<div id="outline-container-org4412b51" class="outline-3">
+<h3 id="org4412b51"><span class="section-number-3">3.1.</span> Sampling on clock positive edge (עליית שעון)</h3>
+</div>
+</div>
+<div id="outline-container-org108709c" class="outline-2">
+<h2 id="org108709c"><span class="section-number-2">4.</span> Operations and Conditions</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgc237373" class="outline-3">
+<h3 id="orgc237373"><span class="section-number-3">4.1.</span> Logic Gates (built-in)</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+The following logic gates are available for direct instantiation:
+</p>
+<ul class="org-ul">
+<li>and</li>
+<li>or</li>
+<li>not</li>
+<li>xor</li>
+<li>nand</li>
+<li>nor</li>
+<li>xnor</li>
+</ul>
+
+<p>
+Syntax: 
+</p>
+</div>
+
+<div id="outline-container-orgdd4063d" class="outline-4">
+<h4 id="orgdd4063d"><span class="section-number-4">4.1.1.</span> Example implementation of a half hadder</h4>
+<div class="outline-text-4" id="text-4-1-1">
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">HalfAdder</span> (
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">S</span>,
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">C</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">A</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">B</span>
+);
+   <span style="color: #6434A3;">xor</span>(S, A, B);
+   <span style="color: #6434A3;">and</span>(C, A, B);
+
+<span style="color: #0000FF;">endmodule</span>
+</pre>
+</div>
+
+<div id="org29646f5" class="figure">
+<p><img src="Data_Types_and_Values/2023-06-09_21-06-49_screenshot.png" alt="2023-06-09_21-06-49_screenshot.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9a59917" class="outline-3">
+<h3 id="org9a59917"><span class="section-number-3">4.2.</span> Operators (built-in)</h3>
+<div class="outline-text-3" id="text-4-2">
+</div>
+<div id="outline-container-org3a420c2" class="outline-4">
+<h4 id="org3a420c2"><span class="section-number-4">4.2.1.</span> Bitwise Operators</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<ul class="org-ul">
+<li><code>&amp;</code> - bitwise AND</li>
+<li><code>|</code> - bitwise OR</li>
+<li><code>~</code> - bitwise NOT</li>
+<li><code>^</code> - bitwise XOR</li>
+<li><code>~^=/=^~</code> - bitwise XNOR</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org31c63a7" class="outline-4">
+<h4 id="org31c63a7"><span class="section-number-4">4.2.2.</span> Shift</h4>
+<div class="outline-text-4" id="text-4-2-2">
+<p>
+<code>&gt;&gt;</code> - shift right
+<code>&lt;&lt;</code> - shift left
+</p>
+
+<p>
+For example,
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog">b = <span style="color: #D0372D;">4</span>'b1010 &lt;&lt; <span style="color: #D0372D;">2</span>; <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">b = 4'b1000</span>
+c = <span style="color: #D0372D;">4</span>'b1010 &gt;&gt; <span style="color: #D0372D;">1</span>; <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">b = 4'b0101</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org2ed8879" class="outline-4">
+<h4 id="org2ed8879"><span class="section-number-4">4.2.3.</span> Operator Precedence</h4>
+<div class="outline-text-4" id="text-4-2-3">
+
+<div id="orge3e1903" class="figure">
+<p><img src="Data_Types_and_Values/2023-06-09_21-49-20_screenshot.png" alt="2023-06-09_21-49-20_screenshot.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5bc866e" class="outline-3">
+<h3 id="org5bc866e"><span class="section-number-3">4.3.</span> Logical Operators</h3>
+<div class="outline-text-3" id="text-4-3">
+</div>
+<div id="outline-container-orga3dcc92" class="outline-4">
+<h4 id="orga3dcc92"><span class="section-number-4">4.3.1.</span> Relational Operators</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Operator</th>
+<th scope="col" class="org-left">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">&lt;</td>
+<td class="org-left">Less than</td>
+</tr>
+
+<tr>
+<td class="org-left">&lt;=</td>
+<td class="org-left">Less than or equal to</td>
+</tr>
+
+<tr>
+<td class="org-left">&gt;</td>
+<td class="org-left">Greater than</td>
+</tr>
+
+<tr>
+<td class="org-left">&gt;=</td>
+<td class="org-left">Greater than or equal to</td>
+</tr>
+
+<tr>
+<td class="org-left">\=\=</td>
+<td class="org-left">Equal to</td>
+</tr>
+
+<tr>
+<td class="org-left">!\=</td>
+<td class="org-left">Not equal to</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+All of these return a 1-bit logical value (true/false/x)
+</p>
+</div>
+</div>
+<div id="outline-container-org3336b18" class="outline-4">
+<h4 id="org3336b18"><span class="section-number-4">4.3.2.</span> Logical Operators</h4>
+<div class="outline-text-4" id="text-4-3-2">
+<p>
+Used for conditions.
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Operator</td>
+<td class="org-left">Meaning</td>
+</tr>
+
+<tr>
+<td class="org-left">&amp;&amp;</td>
+<td class="org-left">Logical AND</td>
+</tr>
+
+<tr>
+<td class="org-left">&vert;&vert;</td>
+<td class="org-left">Logical OR</td>
+</tr>
+
+<tr>
+<td class="org-left">!</td>
+<td class="org-left">Logical NOT</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li>Operands evaluated to a 1-bit value: 0 (false), 1 (true) or x</li>
+<li>Result is a 1-bit value: 0 (false), 1 (true) or x.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org9c46379" class="outline-4">
+<h4 id="org9c46379"><span class="section-number-4">4.3.3.</span> Operator Precedence</h4>
+<div class="outline-text-4" id="text-4-3-3">
+
+<div id="orgbfb1545" class="figure">
+<p><img src="Data_Types_and_Values/2023-06-09_22-34-27_screenshot.png" alt="2023-06-09_22-34-27_screenshot.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9daaf57" class="outline-3">
+<h3 id="org9daaf57"><span class="section-number-3">4.4.</span> Conditional Statements</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+Used in procedural blocks.
+</p>
+</div>
+<div id="outline-container-orgf154cf6" class="outline-4">
+<h4 id="orgf154cf6"><span class="section-number-4">4.4.1.</span> if</h4>
+<div class="outline-text-4" id="text-4-4-1">
+</div>
+<ol class="org-ol">
+<li><a id="orgec90a24"></a>Syntax<br />
+<div class="outline-text-5" id="text-4-4-1-1">
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">if</span> (condition1) <span style="color: #6434A3;">begin</span>
+   &lt;statement1&gt;;
+<span style="color: #6434A3;">end</span>
+<span style="color: #0000FF;">else</span> <span style="color: #0000FF;">if</span> (condition2) <span style="color: #6434A3;">begin</span>
+   &lt;statement2&gt;;
+<span style="color: #6434A3;">end</span>
+<span style="color: #0000FF;">else</span> <span style="color: #6434A3;">begin</span>
+   &lt;statement3&gt;;
+   &lt;statement4&gt;;
+<span style="color: #6434A3;">end</span>
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgf92de60"></a>A working example<br />
+<div class="outline-text-5" id="text-4-4-1-2">
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">mux</span> (
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">A</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">B</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">sel</span>,
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">Q</span>
+);
+   <span style="color: #0000FF;">always_comb</span> <span style="color: #6434A3;">begin</span>
+      <span style="color: #0000FF;">if</span> (sel == <span style="color: #D0372D;">1</span>'b0) <span style="color: #6434A3;">begin</span>
+         Q = A;
+      <span style="color: #6434A3;">end</span>
+      <span style="color: #0000FF;">else</span> <span style="color: #6434A3;">begin</span>
+         Q = B;
+      <span style="color: #6434A3;">end</span>
+    <span style="color: #6434A3;">end</span>
+<span style="color: #0000FF;">endmodule</span>
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-org805ceb8" class="outline-4">
+<h4 id="org805ceb8"><span class="section-number-4">4.4.2.</span> case</h4>
+<div class="outline-text-4" id="text-4-4-2">
+</div>
+<ol class="org-ol">
+<li><a id="orgcba56a7"></a>Syntax<br />
+<div class="outline-text-5" id="text-4-4-2-1">
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">case</span> (&lt;signal/expression&gt;)
+  &lt;value1&gt;: <span style="color: #6434A3;">begin</span>
+     &lt;statement1&gt;;
+  <span style="color: #6434A3;">end</span>
+  &lt;value2&gt;: <span style="color: #6434A3;">begin</span>
+     &lt;statement2&gt;;
+  <span style="color: #6434A3;">end</span>
+  <span style="color: #0000FF;">default</span>: <span style="color: #6434A3;">begin</span>
+     &lt;statement4&gt;;
+  <span style="color: #6434A3;">end</span>
+<span style="color: #0000FF;">endcase</span>
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org8019358"></a>A working example<br />
+<div class="outline-text-5" id="text-4-4-2-2">
+<p>
+An example for mux behavior using <code>case</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">case_example</span> (
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">A</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">B</span>,
+    <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">1</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">w</span>,
+    <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">Y</span>
+);
+   <span style="color: #0000FF;">always_comb</span> <span style="color: #6434A3;">begin</span>
+      <span style="color: #0000FF;">case</span> (w)
+        <span style="color: #D0372D;">2</span>'b00: Y = A &amp; B;
+        <span style="color: #D0372D;">2</span>'b01: Y = A | B;
+        <span style="color: #D0372D;">2</span>'b10: Y = A ^ B;
+        <span style="color: #0000FF;">default</span>: Y = ~B;
+      <span style="color: #0000FF;">endcase</span>
+   <span style="color: #6434A3;">end</span>
+<span style="color: #0000FF;">endmodule</span>
+</pre>
+</div>
+
+<div id="org94355f7" class="figure">
+<p><img src="Data_Types_and_Values/2023-06-09_22-47-24_screenshot.png" alt="2023-06-09_22-47-24_screenshot.png" />
+</p>
+</div>
+</div>
+</li>
+<li><a id="org9f0c9b6"></a>casez<br />
+<div class="outline-text-5" id="text-4-4-2-3">
+<p>
+<code>?</code> and <code>z</code> are considered as don&rsquo;t cares [0,1,z]
+</p>
+</div>
+</li>
+<li><a id="orgbef1fc6"></a>casex<br />
+<div class="outline-text-5" id="text-4-4-2-4">
+<p>
+<code>?</code>, <code>x</code> and <code>z</code> are considered as don&rsquo;t cares [0,1,x,z]
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf85e271" class="outline-2">
+<h2 id="orgf85e271"><span class="section-number-2">5.</span> Testbench</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org58876e9" class="outline-3">
+<h3 id="org58876e9"><span class="section-number-3">5.1.</span> Unit Under Test (UUT)</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+A testbench generates input values and checks our Unit Under Test (UUT)
+for its response.
+</p>
+
+<p>
+The UUT in our case is our module.
+</p>
+
+
+<div id="org831c8c2" class="figure">
+<p><img src="Testbench/2023-06-09_21-22-06_screenshot.png" alt="2023-06-09_21-22-06_screenshot.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgae90f49" class="outline-3">
+<h3 id="orgae90f49"><span class="section-number-3">5.2.</span> Generating input values</h3>
+<div class="outline-text-3" id="text-5-2">
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #0000FF;">initial</span> <span style="color: #6434A3;">begin</span>
+   data = <span style="color: #D0372D;">0</span>;
+  <span style="color: #6434A3;"> #</span><span style="color: #D0372D;">50</span> <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Wait 50ns</span>
+   data = <span style="color: #D0372D;">1</span>;
+  <span style="color: #6434A3;"> #</span><span style="color: #D0372D;">30</span> <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Wait 30ns</span>
+   data = <span style="color: #D0372D;">0</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org88cde1c" class="outline-3">
+<h3 id="org88cde1c"><span class="section-number-3">5.3.</span> A working example</h3>
+<div class="outline-text-3" id="text-5-3">
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">_tb stands for _testbench</span>
+<span style="color: #0000FF;">module</span> <span style="color: #006699;">HalfAdder_tb</span>;
+   <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Definition of testbench input values to UUT</span>
+   <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">ha_a</span>;
+   <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">ha_b</span>;
+   <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">ha_sum</span>;
+   <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">ha_carry</span>;
+
+   <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Instance of UUT</span>
+   HalfAdder <span style="color: #006699;">uut</span>(
+    .<span style="color: #006699;">a</span>(ha_a),
+    .<span style="color: #006699;">b</span>(ha_b),
+    .<span style="color: #006699;">sum</span>(ha_sum),
+    .<span style="color: #006699;">carry</span>(ha_carry)
+   );
+
+   <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Generate test input values here</span>
+   initial_begin
+     ha_a = <span style="color: #D0372D;">0</span>;
+     ha_b = <span style="color: #D0372D;">0</span>;
+
+    <span style="color: #6434A3;"> #</span><span style="color: #D0372D;">20</span>
+     ha_a = <span style="color: #D0372D;">1</span>;
+     ha_b = <span style="color: #D0372D;">0</span>;
+
+    <span style="color: #6434A3;"> #</span><span style="color: #D0372D;">20</span>
+     ha_a = <span style="color: #D0372D;">1</span>;
+     ha_b = <span style="color: #D0372D;">1</span>;
+   <span style="color: #6434A3;">end</span>
+
+<span style="color: #0000FF;">endmodule</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Ido Merenstein</p>
+<p class="date">Created: 2023-06-09 Fri 23:44</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,542 @@
+#+title: SystemVerilog Cheatsheet
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+
+
+* Modules
+** Defining a module
+- Everything you write in SystemVerilog must be inside a module.
+- A module is a fundemental building block that receives inputs and generates outputs.
+ #+DOWNLOADED: screenshot @ 2023-03-23 19:21:38
+ [[file:System_Verilog_Building_Blocks/2023-03-23_19-21-38_screenshot.png]]
+
+ Here's an example module:
+ #+begin_src verilog
+// [a,b] -> [my_module] -> [result = (a AND b)]
+module my_module(
+                // Input and Output Declaration
+                input logic  a,
+                input logic  b,
+                output logic result);
+   // Declarations of "f"
+    assign result = a & b;
+endmodule
+ #+end_src
+** Parameters
+- Allows to pass parameters to a module per-instantiation.
+- /Note: different from logic inputs and outputs./
+
+*** Definition inside a module declaration
+#+begin_src verilog
+module some_module (
+    input logic in1
+    output logic out1
+);
+   parameter param1 = 1; // 1 is a default value
+   parameter param1 = 2;
+   parameter param1 = 3;
+#+end_src
+
+*** Usage when instantiating a module
+A module that shifts a number left N times.
+#+begin_src verilog
+module shift_N (
+    output logic [3:0] out,
+    input logic [3:0] a
+);
+   parameter N = 1;
+   always_comb begin
+      out = a << N;
+   end
+end_module
+#+end_src
+
+Here are some usage examples:
+#+begin_src verilog
+module multiple_shifts (
+    input logic [3:0] a,
+    output logic [3:0] b,
+    output logic [3:0] c
+);
+   // Output a 2 shift result to b
+   shift_N #(.N(2)) shift_2(.a(a), .out(b));
+
+   // Output a 3 shift result to c
+   shift_N #(.N(3)) shift_3(.a(a), .out(c));
+end_module
+#+end_src
+
+*** Local Parameters
+Store constant values inside a module.
+These cannot be changed or passed to an instance module.
+
+Here's an example:
+#+begin_src verilog
+module my_module(...);
+   localparam N = 2'b11;
+   localparam NUM_OF_CYCLES = 10;
+endmodule
+#+end_src
+** Creating module instances (instantiation)
+*** Positional association
+Define an instance of a model according to its argument positions, as such:
+#+begin_src verilog
+module_name instance_name (
+    my_input1,
+    ...,
+    my_inputN,
+    my_out1,
+    ...,
+    my_outM
+);
+#+end_src
+
+*** Named association
+Modules can also be instantiated using its arguments' names explicitly:
+#+begin_src verilog
+module_name instance_name2 (
+    .in1(my_input1)),
+    ...,
+    .inN(my_inputN),
+    .out1(my_output1),
+    ...,
+    .outM(my_outputM)
+)
+
+#+end_src
+
+** Modules Inside Modules
+*** Using modules inside other modules
+#+begin_src verilog
+// Mux that takes 2-bit inputs and outputs a 2-bit result
+module mux2to1_2bit (
+    output logic [1:0] O,
+    input logic [1:0] A,
+    input logic [1:0] B,
+    input logic S
+);
+   // Use instances of existing 1-bit input muxes
+   mux2to1_1bit mux1(.O(O[1]), .S(S), .A(A[1]), .B(B[1]));
+   mux2to0_0bit mux0(.O(O[0]), .S(S), .A(A[0]), .B(B[0]));
+endmodule
+#+end_src
+
+*** Generating many module instances at once (generate)
+You can use the =generate= command to create many module instances at once:
+#+begin_src verilog
+module mux2to1_32bit (
+    output logic [31:0] O, // 32-bit output
+    input logic [31:0] A, // 32-bit input A
+    input logic [31:0] B, // 32-bit input B
+    input logic S
+);
+   genvar i;
+   generate
+      for (i = 0; i < 32; i++)
+      begin
+         mux2to1 mux_inst(.O(O[i]), .S(S), .A(A[i]), .B(B[i]));
+      end
+   endgenerate
+endmodule
+#+end_src
+
+** Concurrent assignment (השמה של ערכים מקבילים/ברי שינוי) to wires inside modules
+Connect a wire to some combinatorical logic or another wire.
+*** Syntax
+#+begin_src verilog
+// A simple assignment from one wire to another
+module pass_same_value(
+    output logic Z,
+    input logic A
+);
+   assign Z = A;
+
+endmodule
+
+// Assigning some concurring calculation to wire
+module and_module (
+    output logic Z,
+    input logic A,
+    input logic B
+    );
+
+   assign Z = A & B;
+endmodule
+#+end_src
+
+An explicit value can also be used.
+#+begin_src verilog
+logic signal;
+assign signal = 1'b0;
+#+end_src
+
+** Procedular Blocks (הרצה סדרתית של הצהרות בתוך מודול)
+*** Definition and types
+All statements inside a procedural block are executed sequentially.
+
+There are two procedural constructs in Verilog:
+- =initial=
+- =always_comb=
+
+  We will only use =initial= in simulations (testbenches).
+  For regular modules, we use =always_comb=.
+*** always_comb
+Executes statements in a loop.
+Used for combinatorical logic implementation.
+
+Here's a working example:
+#+begin_src verilog
+module and_module(
+    output logic Z,
+    input logic A,
+    input logic B
+);
+   always_comb begin
+      Z = A & B;
+    end
+endmodule
+#+end_src
+
+You can use [[*Conditional Statements][conditional statements]] inside of a procedural block.
+
+*** Complete assignments
+  *Note:* =always_comb= should NOT be used for memory elements!
+  - If a signal is not assigned in a certain flow, a memory element is implicitly created to preserve the previous value.
+  - Usually, this is a bug.
+  - Always use complete assignments.
+
+**** "if" statements
+Use "else"
+**** "case" statements
+Use "default"
+**** General solution
+Use default assignments
+
+#+begin_src verilog
+always_comb begin
+   Q = 1'b0;
+   if (sel == 1'b1) begin
+      Q = A;
+   end
+end
+#+end_src
+
+
+#+DOWNLOADED: screenshot @ 2023-06-09 22:56:05
+[[file:Modules/2023-06-09_22-56-05_screenshot.png]]
+
+* Data Types and Values
+** SystemVerilog Logic Values
+In SystemVerilog, a bit can take the following logical values:
+| Logic Value | Meaning                           |
+|-------------+-----------------------------------|
+| 0           | zero / logic low / false / ground |
+| 1           | one / logic high / true / power   |
+| x           | not initialized or collision      |
+| z           | unconnected                       |
+
+** 1-bit wires (logic)
+The =logic= data type represents a wire (1 bit):
+
+#+begin_src verilog
+logic a,b,c,d,e;
+#+end_src
+
+#+DOWNLOADED: screenshot @ 2023-03-23 19:42:28
+[[file:Data_Types/2023-03-23_19-42-28_screenshot.png]]
+
+** Vectors
+Declaration of an 8-bit logic vector:
+#+begin_src verilog
+logic [7:0] w1; //w1[7] is the MSB
+#+end_src
+
+Here's how you'd describe the "selector" wires in a mux module declaration:
+#+begin_src verilog
+module mux4tol(
+               output logic O,
+               input logic D0,
+               input logic D1,
+               input logic D2,
+               input logic D3,
+               input logic E,
+               input logic [1:0] S
+);
+   // declarations
+   // description of a mux
+endmodule
+#+end_src
+
+#+DOWNLOADED: screenshot @ 2023-03-23 22:54:02
+[[file:Data_Types_and_Values/2023-03-23_22-54-02_screenshot.png]]
+
+*** Vector Operations
+- Bit select:
+  #+begin_src verilog
+    w1[3]
+  #+end_src
+
+- Range select:
+  #+begin_src verilog
+    w1[3:2]
+  #+end_src
+
+- Pack:
+  #+begin_src verilog
+    vec = {x, y, z};
+  #+end_src
+
+- Unpack:
+  #+begin_src verilog
+    {carry, sum} = vec[1:0];
+  #+end_src
+
+*** Repeated Signals
+A signal can be repeated $n$ times in this manner:
+#+begin_src verilog
+vec = {16{x}} // 16 copies of x
+#+end_src
+
+*** A Working Example (Implementing Unsigned Extension)
+#+begin_src verilog
+logic [7:0] out;
+logic [3:0] A;
+out = {{4{1'b0}}, A[3:0]};
+#+end_src
+
+** Integer Literals
+_Format_: *<width'><signed><radix> value*
+
+You can use this format to generate:
+- Multiple bit integers (=<signed>=)
+- Two's complement negative numbers (=<signed>=)
+- Write a number in base 2,8,10 or 16 (=<radix>=)
+
+*** Available number bases (<radix> values)
+- Binary (=b= or =B=)
+- Octal (=o= or =O=)
+- Decimal (=d= or =D=)
+- Hexadecimal (=g= or =G=)
+
+*** Default settings
+- Width = 32
+  Unsigned
+  Radix = Decimal
+
+*** Examples
+- =1'b0= - one bit, unsigned, value of zero
+- =12'hAD1= - 12 bits, unsigned, value of 0xAD1
+- =12'b1010_1101_0001= - 12 bits, unsigned, value of 0xAD1
+- =14= - defaults: 32 bits, unsigned, value of 14
+- =-14= - 32 bits, signed, value of -14
+
+* Synchronous logic and assignments (always_ff)
+As opposed to =always_comb=, which implements an asynchronous/combinatorical block,
+
+=always_ff= implements a synchronous block
+** Sampling on clock positive edge (עליית שעון)
+* Operations and Conditions
+** Logic Gates (built-in)
+The following logic gates are available for direct instantiation:
+- and
+- or
+- not
+- xor
+- nand
+- nor
+- xnor
+
+Syntax: src_verilog{gateName(output, input1, <optional_input2>)}
+
+*** Example implementation of a half hadder
+#+begin_src verilog
+module HalfAdder (
+    output logic S,
+    output logic C,
+    input logic A,
+    input logic B
+);
+   xor(S, A, B);
+   and(C, A, B);
+
+endmodule
+#+end_src
+#+DOWNLOADED: screenshot @ 2023-06-09 21:06:49
+[[file:Data_Types_and_Values/2023-06-09_21-06-49_screenshot.png]]
+
+** Operators (built-in)
+*** Bitwise Operators
+-  =&= - bitwise AND
+-  =|= - bitwise OR
+-  =~= - bitwise NOT
+-  =^= - bitwise XOR
+-  =~^=/=^~= - bitwise XNOR
+*** Shift
+=>>= - shift right
+=<<= - shift left
+
+For example,
+#+begin_src verilog
+b = 4'b1010 << 2; // b = 4'b1000
+c = 4'b1010 >> 1; // b = 4'b0101
+#+end_src
+*** Operator Precedence
+
+#+DOWNLOADED: screenshot @ 2023-06-09 21:49:20
+[[file:Data_Types_and_Values/2023-06-09_21-49-20_screenshot.png]]
+
+** Logical Operators
+*** Relational Operators
+| Operator | Meaning                  |
+|----------+--------------------------|
+| <        | Less than                |
+| <=       | Less than or equal to    |
+| >        | Greater than             |
+| >=       | Greater than or equal to |
+| \=\=     | Equal to                 |
+| !\=      | Not equal to             |
+
+All of these return a 1-bit logical value (true/false/x)
+*** Logical Operators
+Used for conditions.
+| Operator   | Meaning     |
+| &&         | Logical AND |
+| \vert\vert | Logical OR  |
+| !          | Logical NOT |
+
+- Operands evaluated to a 1-bit value: 0 (false), 1 (true) or x
+- Result is a 1-bit value: 0 (false), 1 (true) or x.
+*** Operator Precedence
+
+#+DOWNLOADED: screenshot @ 2023-06-09 22:34:27
+[[file:Data_Types_and_Values/2023-06-09_22-34-27_screenshot.png]]
+
+** Conditional Statements
+Used in procedural blocks.
+*** if
+**** Syntax
+#+begin_src verilog
+if (condition1) begin
+   <statement1>;
+end
+else if (condition2) begin
+   <statement2>;
+end
+else begin
+   <statement3>;
+   <statement4>;
+end
+#+end_src
+
+**** A working example
+#+begin_src verilog
+module mux (
+    input logic A,
+    input logic B,
+    input logic sel,
+    output logic Q
+);
+   always_comb begin
+      if (sel == 1'b0) begin
+         Q = A;
+      end
+      else begin
+         Q = B;
+      end
+    end
+endmodule
+#+end_src
+*** case
+**** Syntax
+#+begin_src verilog
+case (<signal/expression>)
+  <value1>: begin
+     <statement1>;
+  end
+  <value2>: begin
+     <statement2>;
+  end
+  default: begin
+     <statement4>;
+  end
+endcase
+#+end_src
+
+**** A working example
+An example for mux behavior using =case=.
+
+#+begin_src verilog
+module case_example (
+    input logic A,
+    input logic B,
+    input logic [1:0] w,
+    output logic Y
+);
+   always_comb begin
+      case (w)
+        2'b00: Y = A & B;
+        2'b01: Y = A | B;
+        2'b10: Y = A ^ B;
+        default: Y = ~B;
+      endcase
+   end
+endmodule
+#+end_src
+#+DOWNLOADED: screenshot @ 2023-06-09 22:47:24
+[[file:Data_Types_and_Values/2023-06-09_22-47-24_screenshot.png]]
+**** casez
+=?= and =z= are considered as don't cares [0,1,z]
+**** casex
+=?=, =x= and =z= are considered as don't cares [0,1,x,z]
+* Testbench
+** Unit Under Test (UUT)
+A testbench generates input values and checks our Unit Under Test (UUT)
+for its response.
+
+The UUT in our case is our module.
+
+#+DOWNLOADED: screenshot @ 2023-06-09 21:22:06
+[[file:Testbench/2023-06-09_21-22-06_screenshot.png]]
+** Generating input values
+#+begin_src verilog
+initial begin
+   data = 0;
+   #50 // Wait 50ns
+   data = 1;
+   #30 // Wait 30ns
+   data = 0;
+#+end_src
+
+** A working example
+#+begin_src verilog
+// _tb stands for _testbench
+module HalfAdder_tb;
+   // Definition of testbench input values to UUT
+   logic ha_a;
+   logic ha_b;
+   logic ha_sum;
+   logic ha_carry;
+
+   // Instance of UUT
+   HalfAdder uut(
+    .a(ha_a),
+    .b(ha_b),
+    .sum(ha_sum),
+    .carry(ha_carry)
+   );
+
+   // Generate test input values here
+   initial_begin
+     ha_a = 0;
+     ha_b = 0;
+
+     #20
+     ha_a = 1;
+     ha_b = 0;
+
+     #20
+     ha_a = 1;
+     ha_b = 1;
+   end
+
+endmodule
+#+end_src
