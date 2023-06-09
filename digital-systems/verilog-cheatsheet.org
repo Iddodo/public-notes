@@ -93,6 +93,7 @@ module some_module (
    parameter param1 = 1; // 1 is a default value
    parameter param1 = 2;
    parameter param1 = 3;
+endmodule
 #+end_src
 
 *** Usage when instantiating a module
