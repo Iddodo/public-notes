@@ -44,10 +44,10 @@ To run .tcl scripts, use =source <script-name>.tcl=.
  #+begin_src verilog
 // [a,b] -> [my_module] -> [result = (a AND b)]
 module my_module(
-                // Input and Output Declaration
-                input logic  a,
-                input logic  b,
-                output logic result);
+   // Input and Output Declaration
+   input logic  a,
+   input logic  b,
+   output logic result);
    // Declarations of "f"
     assign result = a & b;
 endmodule
