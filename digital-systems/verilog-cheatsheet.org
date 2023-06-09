@@ -463,7 +463,7 @@ endmodule
 -  =|= - bitwise OR
 -  =~= - bitwise NOT
 -  =^= - bitwise XOR
--  =~^=/=^~= - bitwise XNOR
+-  =~^= / =^~= - bitwise XNOR
 *** Shift
 =>>= - shift right
 =<<= - shift left
