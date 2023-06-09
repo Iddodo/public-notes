@@ -465,8 +465,8 @@ endmodule
 -  =^= - bitwise XOR
 -  =~^= / =^~= - bitwise XNOR
 *** Shift
-=>>= - shift right
-=<<= - shift left
+- =>>= - shift right
+- =<<= - shift left
 
 For example,
 #+begin_src verilog
