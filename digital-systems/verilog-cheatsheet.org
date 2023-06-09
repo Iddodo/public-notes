@@ -148,7 +148,7 @@ module mux2to1_2bit (
 );
    // Use instances of existing 1-bit input muxes
    mux2to1_1bit mux1(.O(O[1]), .S(S), .A(A[1]), .B(B[1]));
-   mux2to0_0bit mux0(.O(O[0]), .S(S), .A(A[0]), .B(B[0]));
+   mux2to1_1bit mux0(.O(O[0]), .S(S), .A(A[0]), .B(B[0]));
 endmodule
 #+end_src
 
