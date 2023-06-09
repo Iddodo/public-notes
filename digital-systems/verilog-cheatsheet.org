@@ -421,56 +421,13 @@ endmodule
 #+DOWNLOADED: screenshot @ 2023-06-10 01:09:24
 [[file:Data_Types_and_Values/2023-06-10_01-09-24_screenshot.png]]
 
-
-
-* Synchronous logic and assignments (always_ff)
-As opposed to =always_comb=, which implements an asynchronous/combinatorical block,
-=always_ff= implements a synchronous block.
-
-You usually want to use [[*Non-blocking assignment][non-blocking assignments]] with always_ff.
-
-** Positive Edge (דגימה בעליית שעון)
-Using =posedge=, you can sample a value when your clock is on a positive edge.
-
-This is an example that uses =posedge= to emulate a Flip-Flop:
+** enum
+An enum type defines a set of named values.
+We will use =enum= for FSM state declaration:
 #+begin_src verilog
-logic a, in;
-always_ff @(posedge clk) begin
-   a <= in;
-end
+typedef enum { idle_st, state1, state2 \} state_type;
 #+end_src
 
-** Synchronous Reset
-Only occurs on positive edge.
-This is how you implement it:
-
-#+begin_src verilog
-always_ff @(posedge clk) begin
-   if (rst == 1'b1) begin
-      <reset statement1>;
-   end
-   else begin
-      <sync statement2>;
-   end
-end
-#+end_src
-
-** Asynchronous Reset
-Can occur whenever the reset entrance rises.
-This is how you implement it:
-#+begin_src verilog
-always_ff @(posedge clk, posedge rst) begin
-   if (rst == 1'b1) begin
-      <reset statement1>;
-   end
-   else begin
-      <sync statement2>;
-   end
-end
-#+end_src
-
-** Implementing a Flip-Flop with Reset
-This is how you implement a
 * Operations and Conditions
 ** Logic Gates (built-in)
 The following logic gates are available for direct instantiation:
@@ -624,6 +581,120 @@ endmodule
 =?= and =z= are considered as don't cares [0,1,z]
 **** casex
 =?=, =x= and =z= are considered as don't cares [0,1,x,z]
+* Synchronous logic and assignments (always_ff)
+As opposed to =always_comb=, which implements an asynchronous/combinatorical block,
+=always_ff= implements a synchronous block.
+
+You usually want to use [[*Non-blocking assignment][non-blocking assignments]] with always_ff.
+
+** Positive Edge (דגימה בעליית שעון)
+Using =posedge=, you can sample a value when your clock is on a positive edge.
+
+This is an example that uses =posedge= to emulate a Flip-Flop:
+#+begin_src verilog
+logic a, in;
+always_ff @(posedge clk) begin
+   a <= in;
+end
+#+end_src
+
+** Synchronous Reset
+Only occurs on positive edge.
+This is how you implement it:
+
+#+begin_src verilog
+always_ff @(posedge clk) begin
+   if (rst == 1'b1) begin
+      <reset statement1>;
+   end
+   else begin
+      <sync statement2>;
+   end
+end
+#+end_src
+
+** Asynchronous Reset
+Can occur whenever the reset entrance rises.
+This is how you implement it:
+#+begin_src verilog
+always_ff @(posedge clk, posedge rst) begin
+   if (rst == 1'b1) begin
+      <reset statement1>;
+   end
+   else begin
+      <sync statement2>;
+   end
+end
+#+end_src
+
+** Implementing a Flip-Flop with Reset
+This is how you implement a
+* Finite State Machines
+** FSM template
+#+begin_src verilog
+module my_FSM_module (
+    input logic input1,
+    ...
+    output logic outputN
+    typedef enum {idle_st, start_st\} sm_type;
+
+    // Declaring signals for the next & current state
+    sm_type current_state;
+    sm_type next_state;
+
+    // ...
+);
+#+end_src
+** Next state recipe for synchronous logic
+#+begin_src verilog
+// FSM synchronous procedural block
+always_ff @(posedge clk, posedge rst) begin
+   if (rst == 1'b1) begin
+      current_state <= idle_st;
+   end
+   else begin
+      current_state <= next_state;
+   end
+end
+#+end_src
+
+#+DOWNLOADED: screenshot @ 2023-06-10 02:07:52
+[[file:Finite_State_Machines/2023-06-10_02-07-52_screenshot.png]]
+** FSM - (Mealy) Asynchronous Logic
+This is how you can use the current state to infer outputs and the next state:
+#+begin_src verilog
+always_comb begin
+   // Default assignments
+    next_state = current_state;
+    output1 = 1'b0;
+    ...
+    outputN = 1'b0
+
+    // Specific assignments
+      case (current_state)
+        idle_st: begin
+           next_state = ...;
+           ouput1 = ...;
+           ...
+           outputN = ...;
+        end
+        start_st: begin
+           next_state = ...;
+           output1 = ...;
+           ...
+           outputN = ...;
+        end
+        ...
+      endcase
+end
+#+end_src
+
+
+#+DOWNLOADED: screenshot @ 2023-06-10 02:09:03
+[[file:Finite_State_Machines/2023-06-10_02-09-03_screenshot.png]]
+
+
+
 * Testbench
 ** Unit Under Test (UUT)
 A testbench generates input values and checks our Unit Under Test (UUT)
@@ -701,7 +772,6 @@ always begin
 end
 #+end_src
 
-
 ** Synchronous logic: Wait X clock cycles
 Example: Waiting for 4 clock cycles
 #+begin_src verilog
@@ -711,3 +781,9 @@ initial begin
    end
 end
 #+end_src
+
+** How to Debug a FSM
+- Always add the current and next state to the waveform
+- Given the current state and the inputs,
+  check that the next state and output are as expected
+- As always, search for =x= and =z= values and ensure they make sense
