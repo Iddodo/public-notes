@@ -189,7 +189,7 @@ module and_module (
     output logic Z,
     input logic A,
     input logic B
-    );
+);
 
    assign Z = A & B;
 endmodule
