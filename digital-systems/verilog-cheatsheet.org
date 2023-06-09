@@ -47,7 +47,7 @@ module shift_N (
    always_comb begin
       out = a << N;
    end
-end_module
+endmodule
 #+end_src
 
 Here are some usage examples:
@@ -62,7 +62,7 @@ module multiple_shifts (
 
    // Output a 3 shift result to c
    shift_N #(.N(3)) shift_3(.a(a), .out(c));
-end_module
+endmodule
 #+end_src
 
 *** Local Parameters
