@@ -360,9 +360,74 @@ You can use this format to generate:
 - =14= - defaults: 32 bits, unsigned, value of 14
 - =-14= - 32 bits, signed, value of -14
 
+** Blocking and non-blocking assignment
+*** Blocking assignment
+Acts much like in traditional programming languages.
+The whole statemnt is done before control passes on to the next statement.
+
+In =always_comb=, we use a *blocking* assigment:
+#+begin_src verilog
+logic a, in;
+always_comb begin
+   a = in;
+end
+#+end_src
+
+*** Non-blocking assignment
+Evaluates all the right-hand sides for the current time unit.
+Assigns the left-hand sides at the end of the procedural block.
+
+Basically, allows behavior of a shift register.
+
+This is how you'd implement a shift behavior between Flip-Flops:
+#+begin_src verilog
+module shifter (
+    input logic in,
+    input logic clk
+);
+   logic A, B, C;
+
+    always_ff @(posedge clk) begin
+       A <= in;
+       B <= A;
+       C <= B;
+    end
+endmodule
+#+end_src
+
+
+#+DOWNLOADED: screenshot @ 2023-06-10 01:06:38
+[[file:Data_Types_and_Values/2023-06-10_01-06-38_screenshot.png]]
+
+
+And this is what happens when you accidentally use blocking assignments instead:
+
+#+begin_src verilog
+module bad_shifter (
+    input logic in,
+    input logic clk
+);
+   logic A, B, C;
+
+    always_ff @(posedge clk) begin
+       A = in;
+       B = A;
+       C = B;
+    end
+endmodule
+#+end_src
+
+
+#+DOWNLOADED: screenshot @ 2023-06-10 01:09:24
+[[file:Data_Types_and_Values/2023-06-10_01-09-24_screenshot.png]]
+
+
+
 * Synchronous logic and assignments (always_ff)
 As opposed to =always_comb=, which implements an asynchronous/combinatorical block,
 =always_ff= implements a synchronous block.
+
+You usually want to use [[*Non-blocking assignment][non-blocking assignments]] with always_ff.
 
 ** Positive Edge (דגימה בעליית שעון)
 Using =posedge=, you can sample a value when your clock is on a positive edge.
@@ -375,8 +440,37 @@ always_ff @(posedge clk) begin
 end
 #+end_src
 
-**
-** Sampling on clock positive edge (עליית שעון)
+** Synchronous Reset
+Only occurs on positive edge.
+This is how you implement it:
+
+#+begin_src verilog
+always_ff @(posedge clk) begin
+   if (rst == 1'b1) begin
+      <reset statement1>;
+   end
+   else begin
+      <sync statement2>;
+   end
+end
+#+end_src
+
+** Asynchronous Reset
+Can occur whenever the reset entrance rises.
+This is how you implement it:
+#+begin_src verilog
+always_ff @(posedge clk, posedge rst) begin
+   if (rst == 1'b1) begin
+      <reset statement1>;
+   end
+   else begin
+      <sync statement2>;
+   end
+end
+#+end_src
+
+** Implementing a Flip-Flop with Reset
+This is how you implement a
 * Operations and Conditions
 ** Logic Gates (built-in)
 The following logic gates are available for direct instantiation:
@@ -539,6 +633,15 @@ The UUT in our case is our module.
 
 #+DOWNLOADED: screenshot @ 2023-06-09 21:22:06
 [[file:Testbench/2023-06-09_21-22-06_screenshot.png]]
+** Repeat Loop
+Used in an initial block to repeat statements.
+#+begin_src verilog
+repeat(num_of_times) begin
+   <statement1>;
+   <statement2>;
+end
+#+end_src
+
 ** Generating input values
 #+begin_src verilog
 initial begin
@@ -549,7 +652,7 @@ initial begin
    data = 0;
 #+end_src
 
-** A working example
+ Here's a working example:
 #+begin_src verilog
 // _tb stands for _testbench
 module HalfAdder_tb;
@@ -582,4 +685,29 @@ module HalfAdder_tb;
    end
 
 endmodule
+#+end_src
+
+** Synchronous logic: Generating a Clock Signal
+This is how you generate a clock signal for simulation 2:
+#+begin_src verilog
+// Start value of clock
+initial begin
+   Clock = 1'b0;
+end
+
+// Clock behavior
+always begin
+   #10 Clock = ~Clock;
+end
+#+end_src
+
+
+** Synchronous logic: Wait X clock cycles
+Example: Waiting for 4 clock cycles
+#+begin_src verilog
+initial begin
+   repeat(4) begin
+      @(posedge clk);
+   end
+end
 #+end_src
