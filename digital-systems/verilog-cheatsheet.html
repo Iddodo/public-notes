@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-06-09 Fri 23:55 -->
+<!-- 2023-06-10 Sat 00:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SystemVerilog Cheatsheet</title>
@@ -55,101 +55,108 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org942f1b2">1. Modules</a>
+<li><a href="#org05e3618">1. Compile/Run Verilog Cheatsheet</a>
 <ul>
-<li><a href="#orgd9f3439">1.1. Defining a module</a></li>
-<li><a href="#org942426d">1.2. Parameters</a>
-<ul>
-<li><a href="#org9b4d1f4">1.2.1. Definition inside a module declaration</a></li>
-<li><a href="#org1ecbfb0">1.2.2. Usage when instantiating a module</a></li>
-<li><a href="#org9813430">1.2.3. Local Parameters</a></li>
+<li><a href="#org0c539ff">1.1. TL;DR</a></li>
+<li><a href="#orga42112a">1.2. Detailed Explanation:</a></li>
 </ul>
 </li>
-<li><a href="#org192d9e7">1.3. Creating module instances (instantiation)</a>
+<li><a href="#org08a26dd">2. Modules</a>
 <ul>
-<li><a href="#org2eb4846">1.3.1. Positional association</a></li>
-<li><a href="#org93d2529">1.3.2. Named association</a></li>
+<li><a href="#org43e7ecb">2.1. Defining a module</a></li>
+<li><a href="#org94b2786">2.2. Creating module instances (instantiation)</a>
+<ul>
+<li><a href="#org736f0c4">2.2.1. Positional association</a></li>
+<li><a href="#org9142b83">2.2.2. Named association</a></li>
 </ul>
 </li>
-<li><a href="#org582d673">1.4. Modules Inside Modules</a>
+<li><a href="#org4dcd27d">2.3. Parameters</a>
 <ul>
-<li><a href="#org3d9831d">1.4.1. Using modules inside other modules</a></li>
-<li><a href="#org2e79d90">1.4.2. Generating many module instances at once (generate)</a></li>
+<li><a href="#org8533b6c">2.3.1. Definition inside a module declaration</a></li>
+<li><a href="#org33f92f9">2.3.2. Usage when instantiating a module</a></li>
+<li><a href="#org749474c">2.3.3. Local Parameters</a></li>
 </ul>
 </li>
-<li><a href="#org1f0438f">1.5. Concurrent assignment (השמה של ערכים מקבילים/ברי שינוי) to wires inside modules</a>
+<li><a href="#org38db6e6">2.4. Modules Inside Modules</a>
 <ul>
-<li><a href="#orged81c86">1.5.1. Syntax</a></li>
+<li><a href="#org42e4592">2.4.1. Using modules inside other modules</a></li>
+<li><a href="#org55267d5">2.4.2. Generating many module instances at once (generate)</a></li>
 </ul>
 </li>
-<li><a href="#org5bae8c9">1.6. Procedular Blocks (הרצה סדרתית של הצהרות בתוך מודול)</a>
+<li><a href="#org4bd669c">2.5. Concurrent assignment (השמה של ערכים מקבילים/ברי שינוי) to wires inside modules</a>
 <ul>
-<li><a href="#orgb33ca25">1.6.1. Definition and types</a></li>
-<li><a href="#org5266587">1.6.2. always<sub>comb</sub></a></li>
-<li><a href="#org8eeac1f">1.6.3. Complete assignments</a></li>
+<li><a href="#org1845fe9">2.5.1. Syntax</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#orgf04385b">2. Data Types and Values</a>
+<li><a href="#orge1ac36c">2.6. Procedular Blocks (הרצה סדרתית של הצהרות בתוך מודול)</a>
 <ul>
-<li><a href="#org4605282">2.1. SystemVerilog Logic Values</a></li>
-<li><a href="#orgba67e11">2.2. 1-bit wires (logic)</a></li>
-<li><a href="#org0cb5d1d">2.3. Vectors</a>
-<ul>
-<li><a href="#orgdbb80ec">2.3.1. Vector Operations</a></li>
-<li><a href="#orgc5b7381">2.3.2. Repeated Signals</a></li>
-<li><a href="#orgf5edeb4">2.3.3. A Working Example (Implementing Unsigned Extension)</a></li>
-</ul>
-</li>
-<li><a href="#org044abda">2.4. Integer Literals</a>
-<ul>
-<li><a href="#org7137acf">2.4.1. Available number bases (&lt;radix&gt; values)</a></li>
-<li><a href="#org2a0f26e">2.4.2. Default settings</a></li>
-<li><a href="#org2ac4d7c">2.4.3. Examples</a></li>
+<li><a href="#org3c4357f">2.6.1. Definition and types</a></li>
+<li><a href="#org6465a6b">2.6.2. always<sub>comb</sub></a></li>
+<li><a href="#org25037f0">2.6.3. Complete assignments</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org989a9ab">3. Synchronous logic and assignments (always<sub>ff</sub>)</a>
+<li><a href="#org6258e66">3. Data Types and Values</a>
 <ul>
-<li><a href="#orgbb4d719">3.1. Sampling on clock positive edge (עליית שעון)</a></li>
+<li><a href="#org741a56b">3.1. SystemVerilog Logic Values</a></li>
+<li><a href="#org3a894b8">3.2. 1-bit wires (logic)</a></li>
+<li><a href="#org5d18dd1">3.3. Vectors</a>
+<ul>
+<li><a href="#org68ae715">3.3.1. Vector Operations</a></li>
+<li><a href="#org960b953">3.3.2. Repeated Signals</a></li>
+<li><a href="#orgc493a33">3.3.3. A Working Example (Implementing Unsigned Extension)</a></li>
 </ul>
 </li>
-<li><a href="#orgb0918ed">4. Operations and Conditions</a>
+<li><a href="#org776be15">3.4. Integer Literals</a>
 <ul>
-<li><a href="#orgd25e8ce">4.1. Logic Gates (built-in)</a>
-<ul>
-<li><a href="#orge0c8280">4.1.1. Example implementation of a half hadder</a></li>
-</ul>
-</li>
-<li><a href="#org89ec9f3">4.2. Operators (built-in)</a>
-<ul>
-<li><a href="#org8ff89f3">4.2.1. Bitwise Operators</a></li>
-<li><a href="#orgef10ec6">4.2.2. Shift</a></li>
-<li><a href="#org5285714">4.2.3. Operator Precedence</a></li>
-</ul>
-</li>
-<li><a href="#org400986f">4.3. Logical Operators</a>
-<ul>
-<li><a href="#org75838d0">4.3.1. Relational Operators</a></li>
-<li><a href="#org4a1a474">4.3.2. Logical Operators</a></li>
-<li><a href="#org1dca612">4.3.3. Operator Precedence</a></li>
-</ul>
-</li>
-<li><a href="#org63ea2ac">4.4. Conditional Statements</a>
-<ul>
-<li><a href="#orgf98181e">4.4.1. if</a></li>
-<li><a href="#orga32a81b">4.4.2. case</a></li>
+<li><a href="#org47c0d02">3.4.1. Available number bases (&lt;radix&gt; values)</a></li>
+<li><a href="#org943d600">3.4.2. Default settings</a></li>
+<li><a href="#orgc4c4713">3.4.3. Examples</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org15885c8">5. Testbench</a>
+<li><a href="#org1cc40f7">4. Synchronous logic and assignments (always<sub>ff</sub>)</a>
 <ul>
-<li><a href="#org7352d9a">5.1. Unit Under Test (UUT)</a></li>
-<li><a href="#orge4722ff">5.2. Generating input values</a></li>
-<li><a href="#org95eb803">5.3. A working example</a></li>
+<li><a href="#orgfa0ec8c">4.1. Positive Edge (דגימה בעליית שעון)</a></li>
+<li><a href="#orgd9bc730">4.2. Sampling on clock positive edge (עליית שעון)</a></li>
+</ul>
+</li>
+<li><a href="#org907ee97">5. Operations and Conditions</a>
+<ul>
+<li><a href="#org5a704f5">5.1. Logic Gates (built-in)</a>
+<ul>
+<li><a href="#org4ec0cb9">5.1.1. Example implementation of a half hadder</a></li>
+</ul>
+</li>
+<li><a href="#orge2b1f59">5.2. Operators (built-in)</a>
+<ul>
+<li><a href="#org86da95e">5.2.1. Bitwise Operators</a></li>
+<li><a href="#org8332737">5.2.2. Shift</a></li>
+<li><a href="#org0eda1d6">5.2.3. Operator Precedence</a></li>
+</ul>
+</li>
+<li><a href="#orgcc2db44">5.3. Logical Operators</a>
+<ul>
+<li><a href="#org87e7b98">5.3.1. Relational Operators</a></li>
+<li><a href="#org3ad105a">5.3.2. Logical Operators</a></li>
+<li><a href="#org89fad82">5.3.3. Operator Precedence</a></li>
+</ul>
+</li>
+<li><a href="#orgf9a73fe">5.4. Conditional Statements</a>
+<ul>
+<li><a href="#orgde48ef0">5.4.1. if</a></li>
+<li><a href="#orgcb911de">5.4.2. case</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org5133594">6. Testbench</a>
+<ul>
+<li><a href="#org544bca5">6.1. Unit Under Test (UUT)</a></li>
+<li><a href="#org0c4ba45">6.2. Generating input values</a></li>
+<li><a href="#org54875be">6.3. A working example</a></li>
 </ul>
 </li>
 </ul>
@@ -157,20 +164,79 @@
 </div>
 
 
-<div id="outline-container-org942f1b2" class="outline-2">
-<h2 id="org942f1b2"><span class="section-number-2">1.</span> Modules</h2>
+<div id="outline-container-org05e3618" class="outline-2">
+<h2 id="org05e3618"><span class="section-number-2">1.</span> Compile/Run Verilog Cheatsheet</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgd9f3439" class="outline-3">
-<h3 id="orgd9f3439"><span class="section-number-3">1.1.</span> Defining a module</h3>
+<div id="outline-container-org0c539ff" class="outline-3">
+<h3 id="org0c539ff"><span class="section-number-3">1.1.</span> TL;DR</h3>
 <div class="outline-text-3" id="text-1-1">
+<ol class="org-ol">
+<li><code>cd</code> to folder</li>
+<li><code>vlib work</code> on first run</li>
+<li><code>vlog &lt;filename&gt;.sv</code> to compile all relevant .sv files</li>
+<li><code>vsim &lt;testbench-name&gt;</code> to run your file (usually a testbench)</li>
+<li><code>add wave sim:/&lt;testbench-name&gt;/uut/*</code></li>
+<li>Run your simulation using either:
+<ol class="org-ol">
+<li><code>run &lt;N&gt;</code> to run for &lt;N&gt; nanoseconds</li>
+<li><code>run -all</code> to automatically stop testbench when completed</li>
+</ol></li>
+<li><code>vlog</code> to recompile relevant modules as needed using</li>
+<li><code>restart -f</code> to restart your simulation</li>
+</ol>
+
+<p>
+To run .tcl scripts, use <code>source &lt;script-name&gt;.tcl</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga42112a" class="outline-3">
+<h3 id="orga42112a"><span class="section-number-3">1.2.</span> Detailed Explanation:</h3>
+<div class="outline-text-3" id="text-1-2">
+<ol class="org-ol">
+<li><span class="underline">Navigate to your project directory using <code>cd</code>.</span>
+The path should:
+<ul class="org-ul">
+<li>Use these slashes: &rsquo;/&rsquo;</li>
+<li>Use English characters</li>
+<li>Not have any spaces (alternatively, it use quotes &ldquo;&rdquo;)</li>
+</ul></li>
+<li><span class="underline">Create a &rsquo;work&rsquo; library using the command <code>vlib work</code>.</span>
+<ul class="org-ul">
+<li>This is supposedly mandatory.</li>
+<li>Only needs to be performed while running your project for the first time.</li>
+</ul></li>
+<li><span class="underline">Compile your .sv files using <code>vlog</code></span>
+<ul class="org-ul">
+<li>If some files depend on modules from other files,
+You will have to compile these files first.</li>
+</ul></li>
+<li><span class="underline">When running testbench, recompile relevant modules as needed using <code>vlog</code></span>
+<ul class="org-ul">
+<li>You only need to recompile the relevant modules.</li>
+<li>No need to recompile the testbench itself or any other modules.</li>
+</ul></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org08a26dd" class="outline-2">
+<h2 id="org08a26dd"><span class="section-number-2">2.</span> Modules</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org43e7ecb" class="outline-3">
+<h3 id="org43e7ecb"><span class="section-number-3">2.1.</span> Defining a module</h3>
+<div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>Everything you write in SystemVerilog must be inside a module.</li>
 <li><p>
 A module is a fundemental building block that receives inputs and generates outputs.
 </p>
 
-<div id="orgd7eb020" class="figure">
+<div id="org9e1ed2f" class="figure">
 <p><img src="System_Verilog_Building_Blocks/2023-03-23_19-21-38_screenshot.png" alt="2023-03-23_19-21-38_screenshot.png" />
 </p>
 </div>
@@ -193,18 +259,64 @@ Here&rsquo;s an example module:
 </ul>
 </div>
 </div>
-<div id="outline-container-org942426d" class="outline-3">
-<h3 id="org942426d"><span class="section-number-3">1.2.</span> Parameters</h3>
-<div class="outline-text-3" id="text-1-2">
+<div id="outline-container-org94b2786" class="outline-3">
+<h3 id="org94b2786"><span class="section-number-3">2.2.</span> Creating module instances (instantiation)</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-org736f0c4" class="outline-4">
+<h4 id="org736f0c4"><span class="section-number-4">2.2.1.</span> Positional association</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<p>
+Define an instance of a module according to its argument positions, as such:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog">module_name <span style="color: #006699;">instance_name</span> (
+    my_input1,
+    ...,
+    my_inputN,
+    my_out1,
+    ...,
+    my_outM
+);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9142b83" class="outline-4">
+<h4 id="org9142b83"><span class="section-number-4">2.2.2.</span> Named association</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<p>
+Modules can also be instantiated using its arguments&rsquo; names explicitly:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog">module_name <span style="color: #006699;">instance_name2</span> (
+    .<span style="color: #006699;">in1</span>(my_input1)),
+    ...,
+    .<span style="color: #006699;">inN</span>(my_inputN),
+    .<span style="color: #006699;">out1</span>(my_output1),
+    ...,
+    .<span style="color: #006699;">outM</span>(my_outputM)
+)
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4dcd27d" class="outline-3">
+<h3 id="org4dcd27d"><span class="section-number-3">2.3.</span> Parameters</h3>
+<div class="outline-text-3" id="text-2-3">
 <ul class="org-ul">
 <li>Allows to pass parameters to a module per-instantiation.</li>
 <li><i>Note: different from logic inputs and outputs.</i></li>
 </ul>
 </div>
 
-<div id="outline-container-org9b4d1f4" class="outline-4">
-<h4 id="org9b4d1f4"><span class="section-number-4">1.2.1.</span> Definition inside a module declaration</h4>
-<div class="outline-text-4" id="text-1-2-1">
+<div id="outline-container-org8533b6c" class="outline-4">
+<h4 id="org8533b6c"><span class="section-number-4">2.3.1.</span> Definition inside a module declaration</h4>
+<div class="outline-text-4" id="text-2-3-1">
 <div class="org-src-container">
 <pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">some_module</span> (
     <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">in1</span>
@@ -218,9 +330,9 @@ Here&rsquo;s an example module:
 </div>
 </div>
 
-<div id="outline-container-org1ecbfb0" class="outline-4">
-<h4 id="org1ecbfb0"><span class="section-number-4">1.2.2.</span> Usage when instantiating a module</h4>
-<div class="outline-text-4" id="text-1-2-2">
+<div id="outline-container-org33f92f9" class="outline-4">
+<h4 id="org33f92f9"><span class="section-number-4">2.3.2.</span> Usage when instantiating a module</h4>
+<div class="outline-text-4" id="text-2-3-2">
 <p>
 A module that shifts a number left N times.
 </p>
@@ -257,9 +369,9 @@ Here are some usage examples:
 </div>
 </div>
 
-<div id="outline-container-org9813430" class="outline-4">
-<h4 id="org9813430"><span class="section-number-4">1.2.3.</span> Local Parameters</h4>
-<div class="outline-text-4" id="text-1-2-3">
+<div id="outline-container-org749474c" class="outline-4">
+<h4 id="org749474c"><span class="section-number-4">2.3.3.</span> Local Parameters</h4>
+<div class="outline-text-4" id="text-2-3-3">
 <p>
 Store constant values inside a module.
 These cannot be changed or passed to an instance module.
@@ -278,59 +390,13 @@ Here&rsquo;s an example:
 </div>
 </div>
 </div>
-<div id="outline-container-org192d9e7" class="outline-3">
-<h3 id="org192d9e7"><span class="section-number-3">1.3.</span> Creating module instances (instantiation)</h3>
-<div class="outline-text-3" id="text-1-3">
+<div id="outline-container-org38db6e6" class="outline-3">
+<h3 id="org38db6e6"><span class="section-number-3">2.4.</span> Modules Inside Modules</h3>
+<div class="outline-text-3" id="text-2-4">
 </div>
-<div id="outline-container-org2eb4846" class="outline-4">
-<h4 id="org2eb4846"><span class="section-number-4">1.3.1.</span> Positional association</h4>
-<div class="outline-text-4" id="text-1-3-1">
-<p>
-Define an instance of a model according to its argument positions, as such:
-</p>
-<div class="org-src-container">
-<pre class="src src-verilog">module_name <span style="color: #006699;">instance_name</span> (
-    my_input1,
-    ...,
-    my_inputN,
-    my_out1,
-    ...,
-    my_outM
-);
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org93d2529" class="outline-4">
-<h4 id="org93d2529"><span class="section-number-4">1.3.2.</span> Named association</h4>
-<div class="outline-text-4" id="text-1-3-2">
-<p>
-Modules can also be instantiated using its arguments&rsquo; names explicitly:
-</p>
-<div class="org-src-container">
-<pre class="src src-verilog">module_name <span style="color: #006699;">instance_name2</span> (
-    .<span style="color: #006699;">in1</span>(my_input1)),
-    ...,
-    .<span style="color: #006699;">inN</span>(my_inputN),
-    .<span style="color: #006699;">out1</span>(my_output1),
-    ...,
-    .<span style="color: #006699;">outM</span>(my_outputM)
-)
-
-</pre>
-</div>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org582d673" class="outline-3">
-<h3 id="org582d673"><span class="section-number-3">1.4.</span> Modules Inside Modules</h3>
-<div class="outline-text-3" id="text-1-4">
-</div>
-<div id="outline-container-org3d9831d" class="outline-4">
-<h4 id="org3d9831d"><span class="section-number-4">1.4.1.</span> Using modules inside other modules</h4>
-<div class="outline-text-4" id="text-1-4-1">
+<div id="outline-container-org42e4592" class="outline-4">
+<h4 id="org42e4592"><span class="section-number-4">2.4.1.</span> Using modules inside other modules</h4>
+<div class="outline-text-4" id="text-2-4-1">
 <div class="org-src-container">
 <pre class="src src-verilog"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Mux that takes 2-bit inputs and outputs a 2-bit result</span>
 <span style="color: #0000FF;">module</span> <span style="color: #006699;">mux2to1_2bit</span> (
@@ -348,9 +414,9 @@ Modules can also be instantiated using its arguments&rsquo; names explicitly:
 </div>
 </div>
 
-<div id="outline-container-org2e79d90" class="outline-4">
-<h4 id="org2e79d90"><span class="section-number-4">1.4.2.</span> Generating many module instances at once (generate)</h4>
-<div class="outline-text-4" id="text-1-4-2">
+<div id="outline-container-org55267d5" class="outline-4">
+<h4 id="org55267d5"><span class="section-number-4">2.4.2.</span> Generating many module instances at once (generate)</h4>
+<div class="outline-text-4" id="text-2-4-2">
 <p>
 You can use the <code>generate</code> command to create many module instances at once:
 </p>
@@ -375,16 +441,16 @@ You can use the <code>generate</code> command to create many module instances at
 </div>
 </div>
 
-<div id="outline-container-org1f0438f" class="outline-3">
-<h3 id="org1f0438f"><span class="section-number-3">1.5.</span> Concurrent assignment (השמה של ערכים מקבילים/ברי שינוי) to wires inside modules</h3>
-<div class="outline-text-3" id="text-1-5">
+<div id="outline-container-org4bd669c" class="outline-3">
+<h3 id="org4bd669c"><span class="section-number-3">2.5.</span> Concurrent assignment (השמה של ערכים מקבילים/ברי שינוי) to wires inside modules</h3>
+<div class="outline-text-3" id="text-2-5">
 <p>
 Connect a wire to some combinatorical logic or another wire.
 </p>
 </div>
-<div id="outline-container-orged81c86" class="outline-4">
-<h4 id="orged81c86"><span class="section-number-4">1.5.1.</span> Syntax</h4>
-<div class="outline-text-4" id="text-1-5-1">
+<div id="outline-container-org1845fe9" class="outline-4">
+<h4 id="org1845fe9"><span class="section-number-4">2.5.1.</span> Syntax</h4>
+<div class="outline-text-4" id="text-2-5-1">
 <div class="org-src-container">
 <pre class="src src-verilog"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">A simple assignment from one wire to another</span>
 <span style="color: #0000FF;">module</span> <span style="color: #006699;">pass_same_value</span>(
@@ -419,13 +485,13 @@ An explicit value can also be used.
 </div>
 </div>
 
-<div id="outline-container-org5bae8c9" class="outline-3">
-<h3 id="org5bae8c9"><span class="section-number-3">1.6.</span> Procedular Blocks (הרצה סדרתית של הצהרות בתוך מודול)</h3>
-<div class="outline-text-3" id="text-1-6">
+<div id="outline-container-orge1ac36c" class="outline-3">
+<h3 id="orge1ac36c"><span class="section-number-3">2.6.</span> Procedular Blocks (הרצה סדרתית של הצהרות בתוך מודול)</h3>
+<div class="outline-text-3" id="text-2-6">
 </div>
-<div id="outline-container-orgb33ca25" class="outline-4">
-<h4 id="orgb33ca25"><span class="section-number-4">1.6.1.</span> Definition and types</h4>
-<div class="outline-text-4" id="text-1-6-1">
+<div id="outline-container-org3c4357f" class="outline-4">
+<h4 id="org3c4357f"><span class="section-number-4">2.6.1.</span> Definition and types</h4>
+<div class="outline-text-4" id="text-2-6-1">
 <p>
 All statements inside a procedural block are executed sequentially.
 </p>
@@ -446,9 +512,9 @@ For regular modules, we use <code>always_comb</code>.
 </ul>
 </div>
 </div>
-<div id="outline-container-org5266587" class="outline-4">
-<h4 id="org5266587"><span class="section-number-4">1.6.2.</span> always<sub>comb</sub></h4>
-<div class="outline-text-4" id="text-1-6-2">
+<div id="outline-container-org6465a6b" class="outline-4">
+<h4 id="org6465a6b"><span class="section-number-4">2.6.2.</span> always<sub>comb</sub></h4>
+<div class="outline-text-4" id="text-2-6-2">
 <p>
 Executes statements in a loop.
 Used for combinatorical logic implementation.
@@ -471,14 +537,14 @@ Here&rsquo;s a working example:
 </div>
 
 <p>
-You can use <a href="#org63ea2ac">conditional statements</a> inside of a procedural block.
+You can use <a href="#orgf9a73fe">conditional statements</a> inside of a procedural block.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org8eeac1f" class="outline-4">
-<h4 id="org8eeac1f"><span class="section-number-4">1.6.3.</span> Complete assignments</h4>
-<div class="outline-text-4" id="text-1-6-3">
+<div id="outline-container-org25037f0" class="outline-4">
+<h4 id="org25037f0"><span class="section-number-4">2.6.3.</span> Complete assignments</h4>
+<div class="outline-text-4" id="text-2-6-3">
 <p>
 <b>Note:</b> <code>always_comb</code> should NOT be used for memory elements!
 </p>
@@ -490,22 +556,22 @@ You can use <a href="#org63ea2ac">conditional statements</a> inside of a procedu
 </div>
 
 <ol class="org-ol">
-<li><a id="org560f68e"></a>&ldquo;if&rdquo; statements<br />
-<div class="outline-text-5" id="text-1-6-3-1">
+<li><a id="orgd7a929c"></a>&ldquo;if&rdquo; statements<br />
+<div class="outline-text-5" id="text-2-6-3-1">
 <p>
 Use &ldquo;else&rdquo;
 </p>
 </div>
 </li>
-<li><a id="org9936e64"></a>&ldquo;case&rdquo; statements<br />
-<div class="outline-text-5" id="text-1-6-3-2">
+<li><a id="org625d6d7"></a>&ldquo;case&rdquo; statements<br />
+<div class="outline-text-5" id="text-2-6-3-2">
 <p>
 Use &ldquo;default&rdquo;
 </p>
 </div>
 </li>
-<li><a id="orgbfa5329"></a>General solution<br />
-<div class="outline-text-5" id="text-1-6-3-3">
+<li><a id="orge5470f6"></a>General solution<br />
+<div class="outline-text-5" id="text-2-6-3-3">
 <p>
 Use default assignments
 </p>
@@ -522,7 +588,7 @@ Use default assignments
 
 
 
-<div id="orgd4acc0b" class="figure">
+<div id="orgc6b5edb" class="figure">
 <p><img src="Modules/2023-06-09_22-56-05_screenshot.png" alt="2023-06-09_22-56-05_screenshot.png" />
 </p>
 </div>
@@ -533,13 +599,13 @@ Use default assignments
 </div>
 </div>
 
-<div id="outline-container-orgf04385b" class="outline-2">
-<h2 id="orgf04385b"><span class="section-number-2">2.</span> Data Types and Values</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org6258e66" class="outline-2">
+<h2 id="org6258e66"><span class="section-number-2">3.</span> Data Types and Values</h2>
+<div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org4605282" class="outline-3">
-<h3 id="org4605282"><span class="section-number-3">2.1.</span> SystemVerilog Logic Values</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-org741a56b" class="outline-3">
+<h3 id="org741a56b"><span class="section-number-3">3.1.</span> SystemVerilog Logic Values</h3>
+<div class="outline-text-3" id="text-3-1">
 <p>
 In SystemVerilog, a bit can take the following logical values:
 </p>
@@ -582,9 +648,9 @@ In SystemVerilog, a bit can take the following logical values:
 </div>
 </div>
 
-<div id="outline-container-orgba67e11" class="outline-3">
-<h3 id="orgba67e11"><span class="section-number-3">2.2.</span> 1-bit wires (logic)</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-org3a894b8" class="outline-3">
+<h3 id="org3a894b8"><span class="section-number-3">3.2.</span> 1-bit wires (logic)</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 The <code>logic</code> data type represents a wire (1 bit):
 </p>
@@ -595,16 +661,16 @@ The <code>logic</code> data type represents a wire (1 bit):
 </div>
 
 
-<div id="org3ad6eab" class="figure">
+<div id="orga41023b" class="figure">
 <p><img src="Data_Types/2023-03-23_19-42-28_screenshot.png" alt="2023-03-23_19-42-28_screenshot.png" />
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org0cb5d1d" class="outline-3">
-<h3 id="org0cb5d1d"><span class="section-number-3">2.3.</span> Vectors</h3>
-<div class="outline-text-3" id="text-2-3">
+<div id="outline-container-org5d18dd1" class="outline-3">
+<h3 id="org5d18dd1"><span class="section-number-3">3.3.</span> Vectors</h3>
+<div class="outline-text-3" id="text-3-3">
 <p>
 Declaration of an 8-bit logic vector:
 </p>
@@ -633,15 +699,15 @@ Here&rsquo;s how you&rsquo;d describe the &ldquo;selector&rdquo; wires in a mux 
 </div>
 
 
-<div id="orge874b44" class="figure">
+<div id="org5e912e6" class="figure">
 <p><img src="Data_Types_and_Values/2023-03-23_22-54-02_screenshot.png" alt="2023-03-23_22-54-02_screenshot.png" />
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgdbb80ec" class="outline-4">
-<h4 id="orgdbb80ec"><span class="section-number-4">2.3.1.</span> Vector Operations</h4>
-<div class="outline-text-4" id="text-2-3-1">
+<div id="outline-container-org68ae715" class="outline-4">
+<h4 id="org68ae715"><span class="section-number-4">3.3.1.</span> Vector Operations</h4>
+<div class="outline-text-4" id="text-3-3-1">
 <ul class="org-ul">
 <li><p>
 Bit select:
@@ -678,9 +744,9 @@ Unpack:
 </div>
 </div>
 
-<div id="outline-container-orgc5b7381" class="outline-4">
-<h4 id="orgc5b7381"><span class="section-number-4">2.3.2.</span> Repeated Signals</h4>
-<div class="outline-text-4" id="text-2-3-2">
+<div id="outline-container-org960b953" class="outline-4">
+<h4 id="org960b953"><span class="section-number-4">3.3.2.</span> Repeated Signals</h4>
+<div class="outline-text-4" id="text-3-3-2">
 <p>
 A signal can be repeated \(n\) times in this manner:
 </p>
@@ -691,9 +757,9 @@ A signal can be repeated \(n\) times in this manner:
 </div>
 </div>
 
-<div id="outline-container-orgf5edeb4" class="outline-4">
-<h4 id="orgf5edeb4"><span class="section-number-4">2.3.3.</span> A Working Example (Implementing Unsigned Extension)</h4>
-<div class="outline-text-4" id="text-2-3-3">
+<div id="outline-container-orgc493a33" class="outline-4">
+<h4 id="orgc493a33"><span class="section-number-4">3.3.3.</span> A Working Example (Implementing Unsigned Extension)</h4>
+<div class="outline-text-4" id="text-3-3-3">
 <div class="org-src-container">
 <pre class="src src-verilog"><span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">7</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">out</span>;
 <span style="color: #6434A3;">logic</span> [<span style="color: #D0372D;">3</span>:<span style="color: #D0372D;">0</span>] <span style="color: #BA36A5;">A</span>;
@@ -704,9 +770,9 @@ out = {{<span style="color: #D0372D;">4</span>{<span style="color: #D0372D;">1</
 </div>
 </div>
 
-<div id="outline-container-org044abda" class="outline-3">
-<h3 id="org044abda"><span class="section-number-3">2.4.</span> Integer Literals</h3>
-<div class="outline-text-3" id="text-2-4">
+<div id="outline-container-org776be15" class="outline-3">
+<h3 id="org776be15"><span class="section-number-3">3.4.</span> Integer Literals</h3>
+<div class="outline-text-3" id="text-3-4">
 <p>
 <span class="underline">Format</span>: <b>&lt;width&rsquo;&gt;&lt;signed&gt;&lt;radix&gt; value</b>
 </p>
@@ -721,9 +787,9 @@ You can use this format to generate:
 </ul>
 </div>
 
-<div id="outline-container-org7137acf" class="outline-4">
-<h4 id="org7137acf"><span class="section-number-4">2.4.1.</span> Available number bases (&lt;radix&gt; values)</h4>
-<div class="outline-text-4" id="text-2-4-1">
+<div id="outline-container-org47c0d02" class="outline-4">
+<h4 id="org47c0d02"><span class="section-number-4">3.4.1.</span> Available number bases (&lt;radix&gt; values)</h4>
+<div class="outline-text-4" id="text-3-4-1">
 <ul class="org-ul">
 <li>Binary (<code>b</code> or <code>B</code>)</li>
 <li>Octal (<code>o</code> or <code>O</code>)</li>
@@ -733,9 +799,9 @@ You can use this format to generate:
 </div>
 </div>
 
-<div id="outline-container-org2a0f26e" class="outline-4">
-<h4 id="org2a0f26e"><span class="section-number-4">2.4.2.</span> Default settings</h4>
-<div class="outline-text-4" id="text-2-4-2">
+<div id="outline-container-org943d600" class="outline-4">
+<h4 id="org943d600"><span class="section-number-4">3.4.2.</span> Default settings</h4>
+<div class="outline-text-4" id="text-3-4-2">
 <ul class="org-ul">
 <li>Width = 32
 Unsigned
@@ -744,9 +810,9 @@ Radix = Decimal</li>
 </div>
 </div>
 
-<div id="outline-container-org2ac4d7c" class="outline-4">
-<h4 id="org2ac4d7c"><span class="section-number-4">2.4.3.</span> Examples</h4>
-<div class="outline-text-4" id="text-2-4-3">
+<div id="outline-container-orgc4c4713" class="outline-4">
+<h4 id="orgc4c4713"><span class="section-number-4">3.4.3.</span> Examples</h4>
+<div class="outline-text-4" id="text-3-4-3">
 <ul class="org-ul">
 <li><code>1'b0</code> - one bit, unsigned, value of zero</li>
 <li><code>12'hAD1</code> - 12 bits, unsigned, value of 0xAD1</li>
@@ -759,28 +825,49 @@ Radix = Decimal</li>
 </div>
 </div>
 
-<div id="outline-container-org989a9ab" class="outline-2">
-<h2 id="org989a9ab"><span class="section-number-2">3.</span> Synchronous logic and assignments (always<sub>ff</sub>)</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org1cc40f7" class="outline-2">
+<h2 id="org1cc40f7"><span class="section-number-2">4.</span> Synchronous logic and assignments (always<sub>ff</sub>)</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 As opposed to <code>always_comb</code>, which implements an asynchronous/combinatorical block,
+<code>always_ff</code> implements a synchronous block.
+</p>
+</div>
+
+<div id="outline-container-orgfa0ec8c" class="outline-3">
+<h3 id="orgfa0ec8c"><span class="section-number-3">4.1.</span> Positive Edge (דגימה בעליית שעון)</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Using <code>posedge</code>, you can sample a value when your clock is on a positive edge.
 </p>
 
 <p>
-<code>always_ff</code> implements a synchronous block
+This is an example that uses <code>posedge</code> to emulate a Flip-Flop:
+</p>
+<div class="org-src-container">
+<pre class="src src-verilog"><span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">a</span>, <span style="color: #BA36A5;">in</span>;
+<span style="color: #0000FF;">always_ff</span> <span style="color: #6434A3;">@</span>(<span style="color: #0000FF;">posedge</span> clk) <span style="color: #6434A3;">begin</span>
+   a &lt;= in;
+<span style="color: #6434A3;">end</span>
+</pre>
+</div>
+
+<p>
+**
 </p>
 </div>
-<div id="outline-container-orgbb4d719" class="outline-3">
-<h3 id="orgbb4d719"><span class="section-number-3">3.1.</span> Sampling on clock positive edge (עליית שעון)</h3>
+</div>
+<div id="outline-container-orgd9bc730" class="outline-3">
+<h3 id="orgd9bc730"><span class="section-number-3">4.2.</span> Sampling on clock positive edge (עליית שעון)</h3>
 </div>
 </div>
-<div id="outline-container-orgb0918ed" class="outline-2">
-<h2 id="orgb0918ed"><span class="section-number-2">4.</span> Operations and Conditions</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-org907ee97" class="outline-2">
+<h2 id="org907ee97"><span class="section-number-2">5.</span> Operations and Conditions</h2>
+<div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-orgd25e8ce" class="outline-3">
-<h3 id="orgd25e8ce"><span class="section-number-3">4.1.</span> Logic Gates (built-in)</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-org5a704f5" class="outline-3">
+<h3 id="org5a704f5"><span class="section-number-3">5.1.</span> Logic Gates (built-in)</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
 The following logic gates are available for direct instantiation:
 </p>
@@ -799,9 +886,9 @@ Syntax:
 </p>
 </div>
 
-<div id="outline-container-orge0c8280" class="outline-4">
-<h4 id="orge0c8280"><span class="section-number-4">4.1.1.</span> Example implementation of a half hadder</h4>
-<div class="outline-text-4" id="text-4-1-1">
+<div id="outline-container-org4ec0cb9" class="outline-4">
+<h4 id="org4ec0cb9"><span class="section-number-4">5.1.1.</span> Example implementation of a half hadder</h4>
+<div class="outline-text-4" id="text-5-1-1">
 <div class="org-src-container">
 <pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">HalfAdder</span> (
     <span style="color: #6434A3;">output</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">S</span>,
@@ -816,7 +903,7 @@ Syntax:
 </pre>
 </div>
 
-<div id="org67b3356" class="figure">
+<div id="orga3f67e1" class="figure">
 <p><img src="Data_Types_and_Values/2023-06-09_21-06-49_screenshot.png" alt="2023-06-09_21-06-49_screenshot.png" />
 </p>
 </div>
@@ -824,13 +911,13 @@ Syntax:
 </div>
 </div>
 
-<div id="outline-container-org89ec9f3" class="outline-3">
-<h3 id="org89ec9f3"><span class="section-number-3">4.2.</span> Operators (built-in)</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-orge2b1f59" class="outline-3">
+<h3 id="orge2b1f59"><span class="section-number-3">5.2.</span> Operators (built-in)</h3>
+<div class="outline-text-3" id="text-5-2">
 </div>
-<div id="outline-container-org8ff89f3" class="outline-4">
-<h4 id="org8ff89f3"><span class="section-number-4">4.2.1.</span> Bitwise Operators</h4>
-<div class="outline-text-4" id="text-4-2-1">
+<div id="outline-container-org86da95e" class="outline-4">
+<h4 id="org86da95e"><span class="section-number-4">5.2.1.</span> Bitwise Operators</h4>
+<div class="outline-text-4" id="text-5-2-1">
 <ul class="org-ul">
 <li><code>&amp;</code> - bitwise AND</li>
 <li><code>|</code> - bitwise OR</li>
@@ -840,9 +927,9 @@ Syntax:
 </ul>
 </div>
 </div>
-<div id="outline-container-orgef10ec6" class="outline-4">
-<h4 id="orgef10ec6"><span class="section-number-4">4.2.2.</span> Shift</h4>
-<div class="outline-text-4" id="text-4-2-2">
+<div id="outline-container-org8332737" class="outline-4">
+<h4 id="org8332737"><span class="section-number-4">5.2.2.</span> Shift</h4>
+<div class="outline-text-4" id="text-5-2-2">
 <p>
 <code>&gt;&gt;</code> - shift right
 <code>&lt;&lt;</code> - shift left
@@ -858,11 +945,11 @@ c = <span style="color: #D0372D;">4</span>'b1010 &gt;&gt; <span style="color: #D
 </div>
 </div>
 </div>
-<div id="outline-container-org5285714" class="outline-4">
-<h4 id="org5285714"><span class="section-number-4">4.2.3.</span> Operator Precedence</h4>
-<div class="outline-text-4" id="text-4-2-3">
+<div id="outline-container-org0eda1d6" class="outline-4">
+<h4 id="org0eda1d6"><span class="section-number-4">5.2.3.</span> Operator Precedence</h4>
+<div class="outline-text-4" id="text-5-2-3">
 
-<div id="org69bade9" class="figure">
+<div id="orge5dd983" class="figure">
 <p><img src="Data_Types_and_Values/2023-06-09_21-49-20_screenshot.png" alt="2023-06-09_21-49-20_screenshot.png" />
 </p>
 </div>
@@ -870,13 +957,13 @@ c = <span style="color: #D0372D;">4</span>'b1010 &gt;&gt; <span style="color: #D
 </div>
 </div>
 
-<div id="outline-container-org400986f" class="outline-3">
-<h3 id="org400986f"><span class="section-number-3">4.3.</span> Logical Operators</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-orgcc2db44" class="outline-3">
+<h3 id="orgcc2db44"><span class="section-number-3">5.3.</span> Logical Operators</h3>
+<div class="outline-text-3" id="text-5-3">
 </div>
-<div id="outline-container-org75838d0" class="outline-4">
-<h4 id="org75838d0"><span class="section-number-4">4.3.1.</span> Relational Operators</h4>
-<div class="outline-text-4" id="text-4-3-1">
+<div id="outline-container-org87e7b98" class="outline-4">
+<h4 id="org87e7b98"><span class="section-number-4">5.3.1.</span> Relational Operators</h4>
+<div class="outline-text-4" id="text-5-3-1">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -929,9 +1016,9 @@ All of these return a 1-bit logical value (true/false/x)
 </p>
 </div>
 </div>
-<div id="outline-container-org4a1a474" class="outline-4">
-<h4 id="org4a1a474"><span class="section-number-4">4.3.2.</span> Logical Operators</h4>
-<div class="outline-text-4" id="text-4-3-2">
+<div id="outline-container-org3ad105a" class="outline-4">
+<h4 id="org3ad105a"><span class="section-number-4">5.3.2.</span> Logical Operators</h4>
+<div class="outline-text-4" id="text-5-3-2">
 <p>
 Used for conditions.
 </p>
@@ -972,11 +1059,11 @@ Used for conditions.
 </ul>
 </div>
 </div>
-<div id="outline-container-org1dca612" class="outline-4">
-<h4 id="org1dca612"><span class="section-number-4">4.3.3.</span> Operator Precedence</h4>
-<div class="outline-text-4" id="text-4-3-3">
+<div id="outline-container-org89fad82" class="outline-4">
+<h4 id="org89fad82"><span class="section-number-4">5.3.3.</span> Operator Precedence</h4>
+<div class="outline-text-4" id="text-5-3-3">
 
-<div id="org5c14c1f" class="figure">
+<div id="orgefd9445" class="figure">
 <p><img src="Data_Types_and_Values/2023-06-09_22-34-27_screenshot.png" alt="2023-06-09_22-34-27_screenshot.png" />
 </p>
 </div>
@@ -984,20 +1071,20 @@ Used for conditions.
 </div>
 </div>
 
-<div id="outline-container-org63ea2ac" class="outline-3">
-<h3 id="org63ea2ac"><span class="section-number-3">4.4.</span> Conditional Statements</h3>
-<div class="outline-text-3" id="text-4-4">
+<div id="outline-container-orgf9a73fe" class="outline-3">
+<h3 id="orgf9a73fe"><span class="section-number-3">5.4.</span> Conditional Statements</h3>
+<div class="outline-text-3" id="text-5-4">
 <p>
 Used in procedural blocks.
 </p>
 </div>
-<div id="outline-container-orgf98181e" class="outline-4">
-<h4 id="orgf98181e"><span class="section-number-4">4.4.1.</span> if</h4>
-<div class="outline-text-4" id="text-4-4-1">
+<div id="outline-container-orgde48ef0" class="outline-4">
+<h4 id="orgde48ef0"><span class="section-number-4">5.4.1.</span> if</h4>
+<div class="outline-text-4" id="text-5-4-1">
 </div>
 <ol class="org-ol">
-<li><a id="org308f6b7"></a>Syntax<br />
-<div class="outline-text-5" id="text-4-4-1-1">
+<li><a id="org289bd16"></a>Syntax<br />
+<div class="outline-text-5" id="text-5-4-1-1">
 <div class="org-src-container">
 <pre class="src src-verilog"><span style="color: #0000FF;">if</span> (condition1) <span style="color: #6434A3;">begin</span>
    &lt;statement1&gt;;
@@ -1014,8 +1101,8 @@ Used in procedural blocks.
 </div>
 </li>
 
-<li><a id="org64667c6"></a>A working example<br />
-<div class="outline-text-5" id="text-4-4-1-2">
+<li><a id="org14cc750"></a>A working example<br />
+<div class="outline-text-5" id="text-5-4-1-2">
 <div class="org-src-container">
 <pre class="src src-verilog"><span style="color: #0000FF;">module</span> <span style="color: #006699;">mux</span> (
     <span style="color: #6434A3;">input</span> <span style="color: #6434A3;">logic</span> <span style="color: #BA36A5;">A</span>,
@@ -1038,13 +1125,13 @@ Used in procedural blocks.
 </li>
 </ol>
 </div>
-<div id="outline-container-orga32a81b" class="outline-4">
-<h4 id="orga32a81b"><span class="section-number-4">4.4.2.</span> case</h4>
-<div class="outline-text-4" id="text-4-4-2">
+<div id="outline-container-orgcb911de" class="outline-4">
+<h4 id="orgcb911de"><span class="section-number-4">5.4.2.</span> case</h4>
+<div class="outline-text-4" id="text-5-4-2">
 </div>
 <ol class="org-ol">
-<li><a id="org0b0357d"></a>Syntax<br />
-<div class="outline-text-5" id="text-4-4-2-1">
+<li><a id="org9566226"></a>Syntax<br />
+<div class="outline-text-5" id="text-5-4-2-1">
 <div class="org-src-container">
 <pre class="src src-verilog"><span style="color: #0000FF;">case</span> (&lt;signal/expression&gt;)
   &lt;value1&gt;: <span style="color: #6434A3;">begin</span>
@@ -1062,8 +1149,8 @@ Used in procedural blocks.
 </div>
 </li>
 
-<li><a id="org8581833"></a>A working example<br />
-<div class="outline-text-5" id="text-4-4-2-2">
+<li><a id="org03f57c1"></a>A working example<br />
+<div class="outline-text-5" id="text-5-4-2-2">
 <p>
 An example for mux behavior using <code>case</code>.
 </p>
@@ -1087,21 +1174,21 @@ An example for mux behavior using <code>case</code>.
 </pre>
 </div>
 
-<div id="org62a02c2" class="figure">
+<div id="orgb981613" class="figure">
 <p><img src="Data_Types_and_Values/2023-06-09_22-47-24_screenshot.png" alt="2023-06-09_22-47-24_screenshot.png" />
 </p>
 </div>
 </div>
 </li>
-<li><a id="org52e5934"></a>casez<br />
-<div class="outline-text-5" id="text-4-4-2-3">
+<li><a id="org6786b35"></a>casez<br />
+<div class="outline-text-5" id="text-5-4-2-3">
 <p>
 <code>?</code> and <code>z</code> are considered as don&rsquo;t cares [0,1,z]
 </p>
 </div>
 </li>
-<li><a id="org50081ab"></a>casex<br />
-<div class="outline-text-5" id="text-4-4-2-4">
+<li><a id="org31edcb2"></a>casex<br />
+<div class="outline-text-5" id="text-5-4-2-4">
 <p>
 <code>?</code>, <code>x</code> and <code>z</code> are considered as don&rsquo;t cares [0,1,x,z]
 </p>
@@ -1111,13 +1198,13 @@ An example for mux behavior using <code>case</code>.
 </div>
 </div>
 </div>
-<div id="outline-container-org15885c8" class="outline-2">
-<h2 id="org15885c8"><span class="section-number-2">5.</span> Testbench</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org5133594" class="outline-2">
+<h2 id="org5133594"><span class="section-number-2">6.</span> Testbench</h2>
+<div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-org7352d9a" class="outline-3">
-<h3 id="org7352d9a"><span class="section-number-3">5.1.</span> Unit Under Test (UUT)</h3>
-<div class="outline-text-3" id="text-5-1">
+<div id="outline-container-org544bca5" class="outline-3">
+<h3 id="org544bca5"><span class="section-number-3">6.1.</span> Unit Under Test (UUT)</h3>
+<div class="outline-text-3" id="text-6-1">
 <p>
 A testbench generates input values and checks our Unit Under Test (UUT)
 for its response.
@@ -1128,15 +1215,15 @@ The UUT in our case is our module.
 </p>
 
 
-<div id="orgc6693fe" class="figure">
+<div id="orgbb13e44" class="figure">
 <p><img src="Testbench/2023-06-09_21-22-06_screenshot.png" alt="2023-06-09_21-22-06_screenshot.png" />
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orge4722ff" class="outline-3">
-<h3 id="orge4722ff"><span class="section-number-3">5.2.</span> Generating input values</h3>
-<div class="outline-text-3" id="text-5-2">
+<div id="outline-container-org0c4ba45" class="outline-3">
+<h3 id="org0c4ba45"><span class="section-number-3">6.2.</span> Generating input values</h3>
+<div class="outline-text-3" id="text-6-2">
 <div class="org-src-container">
 <pre class="src src-verilog"><span style="color: #0000FF;">initial</span> <span style="color: #6434A3;">begin</span>
    data = <span style="color: #D0372D;">0</span>;
@@ -1149,9 +1236,9 @@ The UUT in our case is our module.
 </div>
 </div>
 
-<div id="outline-container-org95eb803" class="outline-3">
-<h3 id="org95eb803"><span class="section-number-3">5.3.</span> A working example</h3>
-<div class="outline-text-3" id="text-5-3">
+<div id="outline-container-org54875be" class="outline-3">
+<h3 id="org54875be"><span class="section-number-3">6.3.</span> A working example</h3>
+<div class="outline-text-3" id="text-6-3">
 <div class="org-src-container">
 <pre class="src src-verilog"><span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">_tb stands for _testbench</span>
 <span style="color: #0000FF;">module</span> <span style="color: #006699;">HalfAdder_tb</span>;
@@ -1192,7 +1279,7 @@ The UUT in our case is our module.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Ido Merenstein</p>
-<p class="date">Created: 2023-06-09 Fri 23:55</p>
+<p class="date">Created: 2023-06-10 Sat 00:25</p>
 </div>
 </body>
 </html>

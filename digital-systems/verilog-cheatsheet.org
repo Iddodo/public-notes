@@ -2,6 +2,37 @@
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 
 
+* Compile/Run Verilog Cheatsheet
+** TL;DR
+1. =cd= to folder
+2. =vlib work= on first run
+3. =vlog <filename>.sv= to compile all relevant .sv files
+4. =vsim <testbench-name>= to run your file (usually a testbench)
+5. =add wave sim:/<testbench-name>/uut/*=
+6. Run your simulation using either:
+   1. =run <N>= to run for <N> nanoseconds
+   2. =run -all= to automatically stop testbench when completed
+7. =vlog= to recompile relevant modules as needed using
+8. =restart -f= to restart your simulation
+
+To run .tcl scripts, use =source <script-name>.tcl=.
+
+** Detailed Explanation:
+1. _Navigate to your project directory using =cd=._
+   The path should:
+   - Use these slashes: '/'
+   - Use English characters
+   - Not have any spaces (alternatively, it use quotes "")
+2. _Create a 'work' library using the command =vlib work=._
+   - This is supposedly mandatory.
+   - Only needs to be performed while running your project for the first time.
+3. _Compile your .sv files using =vlog=_
+   - If some files depend on modules from other files,
+     You will have to compile these files first.
+7. _When running testbench, recompile relevant modules as needed using =vlog=_
+   - You only need to recompile the relevant modules.
+   - No need to recompile the testbench itself or any other modules.
+
 * Modules
 ** Defining a module
 - Everything you write in SystemVerilog must be inside a module.
@@ -21,6 +52,34 @@ module my_module(
     assign result = a & b;
 endmodule
  #+end_src
+** Creating module instances (instantiation)
+*** Positional association
+Define an instance of a module according to its argument positions, as such:
+#+begin_src verilog
+module_name instance_name (
+    my_input1,
+    ...,
+    my_inputN,
+    my_out1,
+    ...,
+    my_outM
+);
+#+end_src
+
+*** Named association
+Modules can also be instantiated using its arguments' names explicitly:
+#+begin_src verilog
+module_name instance_name2 (
+    .in1(my_input1)),
+    ...,
+    .inN(my_inputN),
+    .out1(my_output1),
+    ...,
+    .outM(my_outputM)
+)
+
+#+end_src
+
 ** Parameters
 - Allows to pass parameters to a module per-instantiation.
 - /Note: different from logic inputs and outputs./
@@ -76,34 +135,6 @@ module my_module(...);
    localparam NUM_OF_CYCLES = 10;
 endmodule
 #+end_src
-** Creating module instances (instantiation)
-*** Positional association
-Define an instance of a model according to its argument positions, as such:
-#+begin_src verilog
-module_name instance_name (
-    my_input1,
-    ...,
-    my_inputN,
-    my_out1,
-    ...,
-    my_outM
-);
-#+end_src
-
-*** Named association
-Modules can also be instantiated using its arguments' names explicitly:
-#+begin_src verilog
-module_name instance_name2 (
-    .in1(my_input1)),
-    ...,
-    .inN(my_inputN),
-    .out1(my_output1),
-    ...,
-    .outM(my_outputM)
-)
-
-#+end_src
-
 ** Modules Inside Modules
 *** Using modules inside other modules
 #+begin_src verilog
@@ -331,8 +362,20 @@ You can use this format to generate:
 
 * Synchronous logic and assignments (always_ff)
 As opposed to =always_comb=, which implements an asynchronous/combinatorical block,
+=always_ff= implements a synchronous block.
 
-=always_ff= implements a synchronous block
+** Positive Edge (דגימה בעליית שעון)
+Using =posedge=, you can sample a value when your clock is on a positive edge.
+
+This is an example that uses =posedge= to emulate a Flip-Flop:
+#+begin_src verilog
+logic a, in;
+always_ff @(posedge clk) begin
+   a <= in;
+end
+#+end_src
+
+**
 ** Sampling on clock positive edge (עליית שעון)
 * Operations and Conditions
 ** Logic Gates (built-in)
