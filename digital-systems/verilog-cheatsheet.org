@@ -731,6 +731,9 @@ always_comb begin
 end
 #+end_src
 
+#+DOWNLOADED: screenshot @ 2023-06-10 04:37:18
+[[file:Finite_State_Machines/2023-06-10_04-37-18_screenshot.png]]
+
 
 * Testbench
 ** Unit Under Test (UUT)
