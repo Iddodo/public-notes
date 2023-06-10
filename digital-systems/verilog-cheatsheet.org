@@ -708,6 +708,29 @@ end
 [[file:Finite_State_Machines/2023-06-10_02-09-03_screenshot.png]]
 
 
+** FSM - (Moore) Asynchronous Logic
+#+begin_src verilog
+always_comb begin
+   case (current_state)
+     S0_st: begin
+        next_state = S1_st;
+        z = 1'b0;
+     end
+     S1_st: begin
+        next_state = S2_st;
+        z = 1'b0;
+     end
+     S2_st: begin
+        next_state = S0_st;
+        z = 1'b1;
+     end
+     default: begin
+        next_state = S0_st;
+        z = 1'b0;
+     end
+end
+#+end_src
+
 
 * Testbench
 ** Unit Under Test (UUT)
