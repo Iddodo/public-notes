@@ -354,8 +354,8 @@ You can use this format to generate:
 
 *** Default settings
 - Width = 32
-  Unsigned
-  Radix = Decimal
+- Unsigned
+- Radix = Decimal
 
 *** Examples
 - =1'b0= - one bit, unsigned, value of zero
