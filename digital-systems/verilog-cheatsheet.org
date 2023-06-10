@@ -18,20 +18,19 @@
 To run .tcl scripts, use =source <script-name>.tcl=.
 
 ** Detailed Explanation:
-1. _Navigate to your project directory using =cd=._
-
+1. _Navigate to your project directory using =cd=._ \\
    The path should:
    - Use these slashes: '/'
    - Use English characters
-   - Not have any spaces (alternatively, it use quotes "")
+   - Not have any spaces (alternatively, it use quotes "") \\
 
 2. _Create a 'work' library using the command =vlib work=._
    - This is supposedly mandatory.
-   - Only needs to be performed while running your project for the first time.
+   - Only needs to be performed while running your project for the first time. \\
 
 3. _Compile your .sv files using =vlog=_
    - If some files depend on modules from other files,
-     You will have to compile these files first.
+     You will have to compile these files first. \\
 
 7. _When running testbench, recompile relevant modules as needed using =vlog=_
    - You only need to recompile the relevant modules.
