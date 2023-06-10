@@ -342,7 +342,7 @@ out = {{4{1'b0}}, A[3:0]};
 _Format_: *<width'><signed><radix> value*
 
 You can use this format to generate:
-- Multiple bit integers (=<signed>=)
+- Multiple bit integers (=<width'>=)
 - Two's complement negative numbers (=<signed>=)
 - Write a number in base 2,8,10 or 16 (=<radix>=)
 
