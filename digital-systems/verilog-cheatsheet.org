@@ -718,15 +718,6 @@ The UUT in our case is our module.
 
 #+DOWNLOADED: screenshot @ 2023-06-09 21:22:06
 [[file:Testbench/2023-06-09_21-22-06_screenshot.png]]
-** Repeat Loop
-Used in an initial block to repeat statements.
-#+begin_src verilog
-repeat(num_of_times) begin
-   <statement1>;
-   <statement2>;
-end
-#+end_src
-
 ** Generating input values
 #+begin_src verilog
 initial begin
@@ -735,6 +726,7 @@ initial begin
    data = 1;
    #30 // Wait 30ns
    data = 0;
+end
 #+end_src
 
  Here's a working example:
@@ -770,6 +762,15 @@ module HalfAdder_tb;
    end
 
 endmodule
+#+end_src
+
+** Repeat Loop
+Used in an initial block to repeat statements.
+#+begin_src verilog
+repeat(num_of_times) begin
+   <statement1>;
+   <statement2>;
+end
 #+end_src
 
 ** Synchronous logic: Generating a Clock Signal
