@@ -428,8 +428,15 @@ endmodule
 ** enum
 An enum type defines a set of named values.
 We will use =enum= for FSM state declaration:
+
 #+begin_src verilog
-typedef enum { idle_st, state1, state2 \} state_type;
+logic [7:0] out;
+logic [3:0] A;
+out = {{4{1'b0}}, A[3:0]};
+#+end_src
+
+#+begin_src verilog
+typedef enu​m {idle_st, state1, state2} state_type;
 #+end_src
 
 * Operations and Conditions
@@ -443,7 +450,10 @@ The following logic gates are available for direct instantiation:
 - nor
 - xnor
 
-Syntax: src_verilog{gateName(output, input1, <optional_input2>)}
+Syntax:
+#+begin_src verilog
+gateName(output, input1, <optional_input2>)
+#+end_src
 
 *** Example implementation of a half hadder
 #+begin_src verilog
@@ -490,8 +500,8 @@ c = 4'b1010 >> 1; // b = 4'b0101
 | <=       | Less than or equal to    |
 | >        | Greater than             |
 | >=       | Greater than or equal to |
-| \=\=     | Equal to                 |
-| !\=      | Not equal to             |
+| ​=​=       | Equal to                 |
+| !​=       | Not equal to             |
 
 All of these return a 1-bit logical value (true/false/x)
 *** Logical Operators
@@ -499,7 +509,7 @@ Used for conditions.
 | Operator   | Meaning     |
 | &&         | Logical AND |
 | \vert\vert | Logical OR  |
-| !          | Logical NOT |
+| ​!          | Logical NOT |
 
 - Operands evaluated to a 1-bit value: 0 (false), 1 (true) or x
 - Result is a 1-bit value: 0 (false), 1 (true) or x.
@@ -640,7 +650,7 @@ module my_FSM_module (
     input logic input1,
     ...
     output logic outputN
-    typedef enum {idle_st, start_st\} sm_type;
+    typedef enu​m { idle_st, start_st } sm_type;
 
     // Declaring signals for the next & current state
     sm_type current_state;
