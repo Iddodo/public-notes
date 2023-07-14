@@ -11,3 +11,4 @@
 - [[./abv-main.pdf][הסיכום העדכני באינפי 2מ׳ - גרסה מקוצרת]]
 - [[./algorithms.pdf][סיכום באלגוריתמים 1]]
 - [[./digital-systems/verilog-cheatsheet.html][סיכום סיסטם ורילוג]]
+- [[file:db-indices.pdf][סיכום קצרצר על אינדקסים בממ״ן]]
